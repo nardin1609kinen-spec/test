@@ -341,8 +341,8 @@
     gap:72px;
     align-items:center;
   }
-  .split.reverse{ grid-template-columns:.95fr 1.05fr; }
-  .split.reverse .art{ order:2; }
+  .split.reverse{ grid-template-columns:.95fr 1.05fr; align-items:center; }
+  .split.reverse .art, .split.reverse .art-round-wrap{ order:2; }
   .split .text p{ font-size:16.5px; }
   .lead{
     font-family:var(--serif);
@@ -355,7 +355,7 @@
 
   @media (max-width:900px){
     .split, .split.reverse{ grid-template-columns:1fr; gap:40px; }
-    .split.reverse .art{ order:0; }
+    .split.reverse .art, .split.reverse .art-round-wrap{ order:0; }
   }
 
   /* ---------- Art panels (illustrations replacing photos) ---------- */
@@ -368,6 +368,13 @@
     aspect-ratio:4/5;
   }
   .art svg{ width:100%; height:100%; }
+  .art > img{
+    position:absolute;
+    inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    z-index:1;
+  }
   .art-caption{
     position:absolute;
     left:0; right:0; bottom:0;
@@ -377,6 +384,37 @@
     font-size:12px;
     letter-spacing:.08em;
     text-transform:uppercase;
+    z-index:2;
+  }
+
+  /* Médaillon circulaire — photo du cabinet (fisheye) */
+  .art-round-wrap{ text-align:center; }
+  .art-round{
+    position:relative;
+    width:min(400px, 88%);
+    margin:0 auto;
+    aspect-ratio:1/1;
+    border-radius:50%;
+    overflow:hidden;
+    background:var(--accent-wash);
+    box-shadow:0 0 0 9px var(--white), 0 0 0 10px var(--line), 0 26px 52px rgba(58,48,42,.12);
+  }
+  .art-round svg{ width:100%; height:100%; }
+  .art-round > img{
+    position:absolute;
+    inset:0;
+    width:100%; height:100%;
+    object-fit:cover;
+    transform:scale(1.06);
+    z-index:1;
+  }
+  .round-caption{
+    display:inline-block;
+    margin-top:30px;
+    font-size:12px;
+    letter-spacing:.14em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
   }
 
   /* ---------- Méthode cards ---------- */
@@ -727,23 +765,46 @@
           s'aimer et d'aimer les autres.
         </p>
       </div>
-      <div class="art" role="img" aria-label="Illustration d'une forêt, symbole d'apaisement et de cheminement intérieur">
-        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
+      <div class="art" role="img" aria-label="Olivier enraciné dans la roche — force tranquille et enracinement">
+        <img src="assets/olivier.jpg" alt="" onerror="this.remove()">
+        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <rect width="400" height="500" fill="#F6EEE4"/>
-          <g stroke="#9A5B36" stroke-opacity="0.55" stroke-width="1.4" fill="none">
-            <path d="M70 500 L70 260 L40 300 M70 260 L100 300 M70 220 L45 255 M70 220 L98 258 M70 190 L70 260"/>
-            <path d="M170 500 L170 180 L130 235 M170 180 L212 235 M170 140 L138 185 M170 140 L204 185 M170 110 L145 150 M170 110 L197 150"/>
-            <path d="M280 500 L280 300 L248 342 M280 300 L314 342 M280 262 L254 300 M280 262 L308 300"/>
-            <path d="M355 500 L355 330 L328 366 M355 330 L384 366"/>
+          <!-- Olivier : tronc noueux -->
+          <g stroke="#9A5B36" stroke-opacity="0.6" stroke-width="1.6" fill="none">
+            <path d="M195 420 C185 380 205 360 190 320 C178 290 202 270 195 235"/>
+            <path d="M210 420 C222 375 200 350 218 315 C230 288 210 265 220 235"/>
+            <path d="M195 235 C185 215 205 205 200 185 M220 235 C232 214 214 200 222 182"/>
           </g>
-          <g fill="#B98A5A" fill-opacity="0.6">
-            <circle cx="120" cy="120" r="3"/>
-            <circle cx="240" cy="90" r="2.4"/>
-            <circle cx="310" cy="160" r="2.2"/>
+          <!-- Feuillage : nuées d'olivier -->
+          <g stroke="#B98A5A" stroke-opacity="0.55" stroke-width="1.2" fill="none">
+            <ellipse cx="160" cy="160" rx="70" ry="38" transform="rotate(-12 160 160)"/>
+            <ellipse cx="250" cy="140" rx="78" ry="42" transform="rotate(8 250 140)"/>
+            <ellipse cx="205" cy="100" rx="60" ry="32"/>
+            <ellipse cx="300" cy="190" rx="48" ry="26" transform="rotate(14 300 190)"/>
+            <ellipse cx="120" cy="215" rx="44" ry="24" transform="rotate(-16 120 215)"/>
+          </g>
+          <!-- Brins de feuilles -->
+          <g stroke="#9A5B36" stroke-opacity="0.4" stroke-width="1" fill="none">
+            <path d="M150 150 q10 -10 22 -8 M240 128 q12 -8 24 -4 M198 92 q10 -8 20 -6 M292 182 q10 -6 20 -4"/>
+          </g>
+          <!-- Roches au pied -->
+          <g stroke="#9A5B36" stroke-opacity="0.5" stroke-width="1.3" fill="none">
+            <path d="M60 470 Q75 430 115 438 Q150 442 152 470 Z"/>
+            <path d="M160 472 Q170 440 210 444 Q248 448 250 472 Z"/>
+            <path d="M258 470 Q272 434 312 440 Q345 446 342 470 Z"/>
+            <path d="M100 500 Q110 476 150 480 Q185 484 188 500"/>
+            <path d="M225 500 Q240 478 278 482 Q308 486 310 500"/>
+          </g>
+          <!-- Olives -->
+          <g fill="#B98A5A" fill-opacity="0.65">
+            <circle cx="175" cy="145" r="2.6"/>
+            <circle cx="262" cy="122" r="2.4"/>
+            <circle cx="215" cy="88" r="2.2"/>
+            <circle cx="310" cy="185" r="2.2"/>
           </g>
           <line x1="0" y1="500" x2="400" y2="500" stroke="#9A5B36" stroke-opacity="0.3"/>
         </svg>
-        <span class="art-caption">Un espace pour respirer</span>
+        <span class="art-caption">S'enraciner pour grandir</span>
       </div>
     </div>
   </section>
@@ -834,23 +895,32 @@
   <section id="cadre" class="section-alt">
     <div class="wrap">
       <div class="split reverse reveal" style="margin-bottom:64px;">
-        <div class="art" role="img" aria-label="Illustration du cabinet de consultation, fauteuils et fenêtre">
-          <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg">
-            <rect width="400" height="500" fill="#FBF8F3"/>
-            <rect x="40" y="40" width="320" height="220" fill="none" stroke="#9A5B36" stroke-opacity="0.35" stroke-width="1.2"/>
-            <line x1="200" y1="40" x2="200" y2="260" stroke="#9A5B36" stroke-opacity="0.25"/>
-            <line x1="40" y1="150" x2="360" y2="150" stroke="#9A5B36" stroke-opacity="0.25"/>
-            <g stroke="#B98A5A" stroke-opacity="0.7" stroke-width="1.4" fill="none">
-              <path d="M90 430 Q90 360 150 360 Q210 360 210 430 L210 460 L90 460 Z"/>
-              <path d="M90 400 L60 400 L60 460 L90 460"/>
-              <path d="M210 400 L240 400 L240 460 L210 460"/>
-            </g>
-            <g stroke="#9A5B36" stroke-opacity="0.45" stroke-width="1.2" fill="none">
-              <path d="M280 460 L280 380 Q280 350 310 350 Q340 350 340 380 L340 460"/>
-            </g>
-            <line x1="30" y1="465" x2="370" y2="465" stroke="#9A5B36" stroke-opacity="0.3"/>
-          </svg>
-          <span class="art-caption">Un cadre posé, un accueil chaleureux</span>
+        <div class="art-round-wrap">
+          <div class="art-round" role="img" aria-label="Le cabinet de consultation — fauteuils et lumière douce, 21 rue Titon">
+            <img src="assets/cabinet.jpg" alt="" onerror="this.remove()">
+            <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+              <rect width="400" height="400" fill="#FBF8F3"/>
+              <!-- Fenêtre et rideau -->
+              <rect x="60" y="60" width="130" height="170" fill="none" stroke="#9A5B36" stroke-opacity="0.35" stroke-width="1.2"/>
+              <path d="M75 60 C85 120 70 180 80 230 M100 60 C92 130 108 170 98 230" stroke="#9A5B36" stroke-opacity="0.25" fill="none"/>
+              <!-- Applique -->
+              <path d="M290 100 q18 14 0 28" stroke="#B98A5A" stroke-opacity="0.7" stroke-width="1.4" fill="none"/>
+              <!-- Fauteuil du praticien -->
+              <g stroke="#9A5B36" stroke-opacity="0.6" stroke-width="1.5" fill="none">
+                <path d="M120 330 Q118 280 158 276 Q186 274 190 305 L190 330"/>
+                <path d="M120 330 L196 330 M132 330 L132 350 M184 330 L184 350"/>
+              </g>
+              <!-- Fauteuil du patient -->
+              <g stroke="#B98A5A" stroke-opacity="0.75" stroke-width="1.5" fill="none">
+                <path d="M240 322 Q238 270 278 266 Q310 264 312 296 L312 322"/>
+                <path d="M228 322 L324 322 M242 322 L242 344 M310 322 L310 344"/>
+                <path d="M228 296 L240 296 M312 296 L324 296"/>
+              </g>
+              <!-- Tapis -->
+              <ellipse cx="225" cy="352" rx="130" ry="16" stroke="#9A5B36" stroke-opacity="0.3" fill="none"/>
+            </svg>
+          </div>
+          <span class="round-caption">Le cabinet — 21 rue Titon, Paris 11e</span>
         </div>
         <div class="text">
           <p class="eyebrow">Le cadre</p>
@@ -909,8 +979,9 @@
   <!-- ================= QUI SUIS-JE ================= -->
   <section id="qui-suis-je">
     <div class="wrap split reveal">
-      <div class="art" role="img" aria-label="Portrait stylisé de Yamina Nardin, monogramme YN">
-        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+      <div class="art" role="img" aria-label="Portrait de Yamina Nardin, psychanalyste">
+        <img src="assets/portrait.jpg" alt="" onerror="this.remove()">
+        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
           <rect width="400" height="500" fill="#F6EEE4"/>
           <circle cx="200" cy="220" r="92" fill="none" stroke="#9A5B36" stroke-opacity="0.4" stroke-width="1.2"/>
           <text x="200" y="245" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="86" fill="#9A5B36" fill-opacity="0.75">YN</text>
@@ -963,6 +1034,13 @@
       <div class="section-head center reveal" style="max-width:640px; margin-left:auto; margin-right:auto;">
         <p class="eyebrow center">Contact</p>
         <h2>Prendre rendez-vous</h2>
+        <svg class="sprig" viewBox="0 0 120 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:96px; margin:2px auto 16px; display:block;">
+          <path d="M10 13 Q60 8 110 13" stroke="#B98A5A" stroke-opacity="0.8" stroke-width="1.1" fill="none"/>
+          <g fill="none" stroke="#9A5B36" stroke-opacity="0.55" stroke-width="1">
+            <path d="M30 12 q-4 -7 2 -9 q4 6 -2 9 M50 10.5 q-3 -7 3 -9 q3 6 -3 9 M70 10.5 q3 -7 -3 -9 q-3 6 3 9 M90 12 q4 -7 -2 -9 q-4 6 2 9"/>
+          </g>
+          <circle cx="60" cy="9" r="2" fill="#B98A5A" fill-opacity="0.8"/>
+        </svg>
         <p>Le cabinet se situe au cœur du 11<sup>e</sup> arrondissement, à deux pas du métro Faidherbe-Chaligny.</p>
       </div>
 
