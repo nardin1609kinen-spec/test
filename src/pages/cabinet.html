@@ -1,0 +1,108 @@
+<!--JSONLD
+{
+  "@context": "https://schema.org",
+  "@type": "Place",
+  "name": "Cabinet de Yamina Nardin, psychanalyste",
+  "url": "https://www.yaminanardin.fr/cabinet.html",
+  "telephone": "+33788697151",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "21 rue Titon",
+    "postalCode": "75011",
+    "addressLocality": "Paris",
+    "addressCountry": "FR"
+  }
+}
+JSONLD-->
+
+<section class="g sec--court" style="padding-top:clamp(2rem,1rem + 3vw,4rem)">
+  <p class="c-marge marginalia"><b>01</b>Le cabinet</p>
+  <div class="c-texte">
+    <h1>21 rue Titon, Paris 11<sup>e</sup></h1>
+  </div>
+</section>
+
+<!-- La photographie occupe toute la largeur de la grille : c'est le seul
+     endroit du site où elle prend cette place. -->
+<section class="g sec--court">
+  <figure class="photo photo--paysage c-plein">
+    <img src="/assets/cabinet.jpg"
+         alt="Le cabinet de Yamina Nardin, 21 rue Titon, Paris 11e"
+         width="1600" height="1280" loading="lazy" decoding="async"
+         onerror="this.closest('.photo').classList.add('photo--absente')">
+    <div class="attente attente--paysage">
+      <p>Emplacement photographique — déposer <code>assets/cabinet.jpg</code>. Voir <code>assets/README.md</code>.</p>
+    </div>
+    <figcaption>Le cabinet, 11<sup>e</sup> arrondissement.</figcaption>
+  </figure>
+</section>
+
+<section class="g sec sec--filet">
+  <p class="c-marge marginalia"><b>02</b>Le cadre</p>
+
+  <div class="c-texte texte">
+    <p class="exergue" style="margin-bottom:2rem">
+      Un cadre agréable, chaleureux et bienveillant.
+    </p>
+    <p>
+      Les séances durent 45 minutes, à raison d’une fois par semaine. Elles se
+      déroulent en face à face et&nbsp;/&nbsp;ou sur le divan, selon ce qui convient au
+      travail engagé.
+    </p>
+    <p>
+      Le premier entretien permet de préciser votre demande, ainsi que le cadre et les
+      conditions du travail thérapeutique.
+    </p>
+  </div>
+</section>
+
+<section class="g sec sec--filet">
+  <p class="c-marge marginalia"><b>03</b>Venir</p>
+
+  <div class="c-texte">
+    <dl class="reperes">
+      <div>
+        <dt>Adresse</dt>
+        <dd>
+          <address>
+            Yamina Nardin, psychanalyste<br>
+            {{ADDRESS_STREET}}, {{ADDRESS_CITY}}
+          </address>
+        </dd>
+      </div>
+      <div>
+        <dt>Téléphone</dt>
+        <dd><a class="tel" href="tel:{{TEL_HREF}}">{{TEL_DISPLAY}}</a></dd>
+      </div>
+    </dl>
+
+    <p style="margin-top:2.5rem">
+      <a class="action" href="https://www.google.com/maps/search/?api=1&amp;query=21+rue+Titon+75011+Paris"
+         target="_blank" rel="noopener noreferrer">
+        Itinéraire <i aria-hidden="true">→</i>
+        <span class="vh">(ouvre Google Maps dans un nouvel onglet)</span>
+      </a>
+    </p>
+  </div>
+
+  <div class="c-droite">
+    <!-- Plan chargé en différé : aucune requête tant qu'il n'est pas à
+         l'écran, et aucun script tiers ailleurs sur le site. -->
+    <iframe
+      src="https://www.openstreetmap.org/export/embed.html?bbox=2.3820%2C48.8500%2C2.3920%2C48.8560&amp;layer=mapnik"
+      title="Plan de situation du cabinet, 21 rue Titon, 75011 Paris"
+      loading="lazy" referrerpolicy="no-referrer-when-downgrade"
+      style="width:100%;aspect-ratio:1/1;border:1px solid var(--hair);filter:saturate(0)contrast(0.9)"></iframe>
+    <p class="note" style="margin-top:.85rem">Plan OpenStreetMap, sans traceur.</p>
+  </div>
+</section>
+
+<section class="g sec sec--filet">
+  <div class="c-recul">
+    <p class="exergue">Premier entretien sur rendez-vous.</p>
+    <div class="actions" style="margin-top:2.5rem">
+      <a class="action action--appui" href="/contact.html">Écrire au cabinet <i aria-hidden="true">→</i></a>
+      <a class="tel" href="tel:{{TEL_HREF}}">{{TEL_DISPLAY}}</a>
+    </div>
+  </div>
+</section>

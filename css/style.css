@@ -1,0 +1,837 @@
+/* ==========================================================================
+   Yamina Nardin — psychanalyste, Paris 11e
+
+   Direction artistique : composition éditoriale sur grille de 12 colonnes.
+   La richesse vient de la typographie, des proportions et des filets —
+   pas de composants décoratifs. Pas de cartes, pas d'ombres, pas de
+   dégradés, pas de bandeaux d'appel à l'action.
+
+     01. Tokens
+     02. Base
+     03. Grille & composition
+     04. Typographie
+     05. Micro-typographie & annotations
+     06. Liens & actions
+     07. Index (listes éditoriales)
+     08. Photographie
+     09. En-tête & navigation
+     10. Formulaire
+     11. Pied de page
+     12. Mouvement
+   ========================================================================== */
+
+/* ========== 01. TOKENS ================================================== */
+:root {
+  /* Une palette qui n'en est presque pas : un papier, une encre, deux gris.
+     La seule couleur — une terre passée — n'apparaît que dans les numéros
+     de section et quelques signes de ponctuation typographique. */
+  --paper:      #FCFAF5;
+  --paper-2:    #F5F2EA;   /* respiration, employée avec parcimonie */
+  --ink:        #1B1A17;
+  --ink-2:      #55504A;   /* texte courant */
+  --ink-3:      #8A847A;   /* annotations */
+  --hair:       #DCD6C9;   /* filets */
+  --hair-2:     #ECE7DC;
+  --terre:      #8A6A55;   /* presque accidentelle */
+
+  /* Newsreader : serif de lecture contemporaine, pour le texte ET les titres.
+     Archivo : grotesque neutre, réservée à la micro-typographie. */
+  --serif: "Newsreader", "Iowan Old Style", Palatino, Georgia, serif;
+  --sans:  "Archivo", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
+
+  /* Échelle courte et maîtrisée : cinq tailles, pas davantage.
+     Les titres restent volontairement modestes. */
+  --t-nom:   clamp(3.25rem, 1.4rem + 7.6vw, 8.5rem);
+  --t-titre: clamp(1.5rem, 1.25rem + 1.05vw, 2.1rem);
+  --t-sous:  clamp(1.15rem, 1.05rem + 0.42vw, 1.4rem);
+  --t-texte: clamp(1.0625rem, 1.02rem + 0.19vw, 1.1875rem);
+  --t-micro: 0.6875rem;
+
+  --marge: clamp(1.5rem, 0.6rem + 3.6vw, 5rem);
+  --max:   1560px;
+  --gout:  clamp(1.1rem, 0.5rem + 2vw, 2.5rem);
+
+  --air:      clamp(5.5rem, 3rem + 9vw, 12rem);   /* entre sections */
+  --air-demi: clamp(2.75rem, 1.5rem + 4.5vw, 6rem);
+
+  --e: cubic-bezier(0.2, 0, 0.1, 1);
+}
+
+/* ========== 02. BASE ==================================================== */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: 5rem;
+}
+
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink-2);
+  font-family: var(--serif);
+  font-size: var(--t-texte);
+  font-weight: 400;
+  line-height: 1.62;
+  font-optical-sizing: auto;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+img, iframe { display: block; max-width: 100%; }
+img { height: auto; }
+a { color: inherit; }
+
+:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 4px;
+}
+
+::selection { background: var(--ink); color: var(--paper); }
+
+.skip-link {
+  position: fixed;
+  top: -100%; left: var(--marge);
+  z-index: 200;
+  padding: 0.75rem 1.25rem;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--sans);
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  text-decoration: none;
+}
+.skip-link:focus { top: 1rem; }
+
+.vh {
+  position: absolute;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* ========== 03. GRILLE & COMPOSITION ==================================== */
+/* Une seule grille de 12 colonnes gouverne toute la mise en page. Les
+   contenus s'y placent à des endroits volontairement inégaux : c'est de
+   cette asymétrie que vient le rythme. */
+.g {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  column-gap: var(--gout);
+  width: 100%;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--marge);
+}
+
+/* Placements nommés — employés tels quels dans le HTML. */
+@media (min-width: 900px) {
+  .c-marge   { grid-column: 1 / 3; }      /* annotations de marge */
+  .c-texte   { grid-column: 3 / 9; }      /* colonne de lecture, décalée */
+  .c-texte-l { grid-column: 2 / 8; }
+  .c-large   { grid-column: 3 / 12; }
+  .c-plein   { grid-column: 1 / 13; }
+  .c-droite  { grid-column: 8 / 13; }
+  .c-gauche  { grid-column: 1 / 7; }
+  .c-recul   { grid-column: 5 / 11; }     /* bloc en retrait profond */
+  .c-photo-d { grid-column: 8 / 12; }     /* photographie, colonne droite */
+}
+@media (max-width: 899.98px) {
+  .c-marge, .c-texte, .c-texte-l, .c-large, .c-plein,
+  .c-droite, .c-gauche, .c-recul, .c-photo-d { grid-column: 1 / 13; }
+}
+
+.sec { padding-block: var(--air); }
+.sec--court { padding-block: var(--air-demi); }
+.sec--filet { border-top: 1px solid var(--hair); }
+
+/* Filet posé dans la grille plutôt qu'en pleine largeur : il s'aligne sur
+   le texte, ce qui se remarque à peine mais change tout. */
+.filet {
+  height: 1px;
+  background: var(--hair);
+  border: 0;
+  margin: 0;
+}
+
+.mesure   { max-width: 34em; }
+.mesure-l { max-width: 44em; }
+
+/* ========== 04. TYPOGRAPHIE ============================================= */
+h1, h2, h3 {
+  font-family: var(--serif);
+  font-weight: 400;
+  color: var(--ink);
+  margin: 0;
+  line-height: 1.14;
+  letter-spacing: -0.005em;
+}
+
+h1 { font-size: var(--t-titre); }
+h2 { font-size: var(--t-titre); }
+h3 {
+  font-size: var(--t-texte);
+  font-weight: 500;
+  line-height: 1.35;
+}
+
+p { margin: 0 0 1.05em; }
+p:last-child { margin-bottom: 0; }
+
+/* Le nom, seule vraie licence d'échelle du site. */
+.nom {
+  font-size: var(--t-nom);
+  font-weight: 300;
+  line-height: 0.9;
+  letter-spacing: -0.028em;
+  color: var(--ink);
+  margin: 0;
+}
+
+/* Phrase d'ouverture, en italique de lecture. */
+.exergue {
+  font-size: var(--t-sous);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.5;
+  color: var(--ink);
+  max-width: 30em;
+  margin: 0;
+}
+
+.texte > p + p { text-indent: 0; }
+.texte--serre { line-height: 1.55; }
+
+/* Prose sur deux colonnes — employée une seule fois, sur l'approche. */
+@media (min-width: 1100px) {
+  .colonnes {
+    column-count: 2;
+    column-gap: var(--gout);
+  }
+  .colonnes p:first-child { margin-top: 0; }
+}
+
+/* ========== 05. MICRO-TYPOGRAPHIE & ANNOTATIONS ========================= */
+.micro {
+  font-family: var(--sans);
+  font-size: var(--t-micro);
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.6;
+  color: var(--ink-3);
+}
+
+/* Annotation de marge : numéro de section et intitulé. Sur petit écran
+   elle repasse au-dessus du texte, en conservant sa discrétion. */
+.marginalia {
+  font-family: var(--sans);
+  font-size: var(--t-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  line-height: 1.7;
+  color: var(--ink-3);
+}
+.marginalia b {
+  display: block;
+  font-weight: 400;
+  color: var(--terre);
+  font-variant-numeric: tabular-nums;
+  margin-bottom: 0.4rem;
+}
+@media (max-width: 899.98px) {
+  .marginalia {
+    display: flex;
+    gap: 0.9rem;
+    align-items: baseline;
+    margin-bottom: 1.75rem;
+  }
+  .marginalia b { margin-bottom: 0; }
+}
+
+/* Légende / note de bas de bloc. */
+.note {
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  line-height: 1.65;
+  letter-spacing: 0.005em;
+  color: var(--ink-3);
+  text-transform: none;
+}
+
+/* ========== 06. LIENS & ACTIONS ========================================= */
+/* Aucun bouton plein. Un lien se signale par un filet qui s'épaissit —
+   rien de plus. */
+p a, .texte a, .note a {
+  color: var(--ink);
+  text-decoration: none;
+  background-image: linear-gradient(var(--hair), var(--hair));
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 100% 1px;
+  transition: background-size 0.35s var(--e), color 0.35s var(--e);
+  padding-bottom: 0.08em;
+}
+p a:hover, .texte a:hover, .note a:hover,
+p a:focus-visible, .texte a:focus-visible {
+  background-image: linear-gradient(var(--ink), var(--ink));
+}
+
+/* L'action — prendre rendez-vous, lire la suite. Micro-typographie,
+   filet fin, léger déplacement de la flèche au survol. */
+.action {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  font-family: var(--sans);
+  font-size: var(--t-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  padding-bottom: 0.55rem;
+  border-bottom: 1px solid var(--hair);
+  transition: border-color 0.35s var(--e);
+}
+.action:hover, .action:focus-visible { border-color: var(--ink); }
+.action i {
+  font-style: normal;
+  transition: transform 0.35s var(--e);
+}
+.action:hover i { transform: translateX(0.28rem); }
+
+/* Variante sur fond sombre. */
+.action--clair { color: var(--paper); border-bottom-color: #4A453D; }
+.action--clair:hover, .action--clair:focus-visible { border-bottom-color: var(--paper); }
+
+/* Un peu plus de présence, sans devenir un bouton : le filet est déjà
+   à l'encre. Réservé au rendez-vous. */
+.action--appui { border-bottom-color: var(--ink); }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1.5rem 2.5rem;
+  align-items: baseline;
+}
+
+/* Numéro de téléphone : chiffres tabulaires, filet discret. */
+.tel {
+  font-family: var(--sans);
+  font-size: 0.9375rem;
+  letter-spacing: 0.06em;
+  font-variant-numeric: tabular-nums;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid var(--hair);
+  padding-bottom: 0.2rem;
+  transition: border-color 0.35s var(--e);
+  white-space: nowrap;
+}
+.tel:hover, .tel:focus-visible { border-color: var(--ink); }
+
+/* ========== 07. INDEX (listes éditoriales) ============================== */
+/* Remplace les grilles de cartes : une liste, des filets, de l'air. */
+.index { list-style: none; margin: 0; padding: 0; }
+
+.index > li {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.4rem var(--gout);
+  padding-block: clamp(1.5rem, 1rem + 1.6vw, 2.5rem);
+  border-top: 1px solid var(--hair);
+}
+.index > li:last-child { border-bottom: 1px solid var(--hair); }
+
+@media (min-width: 760px) {
+  .index > li { grid-template-columns: 3.5rem minmax(0, 13rem) minmax(0, 1fr); }
+}
+
+.index__num {
+  font-family: var(--sans);
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  color: var(--terre);
+  font-variant-numeric: tabular-nums;
+  padding-top: 0.45em;
+}
+.index__terme {
+  font-size: var(--t-sous);
+  font-weight: 400;
+  color: var(--ink);
+  line-height: 1.3;
+  margin: 0;
+}
+.index__desc {
+  margin: 0;
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--ink-2);
+  max-width: 38em;
+}
+
+/* Index de renseignements pratiques : terme court, valeur alignée.
+   Structure <dl><div><dt>/<dd></div></dl> — HTML valide. */
+.reperes { margin: 0; padding: 0; }
+.reperes > div {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 0.15rem 1.5rem;
+  padding-block: 0.95rem;
+  border-top: 1px solid var(--hair-2);
+}
+.reperes > div:last-child { border-bottom: 1px solid var(--hair-2); }
+@media (min-width: 520px) {
+  .reperes > div { grid-template-columns: 7.5rem minmax(0, 1fr); align-items: baseline; }
+}
+.reperes dt {
+  font-family: var(--sans);
+  font-size: var(--t-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+.reperes dd {
+  margin: 0;
+  color: var(--ink);
+  font-size: 1.0625rem;
+  font-style: normal;
+}
+
+/* ========== 08. PHOTOGRAPHIE ============================================ */
+.photo { margin: 0; }
+.photo img { width: 100%; object-fit: cover; }
+.photo--portrait img { aspect-ratio: 4 / 5; }
+.photo--paysage  img { aspect-ratio: 5 / 4; }
+.photo--haute    img { aspect-ratio: 3 / 4; }
+
+.photo figcaption {
+  margin-top: 0.9rem;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  letter-spacing: 0.02em;
+  color: var(--ink-3);
+  max-width: 26em;
+}
+
+/* Tant qu'une photographie n'est pas déposée, la figure bascule sur son
+   emplacement d'attente (voir l'attribut onerror dans le HTML). Rien
+   n'apparaît jamais « cassé », et le remplacement est invisible côté code
+   dès que le fichier existe. */
+.photo .attente { display: none; }
+.photo--absente img { display: none; }
+.photo--absente .attente { display: flex; }
+.photo--absente figcaption { display: none; }
+
+/* Emplacement en attente de photographie : un simple champ encadré d'un
+   filet, avec sa légende. Aucune texture, aucun motif décoratif. */
+.attente {
+  border: 1px solid var(--hair);
+  background: var(--paper-2);
+  display: flex;
+  align-items: flex-end;
+  padding: 1.25rem;
+}
+.attente--portrait { aspect-ratio: 4 / 5; }
+.attente--paysage  { aspect-ratio: 5 / 4; }
+.attente--haute    { aspect-ratio: 3 / 4; }
+.attente p {
+  margin: 0;
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  line-height: 1.6;
+  letter-spacing: 0.02em;
+  color: var(--ink-3);
+  max-width: 24em;
+}
+
+/* Image qui déborde jusqu'au bord de l'écran, côté droit. */
+@media (min-width: 900px) {
+  .bord-droit { margin-right: calc((100vw - min(100vw, var(--max))) / -2 - var(--marge)); }
+  .bord-gauche { margin-left: calc((100vw - min(100vw, var(--max))) / -2 - var(--marge)); }
+}
+
+/* ========== 08 bis. COMPOSITIONS PARTICULIÈRES ========================== */
+/* Deux sections seulement possèdent une composition propre : l'ouverture et
+   le cabinet, en miroir l'une de l'autre. Le reste du site s'en tient à la
+   grille commune. */
+
+/* --- Ouverture --------------------------------------------------------- */
+.ouverture { padding-block: clamp(2.5rem, 1rem + 5vw, 6rem) var(--air); }
+
+.ouverture__texte    { grid-column: 1 / 13; }
+.ouverture__photo    { grid-column: 1 / 13; margin-top: 3rem; }
+.ouverture__pied     { grid-column: 1 / 13; margin: 3rem 0 0; }
+.ouverture__situation { margin: 0 0 clamp(1.5rem, 1rem + 2vw, 2.75rem); }
+.ouverture__exergue  { margin-top: clamp(2rem, 1.2rem + 2.5vw, 3.5rem); }
+
+@media (min-width: 900px) {
+  .ouverture {
+    /* La photographie remonte au-dessus de la ligne du nom : les deux
+       blocs se chevauchent verticalement plutôt que de se succéder. */
+    align-items: start;
+  }
+  .ouverture__texte {
+    grid-column: 1 / 8;
+    grid-row: 1;
+    padding-top: clamp(2rem, 1rem + 4vw, 6.5rem);
+  }
+  .ouverture__photo {
+    grid-column: 9 / 13;
+    grid-row: 1 / 3;
+    margin-top: 0;
+    align-self: start;
+  }
+  .ouverture__pied {
+    grid-column: 1 / 8;
+    grid-row: 2;
+    align-self: end;
+    margin-top: clamp(3rem, 2rem + 4vw, 6rem);
+  }
+}
+@media (min-width: 1300px) {
+  /* Le nom déborde très légèrement dans la marge optique de gauche :
+     un décalage de quelques pixels qu'on ne remarque pas, mais qui
+     aligne visuellement la lettre Y sur le filet. */
+  .ouverture .nom { margin-left: -0.055em; }
+}
+
+/* --- Le cabinet, composition inversée ---------------------------------- */
+.cabinet__photo { grid-column: 1 / 13; }
+.cabinet__texte { grid-column: 1 / 13; margin-top: 2.75rem; }
+
+@media (min-width: 900px) {
+  .cabinet { align-items: center; }
+  .cabinet__photo { grid-column: 1 / 7; }
+  .cabinet__texte { grid-column: 8 / 13; margin-top: 0; }
+}
+
+/* ========== 09. EN-TÊTE & NAVIGATION ==================================== */
+.entete {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: var(--paper);
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.4s var(--e);
+}
+.entete.est-defile { border-bottom-color: var(--hair); }
+
+.entete__g {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  min-height: 4.5rem;
+  max-width: var(--max);
+  margin-inline: auto;
+  padding-inline: var(--marge);
+}
+
+.sceau {
+  font-family: var(--sans);
+  font-size: var(--t-micro);
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--ink);
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.nav { display: none; }
+@media (min-width: 940px) {
+  .nav { display: flex; align-items: baseline; gap: clamp(1.5rem, 0.2rem + 1.9vw, 2.75rem); }
+}
+.nav ul {
+  display: flex;
+  align-items: baseline;
+  gap: clamp(1.5rem, 0.2rem + 1.9vw, 2.75rem);
+  list-style: none;
+  margin: 0; padding: 0;
+}
+.nav a {
+  font-family: var(--sans);
+  font-size: var(--t-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  text-decoration: none;
+  white-space: nowrap;
+  padding-block: 0.4rem;
+  border-bottom: 1px solid transparent;
+  transition: color 0.3s var(--e), border-color 0.3s var(--e);
+}
+.nav a:hover, .nav a:focus-visible { color: var(--ink); }
+.nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--hair); }
+
+/* Le rendez-vous : à l'encre, souligné d'un filet. Évident sans peser. */
+.nav .rdv { color: var(--ink); border-bottom-color: var(--ink); }
+.nav .rdv:hover { border-bottom-color: var(--terre); color: var(--terre); }
+
+/* Ouverture du menu : deux filets, pas d'icône. */
+.ouvrir {
+  display: inline-flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 6px;
+  width: 2.75rem; height: 2.75rem;
+  margin-right: -0.75rem;
+  padding: 0;
+  background: none; border: 0; cursor: pointer;
+}
+@media (min-width: 940px) { .ouvrir { display: none; } }
+.ouvrir span {
+  display: block;
+  width: 20px; height: 1px;
+  margin-left: auto;
+  background: var(--ink);
+  transition: transform 0.35s var(--e), opacity 0.2s var(--e), width 0.35s var(--e);
+}
+.ouvrir span:last-child { width: 13px; }
+.ouvrir[aria-expanded="true"] span:first-child { transform: translateY(3.5px) rotate(45deg); }
+.ouvrir[aria-expanded="true"] span:last-child { width: 20px; transform: translateY(-3.5px) rotate(-45deg); }
+
+.tiroir {
+  position: fixed;
+  inset: 0;
+  z-index: 99;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 6rem var(--marge) 3rem;
+  background: var(--paper);
+  overflow-y: auto;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.4s var(--e), visibility 0.4s;
+}
+.tiroir.est-ouvert { opacity: 1; visibility: visible; }
+@media (min-width: 940px) { .tiroir { display: none; } }
+
+.tiroir ul { list-style: none; margin: 0; padding: 0; }
+.tiroir li { border-top: 1px solid var(--hair); }
+.tiroir li:last-child { border-bottom: 1px solid var(--hair); }
+.tiroir a {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  padding: 1.1rem 0;
+  font-size: 1.5rem;
+  font-weight: 300;
+  color: var(--ink);
+  text-decoration: none;
+}
+.tiroir a span {
+  font-family: var(--sans);
+  font-size: var(--t-micro);
+  letter-spacing: 0.14em;
+  color: var(--terre);
+  font-variant-numeric: tabular-nums;
+}
+.tiroir a[aria-current="page"] { font-style: italic; }
+.tiroir__pied { margin-top: 3rem; }
+
+body.est-bloque { overflow: hidden; }
+
+/* ========== 10. FORMULAIRE ============================================== */
+/* Champs soulignés d'un simple filet : aucun cadre, aucun fond. */
+.form { display: grid; gap: 2.25rem; }
+@media (min-width: 700px) {
+  .form__duo { display: grid; grid-template-columns: 1fr 1fr; gap: 2.25rem; }
+}
+
+.champ { display: grid; gap: 0.5rem; }
+.champ > label {
+  font-family: var(--sans);
+  font-size: var(--t-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.champ input,
+.champ textarea {
+  width: 100%;
+  font-family: var(--serif);
+  font-size: 1.0625rem;   /* >= 16px : pas de zoom automatique sur iOS */
+  line-height: 1.6;
+  color: var(--ink);
+  background: transparent;
+  border: 0;
+  border-bottom: 1px solid var(--hair);
+  border-radius: 0;
+  padding: 0.5rem 0;
+  transition: border-color 0.3s var(--e);
+  -webkit-appearance: none;
+  appearance: none;
+}
+.champ textarea { resize: vertical; min-height: 7.5rem; }
+.champ input:hover, .champ textarea:hover { border-bottom-color: var(--ink-3); }
+.champ input:focus, .champ textarea:focus {
+  outline: none;
+  border-bottom-color: var(--ink);
+}
+.champ input:focus-visible, .champ textarea:focus-visible {
+  outline: 1px solid var(--ink);
+  outline-offset: 4px;
+}
+
+.champ .aide { font-family: var(--sans); font-size: 0.75rem; color: var(--ink-3); margin: 0; }
+.champ .err {
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  color: var(--terre);
+  margin: 0;
+}
+.champ .err:empty { display: none; }
+.champ input[aria-invalid="true"],
+.champ textarea[aria-invalid="true"] { border-bottom-color: var(--terre); }
+
+.accord {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.85rem;
+  align-items: start;
+}
+.accord input {
+  width: 0.9rem; height: 0.9rem;
+  margin-top: 0.45rem;
+  accent-color: var(--ink);
+}
+.accord label {
+  font-family: var(--serif);
+  font-size: 1rem;
+  letter-spacing: 0;
+  text-transform: none;
+  color: var(--ink-2);
+  line-height: 1.55;
+}
+
+/* Envoi : une action, pas un bouton plein. */
+.envoi {
+  justify-self: start;
+  background: none;
+  border: 0;
+  border-bottom: 1px solid var(--ink);
+  padding: 0 0 0.55rem;
+  font-family: var(--sans);
+  font-size: var(--t-micro);
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink);
+  cursor: pointer;
+  transition: color 0.3s var(--e), border-color 0.3s var(--e);
+}
+.envoi:hover { color: var(--terre); border-color: var(--terre); }
+
+.etat {
+  font-family: var(--sans);
+  font-size: 0.8125rem;
+  line-height: 1.6;
+  color: var(--ink);
+  padding-left: 1rem;
+  border-left: 1px solid var(--terre);
+}
+.etat:empty { display: none; }
+
+/* ========== 11. PIED DE PAGE ============================================ */
+.pied {
+  border-top: 1px solid var(--hair);
+  padding-block: clamp(3rem, 2rem + 3vw, 4.5rem) 2rem;
+}
+.pied__g {
+  display: grid;
+  gap: 2.75rem var(--gout);
+  grid-template-columns: 1fr;
+}
+@media (min-width: 700px)  { .pied__g { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1000px) { .pied__g { grid-template-columns: 2fr 1fr 1fr 1.2fr; } }
+
+.pied h2 {
+  font-family: var(--sans);
+  font-size: var(--t-micro);
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  margin: 0 0 1.1rem;
+}
+.pied ul { list-style: none; margin: 0; padding: 0; }
+.pied li { margin-bottom: 0.6rem; }
+.pied a {
+  color: var(--ink-2);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: border-color 0.3s var(--e), color 0.3s var(--e);
+}
+.pied a:hover, .pied a:focus-visible { color: var(--ink); border-bottom-color: var(--hair); }
+.pied address { font-style: normal; line-height: 1.85; color: var(--ink-2); }
+
+.pied__bas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 2rem;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
+  padding-top: 1.5rem;
+  border-top: 1px solid var(--hair-2);
+}
+.pied__bas nav { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+
+/* ========== SECTION SOMBRE ============================================== */
+/* Un seul moment sombre sur le site : l'activité auprès des collectifs.
+   Il distingue les deux pratiques sans recourir à un composant différent. */
+.encre {
+  background: var(--ink);
+  color: #B9B3A8;
+}
+.encre h1, .encre h2, .encre h3, .encre .nom { color: var(--paper); }
+.encre .micro, .encre .marginalia, .encre .note { color: #8F887C; }
+.encre .marginalia b { color: #A8907C; }
+.encre .filet, .encre .index > li { border-color: #383430; }
+.encre .index > li { border-top-color: #383430; }
+.encre .index > li:last-child { border-bottom-color: #383430; }
+.encre .index__num { color: #A8907C; }
+.encre .index__terme { color: var(--paper); }
+.encre .index__desc { color: #B9B3A8; }
+.encre .exergue { color: var(--paper); }
+.encre p a { color: var(--paper); background-image: linear-gradient(#4A453D, #4A453D); }
+.encre p a:hover { background-image: linear-gradient(var(--paper), var(--paper)); }
+.encre .tel { color: var(--paper); border-bottom-color: #4A453D; }
+.encre .tel:hover { border-bottom-color: var(--paper); }
+.encre .reperes > div { border-color: #383430; }
+.encre .reperes dt { color: #8F887C; }
+.encre .reperes dd { color: var(--paper); }
+.encre ::selection { background: var(--paper); color: var(--ink); }
+
+/* ========== 12. MOUVEMENT =============================================== */
+/* Une seule animation : un fondu de 8 pixels. Rien d'autre. */
+.pose {
+  opacity: 0;
+  transform: translateY(8px);
+  transition: opacity 0.9s var(--e), transform 0.9s var(--e);
+}
+.pose.est-vu { opacity: 1; transform: none; }
+.no-js .pose { opacity: 1; transform: none; }
+
+@media (prefers-reduced-motion: reduce) {
+  .pose { opacity: 1; transform: none; transition: none; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+@media print {
+  .entete, .tiroir, .ouvrir, .skip-link { display: none !important; }
+  body { background: #fff; color: #000; font-size: 10.5pt; }
+  .sec { padding-block: 1.25rem; }
+  .attente { display: none; }
+}

@@ -1,18 +1,40 @@
 # Photos du site
 
-Déposez ici les trois photos (les noms de fichiers doivent être exacts) :
+Déposez les fichiers ici en respectant **exactement** ces noms.
+Tant qu'un fichier est absent, le site affiche automatiquement un panneau
+sobre assorti à la palette, clairement identifié comme un emplacement à
+remplir — rien ne casse et rien n'apparaît « cassé ».
 
-| Fichier | Contenu | Emplacement sur le site |
+| Fichier | Contenu | Où il apparaît |
 |---|---|---|
-| `portrait.jpg` | Portrait de Yamina Nardin (chemisier rayé) | Section « Qui suis-je » |
-| `olivier.jpg` | Olivier enraciné dans les roches | Section « Mieux vous aimer » |
-| `cabinet.jpg` | Photo du cabinet (vue fisheye circulaire) | Section « Le cadre » — affichée en médaillon rond, les bords noirs sont automatiquement masqués |
+| `portrait.jpg` | Portrait de Yamina Nardin | Accueil (hero) et page « À propos » |
+| `olivier.jpg` | Photographie d'ambiance (olivier, matière, lumière) | Accueil, section « Qui suis-je » |
+| `cabinet.jpg` | Le cabinet, 21 rue Titon | Page « Le cabinet » |
+| `og-image.jpg` | Image de partage sur les réseaux sociaux | Aperçu Facebook / LinkedIn / X |
 
-Tant qu'un fichier est absent, le site affiche automatiquement une
-illustration de remplacement assortie à la palette — rien ne casse.
+## Formats attendus
 
-Conseils :
-- JPEG qualité ~80, largeur 800–1200 px suffit largement.
-- Le portrait s'affiche en cadrage 4:5 (léger recadrage haut/bas possible).
-- La photo du cabinet est zoomée de ~6 % dans le médaillon pour rogner
-  le pourtour noir du fisheye.
+| Fichier | Cadrage | Largeur conseillée |
+|---|---|---|
+| `portrait.jpg` | 4:5 (vertical) | 800–1200 px |
+| `olivier.jpg` | 4:3 (horizontal) | 900–1400 px |
+| `cabinet.jpg` | 4:3 (horizontal) | 900–1400 px |
+| `og-image.jpg` | 1200 × 630 px exactement | 1200 px |
+
+## Conseils
+
+- JPEG qualité ~80 : au-delà, le poids augmente sans gain visible.
+- Gardez chaque fichier **sous 250 Ko** pour préserver la vitesse du site.
+- Le texte alternatif de chaque image est déjà rédigé dans le HTML ;
+  si le sujet d'une photo change, pensez à l'ajuster dans `src/pages/`.
+- Style recommandé : lumière naturelle, matières, architecture, détails.
+  Éviter les photographies de banque d'images évidentes.
+
+## Ajouter une photo supplémentaire
+
+Les emplacements sont définis dans `src/pages/*.html`. Après toute
+modification, régénérez les pages :
+
+```sh
+python3 build.py
+```
