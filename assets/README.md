@@ -1,18 +1,42 @@
-# Photos du site
+# Photographies
 
-Déposez ici les trois photos (les noms de fichiers doivent être exacts) :
+Trois fichiers, aux noms exacts ci-dessous. Tant qu’un fichier est absent,
+sa plaque reste un aplat ivoire : la mise en page ne bouge pas et rien ne
+se casse.
 
-| Fichier | Contenu | Emplacement sur le site |
-|---|---|---|
-| `portrait.jpg` | Portrait de Yamina Nardin (chemisier rayé) | Section « Qui suis-je » |
-| `olivier.jpg` | Olivier enraciné dans les roches | Section « Mieux vous aimer » |
-| `cabinet.jpg` | Photo du cabinet (vue fisheye circulaire) | Section « Le cadre » — affichée en médaillon rond, les bords noirs sont automatiquement masqués |
+| Fichier | Sujet | Emplacement | Cadrage |
+|---|---|---|---|
+| `olivier.jpg` | L’olivier dans la roche | Couverture, à droite, à fond perdu | Vertical (le cadrage est plein écran) |
+| `portrait.jpg` | Portrait de Yamina Nardin | I — À propos | 4:5, vertical |
+| `cabinet.jpg` | Le cabinet | IV — Cabinet, à fond perdu à gauche | 5:4, horizontal |
 
-Tant qu'un fichier est absent, le site affiche automatiquement une
-illustration de remplacement assortie à la palette — rien ne casse.
+## Le cliché du cabinet
 
-Conseils :
-- JPEG qualité ~80, largeur 800–1200 px suffit largement.
-- Le portrait s'affiche en cadrage 4:5 (léger recadrage haut/bas possible).
-- La photo du cabinet est zoomée de ~6 % dans le médaillon pour rogner
-  le pourtour noir du fisheye.
+La photographie d’origine est un fisheye : un cercle cerné de noir. La page
+entre dans le cercle pour que les angles noirs ne paraissent jamais —
+`--room-zoom`, réglé à `1.32` (le minimum géométrique est 1.28).
+
+Si vous remplacez un jour cette photographie par une image rectangulaire
+ordinaire, ramenez la valeur à `1` dans la règle `.room-plate img` :
+
+```css
+.room-plate img{ transform:scale(var(--room-zoom, 1)); }
+```
+
+## Direction photographique
+
+Ce qui convient : le cabinet, la lumière naturelle, l’architecture, les
+matières, un détail, Paris, un portrait authentique. Le noir et blanc est
+le bienvenu. Une seule très bonne photographie vaut mieux que trois
+moyennes — une plaque laissée vide vaut mieux qu’une image de banque
+d’images.
+
+Ce qui est à proscrire : divan, cerveau, poignée de main, personne
+pensive au bord d’une fenêtre, sourire devant un ordinateur. Ces images
+signent immédiatement un site générique.
+
+## Technique
+
+JPEG qualité 80, 1400–1800 px sur le grand côté. Les images sont légèrement
+désaturées à l’affichage (`grayscale(.12)`) pour s’accorder entre elles :
+inutile de les retoucher en amont.

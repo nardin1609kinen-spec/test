@@ -3,1142 +3,985 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Yamina Nardin — Psychanalyste à Paris 11e</title>
-<meta name="description" content="Yamina Nardin, psychanalyste à Paris 11e. Psychanalyse classique et active intégrative, 21 rue Titon, métro Faidherbe-Chaligny. Prise de rendez-vous sur Doctolib.">
+<title>Yamina Nardin — Psychanalyste, Paris</title>
+<meta name="description" content="Yamina Nardin, psychanalyste. Cabinet au 21 rue Titon, Paris XIe. Psychanalyse classique, active intégrative et corporelle. Sur rendez-vous.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Karla:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Spectral:ital,wght@0,200;0,300;0,400;1,200;1,300;1,400&family=Archivo:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{
-    --paper:#FBF8F3;        /* crème chaud très doux */
-    --white:#FFFFFF;
-    --ink:#35302A;          /* brun-charbon chaud */
-    --ink-soft:#6B6156;     /* texte secondaire chaud */
-    --accent:#9A5B36;       /* terre cuite — accent principal */
-    --accent-deep:#6E3F26;  /* hover, footer */
-    --accent-wash:#F6EEE4;  /* fond sections alternées */
-    --ochre:#B98A5A;        /* détail doré discret */
-    --line:#EAE0D2;
-    --doctolib:#107ACA;     /* boutons Doctolib uniquement */
+/* ══════════════════════════════════════════════════════════
+   Yamina Nardin — identité éditoriale
+   Fondation : une serif littéraire, une sans-serif muette,
+   une grille de douze colonnes, presque pas de couleur.
+   ══════════════════════════════════════════════════════════ */
 
-    --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
-    --sans: 'Karla', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+:root{
+  --ivory:      #F5F2EB;   /* papier */
+  --ivory-deep: #EDE9E0;   /* respiration alternée */
+  --ink:        #1C1B19;   /* noir doux */
+  --ink-mid:    #4A4741;   /* texte courant */
+  --ink-faint:  #6C6760;   /* annotations — assez sombre pour être lu */
+  --rule:       #D5D0C4;   /* filets */
+  --rule-fine:  #E2DED4;
+  --brick:      #8A4B34;   /* unique couleur, presque accidentelle */
 
-    --container: 1120px;
-    --radius: 4px;
+  --serif: 'Spectral', 'Iowan Old Style', Georgia, serif;
+  --sans:  'Archivo', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
+
+  --margin: clamp(20px, 6.5vw, 92px);
+  --measure: 33rem;
+}
+
+*,*::before,*::after{ box-sizing:border-box; }
+
+html{ scroll-behavior:smooth; }
+body{
+  margin:0;
+  background:var(--ivory);
+  color:var(--ink-mid);
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:clamp(15.5px, 1.02vw, 17px);
+  line-height:1.72;
+  -webkit-font-smoothing:antialiased;
+  -moz-osx-font-smoothing:grayscale;
+  text-rendering:optimizeLegibility;
+  font-kerning:normal;
+}
+
+img{ display:block; max-width:100%; }
+
+/* ── Micro-typographie : la voix secondaire ───────────────── */
+.micro{
+  font-family:var(--sans);
+  font-weight:400;
+  font-size:10.5px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  line-height:1.5;
+  color:var(--ink-faint);
+  font-feature-settings:"kern" 1;
+}
+
+/* ── Liens : un filet qui se colore, rien de plus ─────────── */
+a{ color:inherit; text-decoration:none; }
+.link{
+  display:inline-block;
+  border-bottom:1px solid var(--rule);
+  padding-bottom:2px;
+  transition:border-color .5s ease, color .5s ease;
+}
+.link:hover{ border-color:var(--brick); color:var(--brick); }
+
+/* ══ Grille ════════════════════════════════════════════════ */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(12, 1fr);
+  column-gap:clamp(16px, 2vw, 32px);
+  padding-left:var(--margin);
+  padding-right:var(--margin);
+}
+.rule-top{ border-top:1px solid var(--rule-fine); }
+
+/* ══ En-tête ═══════════════════════════════════════════════ */
+.masthead{
+  position:fixed;
+  top:0; left:0; right:0;
+  z-index:60;
+  display:flex;
+  align-items:baseline;
+  justify-content:space-between;
+  gap:24px;
+  padding:26px var(--margin) 20px;
+  background:var(--ivory);
+  border-bottom:1px solid transparent;
+  transition:border-color .6s ease, padding .6s ease;
+}
+.masthead.docked{
+  border-bottom-color:var(--rule-fine);
+  padding-top:18px;
+  padding-bottom:14px;
+}
+.wordmark{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:15px;
+  letter-spacing:.12em;
+  text-transform:uppercase;
+  color:var(--ink);
+  white-space:nowrap;
+}
+.masthead nav{
+  display:flex;
+  align-items:baseline;
+  gap:clamp(18px, 2.4vw, 40px);
+  margin-left:auto;
+}
+.masthead nav a{
+  font-family:var(--sans);
+  font-size:10.5px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  padding-bottom:3px;
+  border-bottom:1px solid transparent;
+  transition:color .5s ease, border-color .5s ease;
+}
+.masthead nav a:hover,
+.masthead nav a.current{ color:var(--ink); }
+.masthead nav a.current{ border-bottom-color:var(--rule); }
+/* Les chiffres ne servent qu’au sommaire mobile */
+.masthead nav a .idx{ display:none; }
+
+.appointment{
+  font-family:var(--sans);
+  font-size:10.5px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--ink);
+  border-bottom:1px solid var(--ink);
+  padding-bottom:3px;
+  margin-left:clamp(18px, 2.4vw, 40px);
+  transition:color .5s ease, border-color .5s ease;
+}
+.appointment:hover{ color:var(--brick); border-color:var(--brick); }
+
+.menu-toggle{
+  display:none;
+  background:none;
+  border:0;
+  padding:0;
+  cursor:pointer;
+  font-family:var(--sans);
+  font-size:10.5px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--ink);
+}
+
+/* ══ I. Couverture ═════════════════════════════════════════ */
+.cover{
+  min-height:100svh;
+  padding-top:clamp(120px, 17vh, 190px);
+  padding-bottom:34px;
+  align-content:space-between;
+  row-gap:clamp(48px, 8vh, 96px);
+}
+
+.cover-title{ grid-column:1 / span 6; align-self:center; }
+
+.cover-eyebrow{ margin:0 0 clamp(28px, 4vh, 44px); }
+
+.cover-name{
+  font-family:var(--serif);
+  font-weight:200;
+  font-size:clamp(2.9rem, 7.2vw, 5.6rem);
+  line-height:.98;
+  letter-spacing:-.018em;
+  color:var(--ink);
+  margin:0;
+}
+.cover-name span{ display:block; }
+.cover-name .given{ padding-left:.02em; }
+.cover-name .family{ font-style:italic; font-weight:200; }
+
+.cover-role{
+  margin:clamp(26px, 3.6vh, 40px) 0 0;
+  padding-top:14px;
+  border-top:1px solid var(--rule);
+  max-width:23rem;
+  line-height:1.85;
+}
+
+/* L’exergue : traité comme l’épigraphe d’un ouvrage */
+.epigraph{
+  grid-column:1 / span 4;
+  max-width:24rem;
+  align-self:end;
+}
+.epigraph p{
+  font-style:italic;
+  font-weight:200;
+  font-size:1.02rem;
+  line-height:1.62;
+  color:var(--ink-mid);
+  margin:0 0 12px;
+  text-indent:-.34em;
+}
+.epigraph .attrib{
+  font-family:var(--sans);
+  font-style:normal;
+  font-size:10.5px;
+  letter-spacing:.18em;
+  text-indent:0;
+  color:var(--ink-faint);
+}
+
+/* La photographie file vers le bord de la page */
+.cover-plate{
+  grid-column:8 / span 5;
+  grid-row:1 / span 2;
+  align-self:stretch;
+  margin-right:calc(var(--margin) * -1);
+}
+
+/* ══ Plaques photographiques ═══════════════════════════════ */
+/* La hauteur vient toujours de la composition (proportion ou
+   étirement dans la grille), jamais de la plaque elle-même. */
+.plate{
+  position:relative;
+  overflow:hidden;
+  background:var(--ivory-deep);
+}
+.plate img{
+  position:absolute;   /* l’image ne dicte jamais la mise en page */
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  filter:grayscale(.12) contrast(1.02);
+}
+.plate::after{           /* trace d’un cadre, pas un cadre */
+  content:"";
+  position:absolute;
+  inset:0;
+  border:1px solid rgba(28,27,25,.07);
+  pointer-events:none;
+}
+.plate-note{
+  margin-top:10px;
+  display:block;
+}
+
+/* ══ Chapitres ═════════════════════════════════════════════ */
+.chapter{ padding-top:clamp(72px, 11vh, 132px); padding-bottom:clamp(72px, 11vh, 132px); row-gap:0; }
+.chapter.tinted{ background:var(--ivory-deep); }
+
+/* Colonne de repère : chiffre romain + rubrique */
+.folio{
+  grid-column:1 / span 2;
+  grid-row:1;
+  align-self:start;
+  padding-top:5px;
+}
+.folio .numeral{
+  font-family:var(--serif);
+  font-style:italic;
+  font-weight:200;
+  font-size:1.5rem;
+  color:var(--ink-faint);
+  line-height:1;
+  display:block;
+  margin-bottom:12px;
+}
+
+/* L’énoncé d’ouverture : plus grand que le titre, volontairement */
+.statement{
+  font-family:var(--serif);
+  font-weight:200;
+  font-size:clamp(1.35rem, 2.15vw, 1.92rem);
+  line-height:1.36;
+  letter-spacing:-.008em;
+  color:var(--ink);
+  margin:0;
+  text-wrap:balance;
+}
+.statement em{ font-style:italic; }
+
+.prose p{ margin:0 0 1.35em; max-width:var(--measure); }
+.prose p:last-child{ margin-bottom:0; }
+
+/* Notes de marge */
+.marginalia{ padding-top:6px; }
+.marginalia dl{ margin:0; }
+.marginalia dt{
+  font-family:var(--sans);
+  font-size:10.5px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  padding-top:13px;
+  margin-top:13px;
+  border-top:1px solid var(--rule-fine);
+}
+.marginalia dl > dt:first-child{ border-top:0; margin-top:0; padding-top:0; }
+.marginalia dd{
+  margin:5px 0 0;
+  font-size:.94rem;
+  line-height:1.55;
+  color:var(--ink-mid);
+}
+
+/* ── Composition : À propos ───────────────────────────────
+   Le texte tient la gauche, le portrait lui répond à droite
+   sur la même ligne d’horizon ; les formations closent la
+   colonne de texte. Aucun angle mort.                       */
+.about-statement{ grid-column:3 / span 7; grid-row:1; }
+.about-prose{ grid-column:3 / span 5; grid-row:2; margin-top:clamp(34px, 4.4vh, 52px); }
+.about-notes{
+  grid-column:3 / span 5;
+  grid-row:3;
+  margin-top:clamp(38px, 4.8vh, 56px);
+  padding-top:22px;
+  border-top:1px solid var(--rule);
+}
+.about-plate{
+  grid-column:9 / span 4;
+  grid-row:2 / span 2;
+  align-self:start;
+  margin-top:clamp(34px, 4.4vh, 52px);
+  aspect-ratio:4/5;
+}
+
+/* ── Composition : Approche ──────────────────────────────── */
+.approach-statement{ grid-column:3 / span 7; }
+.approach-lede{ grid-column:3 / span 5; margin-top:clamp(30px, 4vh, 46px); }
+
+.diptych{
+  grid-column:3 / span 8;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  column-gap:clamp(30px, 4vw, 64px);
+  margin-top:clamp(52px, 7vh, 88px);
+  border-top:1px solid var(--rule);
+  padding-top:26px;
+}
+.diptych > div + div{
+  border-left:1px solid var(--rule-fine);
+  padding-left:clamp(30px, 4vw, 64px);
+}
+.panel-numeral{
+  font-family:var(--serif);
+  font-style:italic;
+  font-size:1.1rem;
+  color:var(--ink-faint);
+  display:block;
+  margin-bottom:16px;
+}
+.panel-title{
+  font-family:var(--serif);
+  font-weight:300;
+  font-size:1.24rem;
+  color:var(--ink);
+  margin:0 0 .7em;
+  letter-spacing:.004em;
+}
+.diptych p{ margin:0; font-size:.97rem; line-height:1.68; }
+
+/* ── Composition : les outils, en index ──────────────────── */
+.index-head{ grid-column:3 / span 6; }
+.index-cols{
+  grid-column:3 / span 9;
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  column-gap:clamp(36px, 5vw, 88px);
+  margin-top:clamp(40px, 5.4vh, 62px);
+}
+.index-cols h4{
+  font-family:var(--sans);
+  font-size:10.5px;
+  font-weight:500;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  margin:0 0 6px;
+}
+.entries{ list-style:none; margin:0; padding:0; }
+.entries li{
+  display:grid;
+  grid-template-columns:2.1rem 1fr;
+  align-items:baseline;
+  gap:0 4px;
+  padding:15px 0 14px;
+  border-top:1px solid var(--rule-fine);
+}
+.entries li .n{
+  font-family:var(--sans);
+  font-size:10px;
+  letter-spacing:.1em;
+  color:var(--ink-faint);
+}
+.entries li .t{ font-size:.99rem; color:var(--ink); line-height:1.5; }
+.entries li .d{
+  grid-column:2;
+  font-size:.9rem;
+  line-height:1.55;
+  color:var(--ink-faint);
+  margin-top:3px;
+}
+
+/* ── Composition : Activités ──────────────────────────────
+   Seule section où l’énoncé quitte le retrait et vient
+   toucher la marge : une rupture, pas une inattention.      */
+.work-statement{
+  grid-column:1 / span 5;
+  grid-row:2;
+  margin-top:clamp(30px, 4vh, 46px);
+}
+.work-prose{
+  grid-column:7 / span 5;
+  grid-row:2;
+  margin-top:clamp(34px, 4.4vh, 50px);
+}
+.work-note{
+  grid-column:7 / span 5;
+  grid-row:3;
+  margin-top:22px;
+  padding-top:16px;
+  border-top:1px solid var(--rule-fine);
+}
+
+/* ── Composition : Cabinet ─────────────────────────────────
+   La photographie file jusqu’au bord gauche de la page.
+   Le cliché d’origine est un fisheye cerné de noir : on entre
+   dans le cercle. Pour une photographie rectangulaire,
+   ramener --room-zoom à 1.                                   */
+.room-plate{
+  grid-column:1 / span 6;
+  margin-left:calc(var(--margin) * -1);
+  aspect-ratio:5/4;
+}
+/* 1,28 suffit géométriquement à noyer les angles ; 1,32 par sûreté */
+.room-plate img{ transform:scale(var(--room-zoom, 1.32)); }
+.room-side{ grid-column:8 / span 5; align-self:center; }
+.room-side .statement{ margin-bottom:clamp(26px, 3.4vh, 38px); }
+
+.sequence{ list-style:none; margin:clamp(30px, 4vh, 42px) 0 0; padding:0; counter-reset:step; }
+.sequence li{
+  display:grid;
+  grid-template-columns:2.4rem 1fr;
+  padding:16px 0;
+  border-top:1px solid var(--rule-fine);
+}
+.sequence li::before{
+  counter-increment:step;
+  content:counter(step, decimal-leading-zero);
+  font-family:var(--sans);
+  font-size:10px;
+  letter-spacing:.12em;
+  color:var(--ink-faint);
+  padding-top:.42em;
+}
+.sequence strong{
+  display:block;
+  font-family:var(--serif);
+  font-weight:400;
+  font-size:1.02rem;
+  color:var(--ink);
+  margin-bottom:2px;
+}
+.sequence span{ font-size:.92rem; line-height:1.6; color:var(--ink-faint); }
+
+/* Colophon des modalités — une notice, pas une grille de cartes */
+.specs{
+  grid-column:1 / span 12;
+  margin-top:clamp(64px, 8vh, 104px);
+  border-top:1px solid var(--rule);
+  display:grid;
+  grid-template-columns:repeat(4, 1fr);
+  column-gap:clamp(20px, 3vw, 48px);
+}
+.specs div{ padding:22px 0 0; }
+.specs dt{
+  font-family:var(--sans);
+  font-size:10px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  margin-bottom:8px;
+}
+.specs dd{
+  margin:0;
+  font-family:var(--serif);
+  font-size:1.06rem;
+  color:var(--ink);
+  line-height:1.45;
+}
+
+/* ── Composition : Contact ───────────────────────────────── */
+.contact{ padding-bottom:clamp(72px, 9vh, 112px); }
+.contact-statement{ grid-column:3 / span 5; grid-row:1; }
+.card{ grid-column:9 / span 4; grid-row:1; align-self:start; }
+.card dl{ margin:0; }
+.card dt{
+  font-family:var(--sans);
+  font-size:10px;
+  letter-spacing:.15em;
+  text-transform:uppercase;
+  color:var(--ink-faint);
+  padding-top:16px;
+  margin-top:16px;
+  border-top:1px solid var(--rule-fine);
+}
+.card dl > dt:first-child{ border-top:0; margin-top:0; padding-top:0; }
+.card dd{
+  margin:6px 0 0;
+  font-family:var(--serif);
+  font-size:1.06rem;
+  line-height:1.5;
+  color:var(--ink);
+}
+
+/* ── Pied : colophon ─────────────────────────────────────── */
+.colophon{
+  border-top:1px solid var(--rule);
+  padding-top:24px;
+  padding-bottom:34px;
+  align-items:baseline;
+}
+.colophon .c-name{ grid-column:1 / span 4; font-size:.98rem; color:var(--ink); }
+.colophon .c-addr{ grid-column:5 / span 4; }
+.colophon .c-legal{ grid-column:10 / span 3; text-align:right; }
+
+/* ══ Apparition ════════════════════════════════════════════ */
+.rise{ opacity:0; transform:translateY(9px); }
+.rise.seen{
+  opacity:1;
+  transform:none;
+  transition:opacity 1.1s cubic-bezier(.22,.61,.36,1), transform 1.1s cubic-bezier(.22,.61,.36,1);
+}
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior:auto; }
+  .rise, .rise.seen{ opacity:1; transform:none; transition:none; }
+  *{ transition-duration:.01ms !important; }
+}
+
+/* ══ Tablette ══════════════════════════════════════════════
+   La rubrique passe en bandeau, la composition garde ses
+   asymétries mais sur huit colonnes utiles.                  */
+@media (max-width:1080px){
+  .folio{
+    grid-column:1 / span 12;
+    grid-row:1;
+    display:flex;
+    align-items:baseline;
+    gap:14px;
+    margin-bottom:28px;
+    padding-top:0;
   }
+  .folio .numeral{ margin-bottom:0; font-size:1.15rem; }
 
-  *,*::before,*::after{ box-sizing:border-box; }
-  html{ scroll-behavior:smooth; }
-  @media (prefers-reduced-motion: reduce){
-    html{ scroll-behavior:auto; }
-  }
+  .about-statement{ grid-column:1 / span 9; grid-row:2; }
+  .about-prose{ grid-column:1 / span 6; grid-row:3; }
+  .about-notes{ grid-column:1 / span 6; grid-row:4; }
+  .about-plate{ grid-column:8 / span 5; grid-row:3 / span 2; }
 
-  body{
+  .approach-statement{ grid-column:1 / span 9; grid-row:2; }
+  .approach-lede{ grid-column:1 / span 7; grid-row:3; }
+  .diptych{ grid-column:1 / span 12; grid-row:4; }
+
+  .index-head{ grid-column:1 / span 9; grid-row:2; }
+  .index-cols{ grid-column:1 / span 12; grid-row:3; }
+
+  .work-statement{ grid-column:1 / span 7; grid-row:2; }
+  .work-prose{ grid-column:1 / span 7; grid-row:3; margin-top:clamp(26px, 3.4vh, 38px); }
+  .work-note{ grid-column:1 / span 7; grid-row:4; }
+
+  .room-plate{ grid-column:1 / span 6; grid-row:2; }
+  .room-side{ grid-column:8 / span 5; grid-row:2; }
+  .specs{ grid-row:3; }
+
+  .contact-statement{ grid-column:1 / span 7; grid-row:2; }
+  .card{ grid-column:8 / span 5; grid-row:2; }
+
+  .cover-title{ grid-column:1 / span 7; }
+  .epigraph{ grid-column:1 / span 6; }
+  .cover-plate{ grid-column:9 / span 4; }
+}
+
+/* ══ Mobile ════════════════════════════════════════════════ */
+@media (max-width:760px){
+  :root{ --margin:22px; }
+
+  .masthead{ padding-top:18px; padding-bottom:14px; }
+  .masthead nav{
+    position:fixed;
+    inset:0;
+    background:var(--ivory);
+    flex-direction:column;
+    align-items:flex-start;
+    justify-content:center;
+    gap:22px;
+    padding:0 var(--margin);
     margin:0;
-    background:var(--paper);
+    transform:translateY(-101%);
+    transition:transform .62s cubic-bezier(.22,.61,.36,1);
+    z-index:70;
+  }
+  .masthead nav.open{ transform:none; }
+  .masthead nav a{
+    font-family:var(--serif);
+    font-size:1.65rem;
+    font-weight:200;
+    letter-spacing:0;
+    text-transform:none;
     color:var(--ink);
+    border-bottom:0;
+  }
+  .masthead nav a .idx{
+    display:inline;
     font-family:var(--sans);
-    font-size:16px;
-    line-height:1.7;
-    -webkit-font-smoothing:antialiased;
-    text-rendering:optimizeLegibility;
+    font-size:10px;
+    letter-spacing:.15em;
+    color:var(--ink-faint);
+    margin-right:12px;
+    vertical-align:.28em;
   }
+  .appointment{ display:none; }
+  .menu-toggle{ display:block; position:relative; z-index:80; margin-left:auto; }
 
-  img,svg{ max-width:100%; display:block; }
-
-  h1,h2,h3{
-    font-family:var(--serif);
-    font-weight:500;
-    color:var(--ink);
-    margin:0 0 .5em;
-    line-height:1.15;
-  }
-
-  p{ margin:0 0 1.1em; color:var(--ink-soft); }
-  a{ color:inherit; text-decoration:none; }
-
-  .wrap{
-    max-width:var(--container);
-    margin:0 auto;
-    padding:0 32px;
-  }
-
-  /* ---------- Eyebrow ---------- */
-  .eyebrow{
-    display:inline-flex;
-    align-items:center;
-    gap:14px;
-    font-family:var(--sans);
-    font-size:12.5px;
-    font-weight:700;
-    letter-spacing:.22em;
-    text-transform:uppercase;
-    color:var(--accent);
-    margin-bottom:22px;
-  }
-  .eyebrow::after{
-    content:"";
-    display:block;
-    width:46px;
-    height:1px;
-    background:var(--ochre);
-  }
-  .eyebrow.center{ justify-content:center; }
-
-  /* ---------- Reveal on scroll ---------- */
-  .reveal{
-    opacity:0;
-    transform:translateY(22px);
-    transition:opacity .8s ease, transform .8s ease;
-  }
-  .reveal.is-visible{ opacity:1; transform:none; }
-  @media (prefers-reduced-motion: reduce){
-    .reveal{ opacity:1; transform:none; transition:none; }
-  }
-
-  /* ---------- Buttons ---------- */
-  .btn{
-    display:inline-flex;
-    align-items:center;
-    justify-content:center;
-    gap:10px;
-    padding:15px 30px;
-    font-family:var(--sans);
-    font-size:14.5px;
-    font-weight:600;
-    letter-spacing:.03em;
-    border-radius:2px;
-    border:1px solid transparent;
-    cursor:pointer;
-    transition:background .25s ease, color .25s ease, border-color .25s ease, transform .25s ease;
-    white-space:nowrap;
-  }
-  .btn-doctolib{
-    background:var(--doctolib);
-    color:#fff;
-  }
-  .btn-doctolib:hover{ background:#0c689c; transform:translateY(-2px); }
-
-  .btn-accent{
-    background:var(--accent);
-    color:#fff;
-  }
-  .btn-accent:hover{ background:var(--accent-deep); transform:translateY(-2px); }
-
-  .btn-ghost{
-    background:transparent;
-    color:var(--ink);
-    border-color:var(--ink);
-  }
-  .btn-ghost:hover{ border-color:var(--accent); color:var(--accent); }
-
-  .btn-ghost-light{
-    background:transparent;
-    color:#fff;
-    border-color:rgba(255,255,255,.55);
-  }
-  .btn-ghost-light:hover{ border-color:#fff; }
-
-  /* ================= HEADER ================= */
-  header{
-    position:fixed;
-    top:0; left:0; right:0;
-    z-index:100;
-    background:rgba(251,248,243,.9);
-    backdrop-filter:saturate(180%) blur(10px);
-    -webkit-backdrop-filter:saturate(180%) blur(10px);
-    border-bottom:1px solid transparent;
-    transition:border-color .3s ease, box-shadow .3s ease;
-  }
-  header.scrolled{
-    border-bottom-color:var(--line);
-    box-shadow:0 4px 24px rgba(58,48,42,.05);
-  }
-  .nav{
-    display:flex;
-    align-items:center;
-    justify-content:space-between;
-    height:84px;
-  }
-  .logo{
-    display:flex;
-    flex-direction:column;
-    line-height:1.15;
-  }
-  .logo a{ display:flex; flex-direction:column; }
-  .logo-name{
-    font-family:var(--serif);
-    font-size:23px;
-    font-weight:600;
-    color:var(--ink);
-    letter-spacing:.01em;
-  }
-  .logo-role{
-    font-family:var(--sans);
-    font-size:11px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-    margin-top:3px;
-  }
-
-  .nav-links{
-    display:flex;
-    align-items:center;
-    gap:34px;
-    list-style:none;
-    margin:0; padding:0;
-  }
-  .nav-links a{
-    font-size:14.5px;
-    font-weight:500;
-    color:var(--ink);
-    position:relative;
-    padding:6px 0;
-  }
-  .nav-links a::after{
-    content:"";
-    position:absolute;
-    left:0; right:0; bottom:0;
-    height:1px;
-    background:var(--accent);
-    transform:scaleX(0);
-    transform-origin:right;
-    transition:transform .3s ease;
-  }
-  .nav-links a:hover::after{ transform:scaleX(1); transform-origin:left; }
-
-  .nav-cta{ display:flex; align-items:center; gap:18px; }
-
-  .hamburger{
-    display:none;
-    flex-direction:column;
-    justify-content:center;
-    gap:5px;
-    width:38px; height:38px;
-    background:none; border:none;
-    cursor:pointer;
-    padding:0;
-  }
-  .hamburger span{
-    display:block;
-    width:100%;
-    height:1.5px;
-    background:var(--ink);
-    transition:transform .3s ease, opacity .3s ease;
-  }
-  .hamburger[aria-expanded="true"] span:nth-child(1){ transform:translateY(6.5px) rotate(45deg); }
-  .hamburger[aria-expanded="true"] span:nth-child(2){ opacity:0; }
-  .hamburger[aria-expanded="true"] span:nth-child(3){ transform:translateY(-6.5px) rotate(-45deg); }
-
-  .mobile-panel{
-    display:none;
-    position:fixed;
-    inset:84px 0 0 0;
-    background:var(--paper);
-    z-index:99;
-    padding:40px 32px;
-    overflow-y:auto;
-  }
-  .mobile-panel.open{ display:block; }
-  .mobile-panel ul{ list-style:none; margin:0 0 32px; padding:0; }
-  .mobile-panel li{ border-bottom:1px solid var(--line); }
-  .mobile-panel a{
-    display:block;
-    padding:18px 2px;
-    font-family:var(--serif);
-    font-size:24px;
-    color:var(--ink);
-  }
-
-  @media (max-width:900px){
-    .nav-links{ display:none; }
-    .nav-cta .btn-accent-desktop{ display:none; }
-    .hamburger{ display:flex; }
-  }
-
-  /* ================= HERO ================= */
-  .hero{
-    position:relative;
-    min-height:100svh;
-    display:flex;
-    align-items:center;
-    padding-top:84px;
-    overflow:hidden;
-    background:var(--paper);
-  }
-  .hero-lever{
-    position:absolute;
-    right:-8%;
-    top:50%;
-    transform:translateY(-50%);
-    width:min(58vw, 780px);
-    opacity:.55;
-    pointer-events:none;
-  }
-  .hero-lever .beam{
-    transform-origin:340px 210px;
-    animation:tilt 9s ease-in-out infinite;
-  }
-  @keyframes tilt{
-    0%,100%{ transform:rotate(-2.2deg); }
-    50%{ transform:rotate(2.2deg); }
-  }
-  @media (prefers-reduced-motion: reduce){
-    .hero-lever .beam{ animation:none; }
-  }
-
-  .hero-inner{ position:relative; z-index:2; max-width:760px; }
-  .hero-quote{
-    font-family:var(--serif);
-    font-style:italic;
-    font-weight:500;
-    font-size:clamp(30px, 4.6vw, 52px);
-    line-height:1.28;
-    color:var(--ink);
-    margin:0 0 28px;
-  }
-  .hero-quote span{
-    display:block;
-    font-style:normal;
-    font-family:var(--sans);
-    font-size:14px;
-    letter-spacing:.1em;
-    text-transform:uppercase;
-    color:var(--accent);
-    margin-top:18px;
-  }
-  .hero-sub{
-    font-size:17.5px;
-    line-height:1.75;
-    color:var(--ink-soft);
-    max-width:600px;
-    margin-bottom:38px;
-  }
-  .hero-cta{ display:flex; gap:18px; flex-wrap:wrap; }
-
-  @media (max-width:640px){
-    .hero-lever{ opacity:.35; width:120vw; right:-30%; }
-  }
-
-  /* ================= SECTION SHELL ================= */
-  section{ padding:120px 0; }
-  .section-alt{ background:var(--accent-wash); }
-  .section-head{ max-width:640px; margin-bottom:56px; }
-  .section-head h2{ font-size:clamp(30px,3.6vw,42px); }
-  .section-head p{ font-size:17px; }
-  .section-head.center{ margin-left:auto; margin-right:auto; text-align:center; }
-
-  @media (max-width:640px){
-    section{ padding:76px 0; }
-  }
-
-  /* ---------- Mieux vous aimer ---------- */
-  .split{
-    display:grid;
-    grid-template-columns:1.05fr .95fr;
-    gap:72px;
-    align-items:center;
-  }
-  .split.reverse{ grid-template-columns:.95fr 1.05fr; align-items:center; }
-  .split.reverse .art, .split.reverse .art-round-wrap{ order:2; }
-  .split .text p{ font-size:16.5px; }
-  .lead{
-    font-family:var(--serif);
-    font-size:23px;
-    font-style:italic;
-    color:var(--ink);
-    line-height:1.5;
-    margin-bottom:22px;
-  }
-
-  @media (max-width:900px){
-    .split, .split.reverse{ grid-template-columns:1fr; gap:40px; }
-    .split.reverse .art, .split.reverse .art-round-wrap{ order:0; }
-  }
-
-  /* ---------- Art panels (illustrations replacing photos) ---------- */
-  .art{
-    position:relative;
-    border-radius:var(--radius);
-    overflow:hidden;
-    border:1px solid var(--line);
-    background:var(--accent-wash);
-    aspect-ratio:4/5;
-  }
-  .art svg{ width:100%; height:100%; }
-  .art > img{
-    position:absolute;
-    inset:0;
-    width:100%; height:100%;
-    object-fit:cover;
-    z-index:1;
-  }
-  .art-caption{
-    position:absolute;
-    left:0; right:0; bottom:0;
-    padding:16px 20px;
-    background:linear-gradient(0deg, rgba(110,63,38,.82), transparent);
-    color:#fff;
-    font-size:12px;
-    letter-spacing:.08em;
-    text-transform:uppercase;
-    z-index:2;
-  }
-
-  /* Médaillon circulaire — photo du cabinet (fisheye) */
-  .art-round-wrap{ text-align:center; }
-  .art-round{
-    position:relative;
-    width:min(400px, 88%);
-    margin:0 auto;
-    aspect-ratio:1/1;
-    border-radius:50%;
-    overflow:hidden;
-    background:var(--accent-wash);
-    box-shadow:0 0 0 9px var(--white), 0 0 0 10px var(--line), 0 26px 52px rgba(58,48,42,.12);
-  }
-  .art-round svg{ width:100%; height:100%; }
-  .art-round > img{
-    position:absolute;
-    inset:0;
-    width:100%; height:100%;
-    object-fit:cover;
-    transform:scale(1.06);
-    z-index:1;
-  }
-  .round-caption{
-    display:inline-block;
-    margin-top:30px;
-    font-size:12px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-  }
-
-  /* ---------- Méthode cards ---------- */
-  .cards{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:28px;
-    margin-bottom:52px;
-  }
-  .card{
-    background:var(--white);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:40px 38px;
-    transition:transform .3s ease, box-shadow .3s ease, border-color .3s ease;
-  }
-  .card:hover{
-    transform:translateY(-4px);
-    box-shadow:0 20px 40px rgba(58,48,42,.09);
-    border-color:transparent;
-  }
-  .card .num{
-    font-family:var(--serif);
-    font-style:italic;
-    font-size:15px;
-    color:var(--ochre);
-    display:block;
-    margin-bottom:14px;
-  }
-  .card h3{ font-size:25px; margin-bottom:14px; }
-  .card p{ font-size:15.5px; margin-bottom:0; }
-
-  @media (max-width:760px){
-    .cards{ grid-template-columns:1fr; }
-  }
-
-  /* ---------- Outils ---------- */
-  .outils-grid{
-    display:grid;
-    grid-template-columns:1fr 1fr;
-    gap:0;
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    overflow:hidden;
-  }
-  .outils-col{
-    background:var(--white);
-    padding:48px 44px;
-  }
-  .outils-col + .outils-col{ border-left:1px solid var(--line); }
-  .outils-col .tag{
-    font-size:12px;
-    letter-spacing:.14em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-    margin-bottom:10px;
-    display:block;
-  }
-  .outils-col h3{ font-size:26px; margin-bottom:20px; }
-  .outils-list{ list-style:none; margin:0; padding:0; }
-  .outils-list li{
-    padding:14px 0;
-    border-top:1px solid var(--line);
-    font-size:15.5px;
-    color:var(--ink);
-    display:flex;
-    gap:14px;
-  }
-  .outils-list li:first-child{ border-top:none; }
-  .outils-list li::before{
-    content:"—";
-    color:var(--ochre);
-    flex:none;
-  }
-  .outils-list b{
-    font-weight:600;
-  }
-  .outils-list .desc{ color:var(--ink-soft); }
-
-  @media (max-width:760px){
-    .outils-grid{ grid-template-columns:1fr; }
-    .outils-col + .outils-col{ border-left:none; border-top:1px solid var(--line); }
-  }
-
-  /* ---------- Le cadre ---------- */
-  .steps{
-    counter-reset:step;
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    gap:28px;
-    margin:56px 0 64px;
-  }
-  .step{ position:relative; padding-top:8px; }
-  .step .step-num{
-    font-family:var(--serif);
-    font-style:italic;
-    font-size:44px;
-    color:var(--accent);
-    opacity:.9;
-    display:block;
-    margin-bottom:14px;
-  }
-  .step h4{
-    font-family:var(--sans);
-    font-size:15.5px;
-    font-weight:700;
-    letter-spacing:.02em;
-    color:var(--ink);
-    margin:0 0 10px;
-  }
-  .step p{ font-size:14.5px; margin:0; }
-
-  @media (max-width:900px){
-    .steps{ grid-template-columns:1fr 1fr; }
-  }
-  @media (max-width:560px){
-    .steps{ grid-template-columns:1fr; }
-  }
-
-  .praxis{
-    display:grid;
-    grid-template-columns:repeat(4,1fr);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    overflow:hidden;
-    background:var(--white);
-  }
-  .praxis > div{
-    padding:30px 26px;
-    border-left:1px solid var(--line);
-  }
-  .praxis > div:first-child{ border-left:none; }
-  .praxis .k{
-    font-family:var(--serif);
-    font-size:26px;
-    color:var(--ink);
-    display:block;
-    margin-bottom:6px;
-  }
-  .praxis .v{
-    font-size:13px;
-    letter-spacing:.05em;
-    text-transform:uppercase;
-    color:var(--ink-soft);
-  }
-
-  @media (max-width:760px){
-    .praxis{ grid-template-columns:1fr 1fr; }
-    .praxis > div:nth-child(3){ border-left:none; }
-    .praxis > div:nth-child(3), .praxis > div:nth-child(4){ border-top:1px solid var(--line); }
-  }
-
-  /* ---------- Qui suis-je ---------- */
-  .bio p{ font-size:16.5px; }
-  .bio-cred{
-    margin-top:32px;
-    padding-top:28px;
-    border-top:1px solid var(--line);
-    display:flex;
-    flex-direction:column;
-    gap:10px;
-  }
-  .bio-cred div{
-    font-size:14px;
-    color:var(--ink-soft);
-    display:flex;
-    gap:10px;
-  }
-  .bio-cred div::before{
-    content:"";
-    width:5px; height:5px;
-    border-radius:50%;
-    background:var(--ochre);
-    margin-top:8px;
-    flex:none;
-  }
-  .bio-cred b{ color:var(--ink); font-weight:600; }
-
-  /* ---------- Contact ---------- */
-  .contact-grid{
-    display:grid;
-    grid-template-columns:.85fr 1.15fr;
-    gap:56px;
-    align-items:start;
-  }
-  .contact-block{
-    background:var(--white);
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    padding:44px 40px;
-  }
-  .contact-line{
-    display:flex;
-    gap:16px;
-    padding:16px 0;
-    border-top:1px solid var(--line);
-    font-size:15.5px;
-  }
-  .contact-line:first-child{ border-top:none; }
-  .contact-line .ic{
-    flex:none;
-    width:20px; height:20px;
-    color:var(--accent);
-    margin-top:2px;
-  }
-  .contact-line a{ color:var(--ink); }
-  .contact-line a:hover{ color:var(--accent); }
-  .contact-block .btn{ margin-top:26px; width:100%; }
-
-  .map-wrap{
-    border:1px solid var(--line);
-    border-radius:var(--radius);
-    overflow:hidden;
-    aspect-ratio:16/11;
-  }
-  .map-wrap iframe{ width:100%; height:100%; border:0; filter:grayscale(.15) contrast(1.02); }
-
-  @media (max-width:900px){
-    .contact-grid{ grid-template-columns:1fr; }
-  }
-
-  /* ================= FOOTER ================= */
-  footer{
-    background:var(--accent-deep);
-    color:rgba(255,255,255,.82);
-    padding:64px 0 30px;
-  }
-  .footer-top{
-    display:flex;
-    justify-content:space-between;
-    gap:40px;
-    flex-wrap:wrap;
+  /* La couverture garde sa composition : le nom, puis la photographie */
+  .cover{
+    min-height:auto;
+    padding-top:112px;
     padding-bottom:40px;
-    border-bottom:1px solid rgba(255,255,255,.14);
-    margin-bottom:26px;
+    row-gap:34px;
   }
-  .footer-brand .logo-name{ color:#fff; }
-  .footer-brand .logo-role{ color:rgba(255,255,255,.6); }
-  .footer-contact{ font-size:14.5px; line-height:2; }
-  .footer-contact a{ color:rgba(255,255,255,.82); }
-  .footer-contact a:hover{ color:#fff; }
-  .footer-bottom{
-    display:flex;
-    justify-content:space-between;
-    gap:20px;
-    flex-wrap:wrap;
-    font-size:13px;
-    color:rgba(255,255,255,.5);
+  .cover-title{ grid-column:1 / span 12; }
+  .cover-plate{
+    grid-column:1 / span 12;
+    grid-row:auto;
+    margin-right:calc(var(--margin) * -1);
+    margin-left:calc(var(--margin) * -1);
+    min-height:0;
+    aspect-ratio:3/2;
+  }
+  .epigraph{ grid-column:1 / span 12; max-width:none; }
+  .cover-role{ max-width:none; }
+
+  .chapter{ padding-top:64px; padding-bottom:64px; }
+  .folio{ margin-bottom:22px; }
+
+  /* Tout revient à une colonne, mais chaque bloc garde son
+     retrait, ses filets et son intervalle propre.            */
+  .folio,
+  .about-statement, .about-prose, .about-notes, .about-plate,
+  .approach-statement, .approach-lede, .diptych, .index-head, .index-cols,
+  .work-statement, .work-prose, .work-note,
+  .room-plate, .room-side, .specs,
+  .contact-statement, .card{ grid-column:1 / span 12; grid-row:auto; }
+
+  .work-statement, .work-prose{ margin-top:0; }
+
+  .about-plate{ margin-top:40px; aspect-ratio:4/5; }
+  .about-notes{ margin-top:40px; }
+
+  .diptych{ grid-template-columns:1fr; margin-top:38px; }
+  .diptych > div + div{
+    border-left:0;
+    padding-left:0;
+    border-top:1px solid var(--rule-fine);
+    margin-top:30px;
+    padding-top:26px;
   }
 
+  .index-cols{ grid-template-columns:1fr; row-gap:34px; }
+
+  .room-plate{ margin-left:calc(var(--margin) * -1); margin-right:calc(var(--margin) * -1); }
+  .room-side{ margin-top:42px; }
+
+  .specs{ grid-template-columns:1fr 1fr; row-gap:4px; margin-top:52px; }
+  .specs div{ padding-bottom:18px; }
+  .specs div:nth-child(-n+2){ border-bottom:1px solid var(--rule-fine); }
+
+  .work-prose, .card{ margin-top:32px; }
+
+  .colophon .c-name{ grid-column:1 / span 12; }
+  .colophon .c-addr{ grid-column:1 / span 12; margin-top:14px; }
+  .colophon .c-legal{ grid-column:1 / span 12; margin-top:20px; text-align:left; }
+}
+
+@media (max-width:420px){
+  .cover-name{ font-size:2.6rem; }
+}
 </style>
 </head>
 <body>
 
-<header id="siteHeader">
-  <div class="wrap nav">
-    <div class="logo">
-      <a href="#top" aria-label="Accueil — Yamina Nardin">
-        <span class="logo-name">Yamina Nardin</span>
-        <span class="logo-role">Psychanalyste · Paris 11e</span>
-      </a>
-    </div>
+<header class="masthead" id="masthead">
+  <a href="#" class="wordmark">Yamina Nardin</a>
 
-    <ul class="nav-links">
-      <li><a href="#mieux-vous-aimer">Mieux vous aimer</a></li>
-      <li><a href="#methode">La méthode</a></li>
-      <li><a href="#outils">Les outils</a></li>
-      <li><a href="#cadre">Le cadre</a></li>
-      <li><a href="#qui-suis-je">Qui suis-je</a></li>
-      <li><a href="#contact">Contact</a></li>
-    </ul>
+  <nav id="nav" aria-label="Navigation principale">
+    <a href="#a-propos"><span class="idx">I</span>À propos</a>
+    <a href="#approche"><span class="idx">II</span>Approche</a>
+    <a href="#activites"><span class="idx">III</span>Activités</a>
+    <a href="#cabinet"><span class="idx">IV</span>Cabinet</a>
+    <a href="#contact"><span class="idx">V</span>Contact</a>
+  </nav>
 
-    <div class="nav-cta">
-      <a class="btn btn-accent btn-accent-desktop" href="https://www.doctolib.fr/psychanalyste/paris/yamina-nardin" target="_blank" rel="noopener">Prendre rendez-vous</a>
-      <button class="hamburger" id="hamburger" aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="mobilePanel">
-        <span></span><span></span><span></span>
-      </button>
-    </div>
-  </div>
+  <a class="appointment" href="https://www.doctolib.fr/psychanalyste/paris/yamina-nardin" target="_blank" rel="noopener">Rendez-vous</a>
+  <button class="menu-toggle" id="menuToggle" aria-expanded="false" aria-controls="nav">Menu</button>
 </header>
 
-<nav class="mobile-panel" id="mobilePanel">
-  <ul>
-    <li><a href="#mieux-vous-aimer">Mieux vous aimer</a></li>
-    <li><a href="#methode">La méthode</a></li>
-    <li><a href="#outils">Les outils</a></li>
-    <li><a href="#cadre">Le cadre</a></li>
-    <li><a href="#qui-suis-je">Qui suis-je</a></li>
-    <li><a href="#contact">Contact</a></li>
-  </ul>
-  <a class="btn btn-accent" style="width:100%" href="https://www.doctolib.fr/psychanalyste/paris/yamina-nardin" target="_blank" rel="noopener">Prendre rendez-vous</a>
-</nav>
+<main>
 
-<main id="top">
+  <!-- ══ Couverture ══════════════════════════════════════ -->
+  <section class="cover grid">
+    <div class="cover-title">
+      <p class="micro cover-eyebrow">Psychanalyste — Paris</p>
+      <h1 class="cover-name">
+        <span class="given">Yamina</span>
+        <span class="family">Nardin</span>
+      </h1>
+      <p class="cover-role micro">21 rue Titon, Paris XI<sup>e</sup><br>Sur rendez-vous</p>
+    </div>
 
-  <!-- ================= HERO ================= -->
-  <section class="hero">
-    <svg class="hero-lever" viewBox="0 0 680 420" fill="none" aria-hidden="true" focusable="false">
-      <circle cx="340" cy="210" r="200" stroke="#9A5B36" stroke-opacity="0.12" stroke-width="1"/>
-      <g class="beam">
-        <line x1="90" y1="150" x2="600" y2="270" stroke="#9A5B36" stroke-opacity="0.5" stroke-width="2"/>
-        <circle cx="90" cy="150" r="7" fill="#B98A5A" fill-opacity="0.65"/>
-        <circle cx="600" cy="270" r="7" fill="#9A5B36" fill-opacity="0.5"/>
-      </g>
-      <path d="M340 210 L340 340" stroke="#9A5B36" stroke-opacity="0.4" stroke-width="2"/>
-      <path d="M300 340 L380 340" stroke="#9A5B36" stroke-opacity="0.4" stroke-width="2"/>
-      <path d="M262 356 L418 356" stroke="#9A5B36" stroke-opacity="0.25" stroke-width="1.5"/>
-    </svg>
+    <figure class="cover-plate plate rise">
+      <img src="assets/olivier.jpg" alt="Olivier enraciné dans la roche" onerror="this.style.display='none'">
+    </figure>
 
-    <div class="wrap hero-inner">
-      <p class="eyebrow">Psychanalyse classique &amp; active intégrative</p>
-      <p class="hero-quote reveal">
-        « Donnez-moi un point fixe et un levier, et je soulèverai la terre. »
-        <span>Archimède</span>
-      </p>
-      <p class="hero-sub reveal">
-        Une psychanalyse vivante, où l'écoute devient appui et la parole, mouvement.
-        Au cabinet du 11<sup>e</sup> arrondissement de Paris, je reçois pour un travail
-        sur soi ancré dans la tradition analytique et ouvert aux techniques les plus actuelles —
-        pour comprendre ce qui se répète, et déplacer ce qui pèse.
-      </p>
-      <div class="hero-cta reveal">
-        <a class="btn btn-doctolib" href="https://www.doctolib.fr/psychanalyste/paris/yamina-nardin" target="_blank" rel="noopener">Prendre rendez-vous sur Doctolib</a>
-        <a class="btn btn-ghost" href="#methode">Découvrir la méthode</a>
+    <div class="epigraph rise">
+      <p>«&#8239;Donnez-moi un point fixe et un levier, et je soulèverai la terre.&#8239;»</p>
+      <p class="micro attrib">Archimède</p>
+    </div>
+  </section>
+
+  <!-- ══ I. À propos ═════════════════════════════════════ -->
+  <section class="chapter grid rule-top" id="a-propos">
+    <div class="folio rise">
+      <span class="numeral">I</span>
+      <span class="micro">À propos</span>
+    </div>
+
+    <p class="statement about-statement rise">
+      Treize années à étudier et à pratiquer la psychanalyse&#8239;: d’abord pour moi-même, <em>puis pour vous</em>.
+    </p>
+
+    <div class="prose about-prose rise">
+      <p>Je me suis d’abord intéressée à l’organisation sociale et économique des hommes en me formant aux sciences économiques. J’ai ensuite travaillé en entreprise sur des projets à forts enjeux&#8239;: une expérience qui m’a fait toucher du doigt la complexité du monde du travail, et nourri une curiosité durable pour les questions personnelles et professionnelles qui s’y jouent.</p>
+      <p>C’est cette même curiosité qui m’a conduite vers la psychanalyse — d’abord comme travail personnel, puis comme engagement professionnel. Ma formation et mon expérience me permettent aujourd’hui de proposer une thérapie moderne, concrète et utile.</p>
+    </div>
+
+    <div class="marginalia about-notes rise">
+      <dl>
+        <dt>Formation</dt>
+        <dd>Société de Psychanalyse Active Intégrative — cursus didactique et clinique</dd>
+        <dt>Formation</dt>
+        <dd>Institut Français de Psychanalyse Corporelle</dd>
+        <dt>Formation</dt>
+        <dd>Institut Michèle Guillaume-Hofnung — médiation</dd>
+      </dl>
+    </div>
+
+    <figure class="about-plate plate rise">
+      <img src="assets/portrait.jpg" alt="Yamina Nardin" onerror="this.style.display='none'">
+    </figure>
+  </section>
+
+  <!-- ══ II. Approche ════════════════════════════════════ -->
+  <section class="chapter grid tinted" id="approche">
+    <div class="folio rise">
+      <span class="numeral">II</span>
+      <span class="micro">Approche</span>
+    </div>
+
+    <p class="statement approach-statement rise">
+      Un point fixe et un levier&#8239;: l’alliance qui soutient, <em>le mouvement qui déplace</em>.
+    </p>
+
+    <div class="prose approach-lede rise">
+      <p>Mes approches s’appuient sur la psychanalyse classique, la psychanalyse active intégrative et la psychanalyse corporelle. Elles se choisissent au fil du travail, selon ce que demande le moment.</p>
+    </div>
+
+    <div class="diptych rise">
+      <div>
+        <span class="panel-numeral">i</span>
+        <h3 class="panel-title">Le point fixe</h3>
+        <p>Rien ne se déplace sans un appui stable. C’est la relation elle-même&#8239;: un cadre tenu, une écoute constante, une confiance qui se construit dans la durée et permet que la parole s’aventure.</p>
+      </div>
+      <div>
+        <span class="panel-numeral">ii</span>
+        <h3 class="panel-title">Le levier</h3>
+        <p>La compréhension seule ne suffit pas toujours. Le travail engage aussi ce qui se dit autrement que par les mots — le corps, l’émotion, le revécu — pour que la prise de conscience devienne mouvement.</p>
       </div>
     </div>
   </section>
 
-  <!-- ================= MIEUX VOUS AIMER ================= -->
-  <section id="mieux-vous-aimer">
-    <div class="wrap split reveal">
-      <div class="text">
-        <p class="eyebrow">La démarche</p>
-        <h2>Mieux vous aimer</h2>
-        <p class="lead">Une psychanalyse n'a de sens que si elle vous rend, à vous-même, plus habitable.</p>
-        <p>
-          Venir consulter, c'est souvent arriver avec une fatigue qu'on n'explique plus,
-          une répétition qu'on reconnaît sans la comprendre, ou simplement le sentiment
-          diffus que quelque chose, en soi, mériterait d'être écouté autrement. Mon travail
-          consiste à vous offrir un espace où cette parole peut enfin se déployer sans être
-          jugée, interrompue ou hâtée.
-        </p>
-        <p>
-          Je conçois la psychanalyse comme une démarche active : on n'y vient pas seulement
-          pour être entendu, mais pour se retrouver, se comprendre et, peu à peu, se réconcilier
-          avec ce que l'on est. C'est un chemin exigeant, mais c'est aussi, très concrètement,
-          un chemin vers plus de liberté intérieure — et vers une manière plus juste de
-          s'aimer et d'aimer les autres.
-        </p>
+  <!-- ══ Les outils, en index ═══════════════════════════ -->
+  <section class="chapter grid">
+    <div class="folio rise">
+      <span class="micro">Outils</span>
+    </div>
+
+    <p class="statement index-head rise">Deux traditions, un même travail.</p>
+
+    <div class="index-cols rise">
+      <div>
+        <h4>Psychanalyse classique</h4>
+        <ul class="entries">
+          <li><span class="n">01</span><span class="t">Récits et libre association</span><span class="d">Laisser venir la parole sans la contraindre.</span></li>
+          <li><span class="n">02</span><span class="t">Rêves</span><span class="d">Travailler le matériau onirique comme une voie d’accès.</span></li>
+          <li><span class="n">03</span><span class="t">Transfert</span><span class="d">Comprendre, dans la relation même, la répétition des schémas.</span></li>
+          <li><span class="n">04</span><span class="t">Écoute flottante</span><span class="d">Une présence attentive, sans grille préétablie.</span></li>
+        </ul>
       </div>
-      <div class="art" role="img" aria-label="Olivier enraciné dans la roche — force tranquille et enracinement">
-        <img src="assets/olivier.jpg" alt="" onerror="this.remove()">
-        <svg viewBox="0 0 400 500" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="400" height="500" fill="#F6EEE4"/>
-          <!-- Olivier : tronc noueux -->
-          <g stroke="#9A5B36" stroke-opacity="0.6" stroke-width="1.6" fill="none">
-            <path d="M195 420 C185 380 205 360 190 320 C178 290 202 270 195 235"/>
-            <path d="M210 420 C222 375 200 350 218 315 C230 288 210 265 220 235"/>
-            <path d="M195 235 C185 215 205 205 200 185 M220 235 C232 214 214 200 222 182"/>
-          </g>
-          <!-- Feuillage : nuées d'olivier -->
-          <g stroke="#B98A5A" stroke-opacity="0.55" stroke-width="1.2" fill="none">
-            <ellipse cx="160" cy="160" rx="70" ry="38" transform="rotate(-12 160 160)"/>
-            <ellipse cx="250" cy="140" rx="78" ry="42" transform="rotate(8 250 140)"/>
-            <ellipse cx="205" cy="100" rx="60" ry="32"/>
-            <ellipse cx="300" cy="190" rx="48" ry="26" transform="rotate(14 300 190)"/>
-            <ellipse cx="120" cy="215" rx="44" ry="24" transform="rotate(-16 120 215)"/>
-          </g>
-          <!-- Brins de feuilles -->
-          <g stroke="#9A5B36" stroke-opacity="0.4" stroke-width="1" fill="none">
-            <path d="M150 150 q10 -10 22 -8 M240 128 q12 -8 24 -4 M198 92 q10 -8 20 -6 M292 182 q10 -6 20 -4"/>
-          </g>
-          <!-- Roches au pied -->
-          <g stroke="#9A5B36" stroke-opacity="0.5" stroke-width="1.3" fill="none">
-            <path d="M60 470 Q75 430 115 438 Q150 442 152 470 Z"/>
-            <path d="M160 472 Q170 440 210 444 Q248 448 250 472 Z"/>
-            <path d="M258 470 Q272 434 312 440 Q345 446 342 470 Z"/>
-            <path d="M100 500 Q110 476 150 480 Q185 484 188 500"/>
-            <path d="M225 500 Q240 478 278 482 Q308 486 310 500"/>
-          </g>
-          <!-- Olives -->
-          <g fill="#B98A5A" fill-opacity="0.65">
-            <circle cx="175" cy="145" r="2.6"/>
-            <circle cx="262" cy="122" r="2.4"/>
-            <circle cx="215" cy="88" r="2.2"/>
-            <circle cx="310" cy="185" r="2.2"/>
-          </g>
-          <line x1="0" y1="500" x2="400" y2="500" stroke="#9A5B36" stroke-opacity="0.3"/>
-        </svg>
-        <span class="art-caption">S'enraciner pour grandir</span>
+      <div>
+        <h4>Psychanalyse récente</h4>
+        <ul class="entries">
+          <li><span class="n">05</span><span class="t">Techniques non verbales</span><span class="d">Accéder à ce que les mots seuls ne disent pas toujours.</span></li>
+          <li><span class="n">06</span><span class="t">Approche corporelle</span><span class="d">Réintégrer le corps comme lieu de mémoire.</span></li>
+          <li><span class="n">07</span><span class="t">Revécus émotionnels</span><span class="d">Retraverser, dans un cadre sûr, ce qui n’a pu être digéré.</span></li>
+          <li><span class="n">08</span><span class="t">Activation</span><span class="d">Transformer la prise de conscience en mouvement concret.</span></li>
+        </ul>
       </div>
     </div>
   </section>
 
-  <!-- ================= LA MÉTHODE ================= -->
-  <section id="methode" class="section-alt">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">La méthode</p>
-        <h2>Le point fixe et le levier</h2>
-        <p>
-          Archimède affirmait qu'avec un point fixe et un levier, on pouvait déplacer le monde.
-          C'est exactement ainsi que je conçois le travail analytique : il faut d'abord un appui
-          stable, puis un instrument pour agir. L'un sans l'autre ne suffit pas.
-        </p>
-      </div>
-
-      <div class="cards">
-        <div class="card reveal">
-          <span class="num">I.</span>
-          <h3>Le point fixe — l'alliance</h3>
-          <p>
-            Avant tout déplacement, il faut un appui qui ne cède pas. L'alliance thérapeutique
-            est ce point fixe : une relation de confiance, stable et confidentielle, dans laquelle
-            vous pouvez déposer ce qui, ailleurs, ne trouve pas sa place. C'est ce cadre — constant,
-            fiable, sans jugement — qui rend possible tout le reste.
-          </p>
-        </div>
-        <div class="card reveal">
-          <span class="num">II.</span>
-          <h3>Le levier — l'activation</h3>
-          <p>
-            Une fois cet appui posé, le travail devient actif. Associations libres, récits,
-            interprétation des rêves, mais aussi techniques corporelles et revécus émotionnels :
-            autant de leviers, choisis selon ce qui vous convient, pour mettre en mouvement ce qui
-            était figé et transformer la compréhension en changement réel.
-          </p>
-        </div>
-      </div>
-
-      <div class="section-head reveal" style="margin-bottom:0;">
-        <p>
-          Cette approche, dite active et intégrative, s'inscrit dans le prolongement de la
-          psychanalyse classique tout en l'enrichissant des apports plus récents des thérapies
-          du corps et de l'émotion. Il ne s'agit pas de remplacer l'écoute par la technique,
-          mais de mettre chaque outil au service d'un seul objectif : que la parole retrouve
-          sa capacité à agir sur la vie.
-        </p>
-      </div>
+  <!-- ══ III. Activités ═════════════════════════════════ -->
+  <section class="chapter grid tinted" id="activites">
+    <div class="folio rise">
+      <span class="numeral">III</span>
+      <span class="micro">Activités</span>
     </div>
+
+    <p class="statement work-statement rise">
+      Au cabinet, et là où le collectif se noue.
+    </p>
+
+    <div class="prose work-prose rise">
+      <p>Je reçois principalement au cabinet, dans le 11<sup>e</sup> arrondissement. J’interviens également auprès d’entreprises et d’institutions&#8239;: missions de médiation, accompagnement d’équipes et groupes de parole.</p>
+      <p>Les séances peuvent aussi se tenir à distance.</p>
+    </div>
+
+    <p class="micro work-note rise">À distance — WhatsApp, Skype</p>
   </section>
 
-  <!-- ================= LES OUTILS ================= -->
-  <section id="outils">
-    <div class="wrap">
-      <div class="section-head reveal">
-        <p class="eyebrow">Les outils</p>
-        <h2>Une pratique intégrative</h2>
-        <p>Deux traditions, mises au service d'une même écoute — choisies et dosées selon ce dont vous avez besoin.</p>
+  <!-- ══ IV. Cabinet ════════════════════════════════════ -->
+  <section class="chapter grid" id="cabinet">
+    <div class="folio rise">
+      <span class="numeral">IV</span>
+      <span class="micro">Cabinet</span>
+    </div>
+
+    <figure class="room-plate plate rise">
+      <img src="assets/cabinet.jpg" alt="Le cabinet, 21 rue Titon" onerror="this.style.display='none'">
+    </figure>
+
+    <div class="room-side rise">
+      <p class="statement">Le premier entretien n’engage à rien.</p>
+      <div class="prose">
+        <p>C’est une rencontre, où l’on prend le temps de se comprendre avant de décider, ensemble, de la suite.</p>
       </div>
 
-      <div class="outils-grid reveal">
-        <div class="outils-col">
-          <span class="tag">Héritage</span>
-          <h3>Psychanalyse classique</h3>
-          <ul class="outils-list">
-            <li><span><b>Récits et libre association</b> — <span class="desc">laisser venir la parole sans la contraindre, pour que l'inconscient se donne à entendre.</span></span></li>
-            <li><span><b>Interprétation des rêves</b> — <span class="desc">travailler le matériau onirique comme une voie d'accès privilégiée.</span></span></li>
-            <li><span><b>Analyse du transfert</b> — <span class="desc">comprendre, dans la relation même, la répétition des schémas anciens.</span></span></li>
-            <li><span><b>Écoute flottante</b> — <span class="desc">une présence attentive, sans grille ni jugement préétabli.</span></span></li>
-          </ul>
-        </div>
-        <div class="outils-col">
-          <span class="tag">Approche récente</span>
-          <h3>Psychanalyse active</h3>
-          <ul class="outils-list">
-            <li><span><b>Techniques non-verbales</b> — <span class="desc">accéder à ce que les mots seuls ne suffisent pas toujours à dire.</span></span></li>
-            <li><span><b>Approche corporelle</b> — <span class="desc">réintégrer le corps comme lieu de mémoire et de changement.</span></span></li>
-            <li><span><b>Revécus émotionnels</b> — <span class="desc">retraverser, dans un cadre sécurisant, ce qui n'a pas pu être digéré.</span></span></li>
-            <li><span><b>Ancrage et activation</b> — <span class="desc">transformer la prise de conscience en mouvement concret.</span></span></li>
-          </ul>
-        </div>
-      </div>
+      <ol class="sequence">
+        <li><div><strong>La rencontre</strong><span>Un premier échange pour poser ce qui vous amène.</span></div></li>
+        <li><div><strong>La décision commune</strong><span>Nous évaluons si le travail proposé correspond à votre demande.</span></div></li>
+        <li><div><strong>Le cadre posé</strong><span>Rythme, durée, modalités&#8239;: un cadre clair et stable.</span></div></li>
+        <li><div><strong>Une fin réfléchie</strong><span>La fin du suivi se décide et se prépare, elle aussi, en dialogue.</span></div></li>
+      </ol>
     </div>
+
+    <dl class="specs rise">
+      <div><dt>Durée</dt><dd>45 minutes</dd></div>
+      <div><dt>Rythme</dt><dd>Une fois par semaine</dd></div>
+      <div><dt>Modalité</dt><dd>Face à face ou divan</dd></div>
+      <div><dt>Lieu</dt><dd>21 rue Titon, Paris XI<sup>e</sup></dd></div>
+    </dl>
   </section>
 
-  <!-- ================= LE CADRE ================= -->
-  <section id="cadre" class="section-alt">
-    <div class="wrap">
-      <div class="split reverse reveal" style="margin-bottom:64px;">
-        <div class="art-round-wrap">
-          <div class="art-round" role="img" aria-label="Le cabinet de consultation — fauteuils et lumière douce, 21 rue Titon">
-            <img src="assets/cabinet.jpg" alt="" onerror="this.remove()">
-            <svg viewBox="0 0 400 400" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-              <rect width="400" height="400" fill="#FBF8F3"/>
-              <!-- Fenêtre et rideau -->
-              <rect x="60" y="60" width="130" height="170" fill="none" stroke="#9A5B36" stroke-opacity="0.35" stroke-width="1.2"/>
-              <path d="M75 60 C85 120 70 180 80 230 M100 60 C92 130 108 170 98 230" stroke="#9A5B36" stroke-opacity="0.25" fill="none"/>
-              <!-- Applique -->
-              <path d="M290 100 q18 14 0 28" stroke="#B98A5A" stroke-opacity="0.7" stroke-width="1.4" fill="none"/>
-              <!-- Fauteuil du praticien -->
-              <g stroke="#9A5B36" stroke-opacity="0.6" stroke-width="1.5" fill="none">
-                <path d="M120 330 Q118 280 158 276 Q186 274 190 305 L190 330"/>
-                <path d="M120 330 L196 330 M132 330 L132 350 M184 330 L184 350"/>
-              </g>
-              <!-- Fauteuil du patient -->
-              <g stroke="#B98A5A" stroke-opacity="0.75" stroke-width="1.5" fill="none">
-                <path d="M240 322 Q238 270 278 266 Q310 264 312 296 L312 322"/>
-                <path d="M228 322 L324 322 M242 322 L242 344 M310 322 L310 344"/>
-                <path d="M228 296 L240 296 M312 296 L324 296"/>
-              </g>
-              <!-- Tapis -->
-              <ellipse cx="225" cy="352" rx="130" ry="16" stroke="#9A5B36" stroke-opacity="0.3" fill="none"/>
-            </svg>
-          </div>
-          <span class="round-caption">Le cabinet — 21 rue Titon, Paris 11e</span>
-        </div>
-        <div class="text">
-          <p class="eyebrow">Le cadre</p>
-          <h2>Le premier entretien</h2>
-          <p>
-            Le premier rendez-vous n'engage à rien : c'est une rencontre, où l'on prend le temps
-            de se comprendre avant de décider, ensemble, de la suite. Voici comment il se déroule.
-          </p>
-        </div>
-      </div>
-
-      <div class="steps">
-        <div class="step reveal">
-          <span class="step-num">01</span>
-          <h4>La rencontre</h4>
-          <p>Un premier échange pour poser ce qui vous amène, sans obligation ni jugement.</p>
-        </div>
-        <div class="step reveal">
-          <span class="step-num">02</span>
-          <h4>La décision commune</h4>
-          <p>Nous évaluons ensemble si le travail proposé correspond à votre demande.</p>
-        </div>
-        <div class="step reveal">
-          <span class="step-num">03</span>
-          <h4>Le cadre posé</h4>
-          <p>Rythme, durée, modalités : un cadre clair et stable, condition du travail à venir.</p>
-        </div>
-        <div class="step reveal">
-          <span class="step-num">04</span>
-          <h4>Une fin réfléchie</h4>
-          <p>La fin du suivi se décide et se prépare, elle aussi, en dialogue.</p>
-        </div>
-      </div>
-
-      <div class="praxis reveal">
-        <div>
-          <span class="k">45 min</span>
-          <span class="v">Durée de séance</span>
-        </div>
-        <div>
-          <span class="k">1×/semaine</span>
-          <span class="v">Rythme habituel</span>
-        </div>
-        <div>
-          <span class="k">Face à face ou divan</span>
-          <span class="v">Modalité au choix</span>
-        </div>
-        <div>
-          <span class="k">Paris 11e</span>
-          <span class="v">21 rue Titon</span>
-        </div>
-      </div>
+  <!-- ══ V. Contact ═════════════════════════════════════ -->
+  <section class="chapter contact grid tinted" id="contact">
+    <div class="folio rise">
+      <span class="numeral">V</span>
+      <span class="micro">Contact</span>
     </div>
-  </section>
 
-  <!-- ================= QUI SUIS-JE ================= -->
-  <section id="qui-suis-je">
-    <div class="wrap split reveal">
-      <div class="art" role="img" aria-label="Portrait de Yamina Nardin, psychanalyste">
-        <img src="assets/portrait.jpg" alt="" onerror="this.remove()">
-        <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-          <rect width="400" height="500" fill="#F6EEE4"/>
-          <circle cx="200" cy="220" r="92" fill="none" stroke="#9A5B36" stroke-opacity="0.4" stroke-width="1.2"/>
-          <text x="200" y="245" text-anchor="middle" font-family="Cormorant Garamond, serif" font-style="italic" font-size="86" fill="#9A5B36" fill-opacity="0.75">YN</text>
-          <g stroke="#B98A5A" stroke-opacity="0.6" stroke-width="1.2" fill="none">
-            <path d="M110 350 Q200 320 290 350"/>
-            <path d="M125 365 Q200 340 275 365"/>
-          </g>
-          <line x1="30" y1="465" x2="370" y2="465" stroke="#9A5B36" stroke-opacity="0.3"/>
-        </svg>
-        <span class="art-caption">Yamina Nardin</span>
-      </div>
-      <div class="text bio">
-        <p class="eyebrow">Qui suis-je</p>
-        <h2>Yamina Nardin</h2>
-        <p class="lead">Treize années à étudier et pratiquer la psychanalyse, d'abord pour moi-même, puis pour vous.</p>
-        <p>
-          Je me suis d'abord intéressée à l'organisation sociale et économique des hommes en
-          me formant aux sciences économiques. J'ai ensuite travaillé en entreprise sur des
-          projets à forts enjeux, une expérience qui m'a fait toucher du doigt la complexité
-          du monde du travail et nourri une curiosité durable pour les questions personnelles
-          et professionnelles qui s'y jouent.
-        </p>
-        <p>
-          C'est cette même curiosité qui m'a conduite, il y a treize ans, vers la psychanalyse —
-          d'abord comme travail personnel, puis comme engagement professionnel. Je me suis
-          formée à la Société de Psychanalyse Active Intégrative (SPAI), où j'ai suivi un
-          cursus didactique et clinique complet, puis à l'Institut Français de Psychanalyse
-          Corporelle, pour intégrer la dimension du corps dans l'écoute analytique.
-        </p>
-        <p>
-          Formée également à la médiation par l'Institut Michèle Guillaume Hofnung (IMGH),
-          j'interviens aussi auprès d'entreprises et d'institutions pour des missions de
-          médiation, d'accompagnement d'équipes et de groupes de parole — un exercice qui
-          éclaire, en retour, mon travail au cabinet.
-        </p>
-        <div class="bio-cred">
-          <div><b>Formation initiale</b> — Sciences économiques, expérience en entreprise sur projets à forts enjeux.</div>
-          <div><b>SPAI</b> — Cursus didactique et clinique, Société de Psychanalyse Active Intégrative.</div>
-          <div><b>Institut Français de Psychanalyse Corporelle</b> — Intégration du corps dans le travail analytique.</div>
-          <div><b>IMGH</b> — Formation à la médiation, Institut Michèle Guillaume Hofnung.</div>
-          <div><b>13 ans de pratique</b> — Étude et exercice de la psychanalyse, au cabinet et en entreprise.</div>
-        </div>
-      </div>
-    </div>
-  </section>
+    <p class="statement contact-statement rise">
+      Le cabinet se situe à deux pas du métro Faidherbe-Chaligny.
+    </p>
 
-  <!-- ================= CONTACT ================= -->
-  <section id="contact" class="section-alt">
-    <div class="wrap">
-      <div class="section-head center reveal" style="max-width:640px; margin-left:auto; margin-right:auto;">
-        <p class="eyebrow center">Contact</p>
-        <h2>Prendre rendez-vous</h2>
-        <svg class="sprig" viewBox="0 0 120 26" xmlns="http://www.w3.org/2000/svg" aria-hidden="true" style="width:96px; margin:2px auto 16px; display:block;">
-          <path d="M10 13 Q60 8 110 13" stroke="#B98A5A" stroke-opacity="0.8" stroke-width="1.1" fill="none"/>
-          <g fill="none" stroke="#9A5B36" stroke-opacity="0.55" stroke-width="1">
-            <path d="M30 12 q-4 -7 2 -9 q4 6 -2 9 M50 10.5 q-3 -7 3 -9 q3 6 -3 9 M70 10.5 q3 -7 -3 -9 q-3 6 3 9 M90 12 q4 -7 -2 -9 q-4 6 2 9"/>
-          </g>
-          <circle cx="60" cy="9" r="2" fill="#B98A5A" fill-opacity="0.8"/>
-        </svg>
-        <p>Le cabinet se situe au cœur du 11<sup>e</sup> arrondissement, à deux pas du métro Faidherbe-Chaligny.</p>
-      </div>
-
-      <div class="contact-grid reveal">
-        <div class="contact-block">
-          <div class="contact-line">
-            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M12 21s-7-6.2-7-11.2A7 7 0 0 1 19 9.8C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.4"/></svg>
-            <span>21 rue Titon, 75011 Paris<br>Métro Faidherbe-Chaligny</span>
-          </div>
-          <div class="contact-line">
-            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 5c0-1 1-2 2-2h2l2 5-2 1.5C9 12 12 15 14.5 16.5L16 14.5l5 2v2c0 1-1 2-2 2C11.5 20.5 4 13 4 5Z"/></svg>
-            <a href="tel:+33788697151">07 88 69 71 51</a>
-          </div>
-          <div class="contact-line">
-            <svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><rect x="3" y="4" width="18" height="17" rx="1"/><path d="M3 9h18M8 2v4M16 2v4"/></svg>
-            <span>45 min · 1×/semaine<br>Face à face ou divan</span>
-          </div>
-          <a class="btn btn-doctolib" href="https://www.doctolib.fr/psychanalyste/paris/yamina-nardin" target="_blank" rel="noopener">Prendre rendez-vous sur Doctolib</a>
-        </div>
-
-        <div class="map-wrap">
-          <iframe
-            src="https://www.google.com/maps?q=21+rue+Titon,+75011+Paris&output=embed"
-            title="Localisation du cabinet — 21 rue Titon, 75011 Paris"
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade">
-          </iframe>
-        </div>
-      </div>
+    <div class="card rise">
+      <dl>
+        <dt>Adresse</dt>
+        <dd>21 rue Titon<br>75011 Paris<br>
+          <a class="link micro" style="margin-top:10px" href="https://maps.google.com/?q=21+rue+Titon+75011+Paris" target="_blank" rel="noopener">Voir le plan</a>
+        </dd>
+        <dt>Téléphone</dt>
+        <dd><a class="link" href="tel:+33788697151">07 88 69 71 51</a></dd>
+        <dt>Rendez-vous</dt>
+        <dd><a class="link" href="https://www.doctolib.fr/psychanalyste/paris/yamina-nardin" target="_blank" rel="noopener">Doctolib</a></dd>
+      </dl>
     </div>
   </section>
 
 </main>
 
-<footer>
-  <div class="wrap">
-    <div class="footer-top">
-      <div class="footer-brand">
-        <span class="logo-name" style="font-size:22px;">Yamina Nardin</span>
-        <div class="logo-role">Psychanalyste · Paris 11e</div>
-      </div>
-      <div class="footer-contact">
-        21 rue Titon, 75011 Paris — Métro Faidherbe-Chaligny<br>
-        <a href="tel:+33788697151">07 88 69 71 51</a><br>
-        <a href="https://www.doctolib.fr/psychanalyste/paris/yamina-nardin" target="_blank" rel="noopener">Prendre rendez-vous sur Doctolib</a>
-      </div>
-    </div>
-    <div class="footer-bottom">
-      <span>© <span id="year"></span> Yamina Nardin — Psychanalyste, Paris 11e</span>
-      <span>Psychanalyse classique &amp; active intégrative</span>
-    </div>
-  </div>
+<footer class="colophon grid">
+  <p class="c-name">Yamina Nardin, psychanalyste</p>
+  <p class="c-addr micro">21 rue Titon, 75011 Paris — 07 88 69 71 51</p>
+  <p class="c-legal micro">© <span id="year">2026</span></p>
 </footer>
 
 <script>
 (function(){
-  var header = document.getElementById('siteHeader');
-  var onScroll = function(){
-    if(window.scrollY > 12){ header.classList.add('scrolled'); }
-    else{ header.classList.remove('scrolled'); }
-  };
-  document.addEventListener('scroll', onScroll, { passive:true });
-  onScroll();
-
-  var hamburger = document.getElementById('hamburger');
-  var panel = document.getElementById('mobilePanel');
-  hamburger.addEventListener('click', function(){
-    var open = panel.classList.toggle('open');
-    hamburger.setAttribute('aria-expanded', open ? 'true' : 'false');
-    hamburger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
-    document.body.style.overflow = open ? 'hidden' : '';
-  });
-  panel.querySelectorAll('a').forEach(function(a){
-    a.addEventListener('click', function(){
-      panel.classList.remove('open');
-      hamburger.setAttribute('aria-expanded', 'false');
-      document.body.style.overflow = '';
-    });
-  });
-
-  var reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if('IntersectionObserver' in window && !reduceMotion){
-    var io = new IntersectionObserver(function(entries){
-      entries.forEach(function(entry){
-        if(entry.isIntersecting){
-          entry.target.classList.add('is-visible');
-          io.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.15, rootMargin: '0px 0px -60px 0px' });
-    document.querySelectorAll('.reveal').forEach(function(el){ io.observe(el); });
-  } else {
-    document.querySelectorAll('.reveal').forEach(function(el){ el.classList.add('is-visible'); });
-  }
+  var head = document.getElementById('masthead');
+  var nav  = document.getElementById('nav');
+  var tog  = document.getElementById('menuToggle');
+  var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   document.getElementById('year').textContent = new Date().getFullYear();
+
+  /* Le filet du bandeau n’apparaît qu’une fois la couverture quittée */
+  var ticking = false;
+  function onScroll(){
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(function(){
+      head.classList.toggle('docked', window.scrollY > 40);
+      ticking = false;
+    });
+  }
+  window.addEventListener('scroll', onScroll, {passive:true});
+  onScroll();
+
+  /* Menu — un mot, pas une icône */
+  function closeMenu(){
+    nav.classList.remove('open');
+    tog.textContent = 'Menu';
+    tog.setAttribute('aria-expanded','false');
+  }
+  tog.addEventListener('click', function(){
+    var open = nav.classList.toggle('open');
+    tog.textContent = open ? 'Fermer' : 'Menu';
+    tog.setAttribute('aria-expanded', open ? 'true' : 'false');
+  });
+  nav.addEventListener('click', function(e){
+    if(e.target.closest('a')) closeMenu();
+  });
+  document.addEventListener('keydown', function(e){
+    if(e.key === 'Escape') closeMenu();
+  });
+
+  /* Apparition — neuf pixels, une seule fois */
+  var risers = document.querySelectorAll('.rise');
+  if(reduced || !('IntersectionObserver' in window)){
+    risers.forEach(function(el){ el.classList.add('seen'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+        entry.target.classList.add('seen');
+        io.unobserve(entry.target);
+      });
+    }, {rootMargin:'0px 0px -8% 0px', threshold:.05});
+    risers.forEach(function(el){ io.observe(el); });
+  }
+
+  /* Rubrique courante dans le bandeau */
+  var links = Array.prototype.slice.call(nav.querySelectorAll('a'));
+  var sections = links.map(function(a){ return document.querySelector(a.getAttribute('href')); });
+  if('IntersectionObserver' in window){
+    var spy = new IntersectionObserver(function(entries){
+      entries.forEach(function(entry){
+        if(!entry.isIntersecting) return;
+        var i = sections.indexOf(entry.target);
+        links.forEach(function(l, j){ l.classList.toggle('current', i === j); });
+      });
+    }, {rootMargin:'-45% 0px -50% 0px'});
+    sections.forEach(function(s){ if(s) spy.observe(s); });
+  }
 })();
 </script>
-
 </body>
 </html>
