@@ -4,29 +4,48 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>À propos — Yamina Nardin, psychanalyste à Paris</title>
-<meta name="description" content="Parcours et certifications de Yamina Nardin, psychanalyste à Paris 11e : treize ans d’étude et de pratique de la psychanalyse, formations SPAI et Institut de Médiation Guillaume-Hofnung.">
+<title>À propos — Yamina Nardin, psychanalyste à Paris 11e</title>
+<meta name="description" content="Parcours et formations de Yamina Nardin, psychanalyste à Paris 11e : treize ans d’étude et de pratique de la psychanalyse, formation SPAI, psychanalyse corporelle et médiation éthique.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.yaminanardin.fr/a-propos.html">
+<meta name="author" content="Yamina Nardin">
 
-<meta property="og:type" content="website">
+<meta property="og:type" content="profile">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="Yamina Nardin, psychanalyste">
-<meta property="og:title" content="À propos — Yamina Nardin, psychanalyste à Paris">
-<meta property="og:description" content="Parcours et certifications de Yamina Nardin, psychanalyste à Paris 11e : treize ans d’étude et de pratique de la psychanalyse, formations SPAI et Institut de Médiation Guillaume-Hofnung.">
+<meta property="og:title" content="À propos — Yamina Nardin, psychanalyste à Paris 11e">
+<meta property="og:description" content="Parcours et formations de Yamina Nardin, psychanalyste à Paris 11e : treize ans d’étude et de pratique de la psychanalyse, formation SPAI, psychanalyse corporelle et médiation éthique.">
 <meta property="og:url" content="https://www.yaminanardin.fr/a-propos.html">
-<meta property="og:image" content="https://www.yaminanardin.fr/assets/og-image.jpg">
+<meta property="og:image" content="https://www.yaminanardin.fr/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Yamina Nardin, psychanalyste à Paris 11e">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#FCFAF5">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#F6F2EB">
 
-<!-- Newsreader pour la lecture, Archivo pour la micro-typographie.
-     Deux familles, poids strictement nécessaires. -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap">
-<link rel="stylesheet" href="/css/style.css">
+<!-- Deux familles, deux rôles : Fraunces pour l’éditorial, Archivo pour la
+     micro-typographie. Servies depuis ce dossier — aucun appel à un tiers. -->
+<link rel="preload" href="fonts/fraunces-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/archivo-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Les apparitions ne sont armées que si JavaScript répond. Le filet de
+     sécurité garantit qu'aucun contenu ne reste masqué si main.js échoue. -->
+<script>
+(function(d){
+  d.documentElement.classList.remove('no-js');
+  setTimeout(function(){
+    if (d.documentElement.hasAttribute('data-anime')) return;
+    var l = d.querySelectorAll('.rev');
+    for (var i = 0; i < l.length; i++) l[i].classList.add('rev--vu');
+  }, 2500);
+})(document);
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -37,6 +56,7 @@
   "telephone": "+33788697151",
   "workLocation": {
     "@type": "Place",
+    "name": "Cabinet de Yamina Nardin",
     "address": {
       "@type": "PostalAddress",
       "streetAddress": "21 rue Titon",
@@ -44,7 +64,8 @@
       "addressLocality": "Paris",
       "addressCountry": "FR"
     }
-  }
+  },
+  "knowsAbout": ["Psychanalyse", "Psychanalyse active intégrative", "Psychanalyse corporelle", "Médiation"]
 }
 </script>
 </head>
@@ -54,17 +75,16 @@
 
 <header class="entete" data-entete>
   <div class="entete__g">
-    <a class="sceau" href="/">Yamina Nardin</a>
+    <a class="sceau" href="index.html">Yamina&nbsp;Nardin</a>
 
     <nav class="nav" aria-label="Navigation principale">
       <ul>
-        <li><a href="/a-propos.html" aria-current="page">À propos</a></li>
-        <li><a href="/approche.html">Approche</a></li>
-        <li><a href="/entreprises-institutions.html">Activités</a></li>
-        <li><a href="/cabinet.html">Cabinet</a></li>
-        <li><a href="/contact.html">Contact</a></li>
+          <li><a href="approche.html">Approche</a></li>
+          <li><a href="a-propos.html" aria-current="page">À propos</a></li>
+          <li><a href="le-cadre.html">Le cadre</a></li>
+          <li><a href="entreprises.html">Entreprises</a></li>
       </ul>
-      <a class="rdv" href="/contact.html">Rendez-vous</a>
+      <a class="rdv" href="rendez-vous.html">Prendre rendez-vous</a>
     </nav>
 
     <button class="ouvrir" type="button" data-ouvrir aria-expanded="false" aria-controls="tiroir">
@@ -74,74 +94,73 @@
   </div>
 </header>
 
-<div class="tiroir" id="tiroir">
+<div class="tiroir" id="tiroir" aria-hidden="true">
   <nav aria-label="Navigation">
     <ul>
-      <li><a href="/"><span>00</span>Accueil</a></li>
-      <li><a href="/a-propos.html" aria-current="page"><span>01</span>À propos</a></li>
-      <li><a href="/approche.html"><span>02</span>Approche</a></li>
-      <li><a href="/entreprises-institutions.html"><span>03</span>Activités</a></li>
-      <li><a href="/cabinet.html"><span>04</span>Cabinet</a></li>
-      <li><a href="/contact.html"><span>05</span>Contact</a></li>
-      <li><a href="/contact.html"><span>06</span>Rendez-vous</a></li>
+        <li><a href="approche.html"><i aria-hidden="true">01</i>Approche</a></li>
+        <li><a href="a-propos.html" aria-current="page"><i aria-hidden="true">02</i>À propos</a></li>
+        <li><a href="le-cadre.html"><i aria-hidden="true">03</i>Le cadre</a></li>
+        <li><a href="entreprises.html"><i aria-hidden="true">04</i>Entreprises</a></li>
+        <li><a href="rendez-vous.html"><i aria-hidden="true">05</i>Rendez-vous</a></li>
     </ul>
   </nav>
   <div class="tiroir__pied">
-    <p class="note" style="margin:0 0 1rem">
-      21 rue Titon, 75011 Paris
-    </p>
+    <p class="micro" style="margin:0 0 0.9rem">Le cabinet</p>
+    <address class="note" style="margin:0 0 1.25rem">21 rue Titon, 75011 Paris</address>
     <a class="tel" href="tel:+33788697151">07 88 69 71 51</a>
   </div>
 </div>
 
 <main id="contenu">
-<section class="g sec--court" style="padding-top:clamp(2rem,1rem + 3vw,4rem)">
-  <p class="c-marge marginalia"><b>01</b>Qui suis-je</p>
-  <div class="c-texte">
+<section class="g entree">
+  <div class="c-texte rev">
+    <p class="micro">À propos</p>
     <h1>Écouter, à partir d’un parcours<br>et d’un travail personnel</h1>
   </div>
 </section>
 
 <section class="g sec">
-  <div class="c-gauche texte">
+  <div class="c-gauche texte texte--large rev">
     <p>
-      Ma formation initiale relève de l’économie et des sciences des organisations.
-      J’ai ensuite exercé plusieurs années au sein d’une grande entreprise, sur des
-      projets d’envergure.
+      Ma formation initiale relève de l’économie. Je me suis d’abord intéressée à
+      l’organisation sociale et économique des humains, puis j’ai exercé
+      plusieurs années au sein d’une grande entreprise, sur des projets à enjeux
+      importants.
     </p>
     <p>
-      La psychanalyse est venue plus tard, et d’abord pour moi-même. C’est ce travail
-      personnel, poursuivi puis prolongé par une formation didactique et clinique, qui
-      m’a conduite à en faire mon métier. J’étudie et je la pratique depuis treize ans.
+      La psychanalyse est venue plus tard, et d’abord pour moi-même. C’est ce
+      travail personnel, prolongé par une formation didactique et clinique, qui
+      m’a conduite à en faire mon métier. Je l’étudie et la pratique depuis
+      treize ans.
     </p>
     <p>
-      De ce parcours en deux temps, je garde une attention particulière à ce que le
-      travail — son organisation, ses tensions, la place qu’il occupe dans une vie —
-      vient engager chez chacun. C’est aussi ce qui m’a menée à intervenir auprès des
-      entreprises et des institutions, en parallèle du cabinet.
+      De ce parcours en deux temps, je garde une attention particulière à ce que
+      le travail — son organisation, ses tensions, la place qu’il occupe dans une
+      vie — vient engager chez chacun. C’est aussi ce qui m’a menée à intervenir
+      auprès des entreprises et des institutions, en parallèle du cabinet.
     </p>
   </div>
 
-  <figure class="photo photo--portrait c-photo-d">
-    <img src="/assets/portrait.jpg"
-         alt="Yamina Nardin, psychanalyste à Paris 11e"
+  <figure class="photo photo--portrait c-droite rev rev--d1">
+    <img src="images/portrait.jpg"
+         alt="Portrait de Yamina Nardin, psychanalyste à Paris 11e"
          width="800" height="1000" loading="lazy" decoding="async"
          onerror="this.closest('.photo').classList.add('photo--absente')">
-    <div class="attente attente--portrait">
-      <p>Emplacement photographique — déposer <code>assets/portrait.jpg</code>.</p>
+    <div class="attente">
+      <p>Emplacement photographique</p>
+      <p><code>images/portrait.jpg</code></p>
     </div>
   </figure>
 </section>
 
-<!-- Parcours : un index, pas une grille de cartes. -->
 <section class="g sec sec--filet">
-  <p class="c-marge marginalia"><b>02</b>Parcours</p>
+  <p class="c-marge marginalia rev"><b>01</b>Formations</p>
 
-  <div class="c-texte">
-    <p class="exergue">Formations et affiliations.</p>
+  <div class="c-texte rev rev--d1">
+    <p class="exergue">Un travail personnel, puis une formation.</p>
   </div>
 
-  <ol class="c-large index" style="margin-top:var(--air-demi)">
+  <ol class="c-large index rev rev--d2" style="margin-top:var(--air-demi)">
     <li>
       <span class="index__num">I</span>
       <h2 class="index__terme">Société de psychanalyse<br>active intégrative</h2>
@@ -149,50 +168,67 @@
     </li>
     <li>
       <span class="index__num">II</span>
-      <h2 class="index__terme">Institut de Médiation<br>Guillaume-Hofnung</h2>
-      <p class="index__desc">IMGH — formation à la médiation éthique.</p>
+      <h2 class="index__terme">Psychanalyse corporelle</h2>
+      <p class="index__desc">Formation complémentaire, intégrée à la pratique clinique.</p>
     </li>
     <li>
       <span class="index__num">III</span>
-      <h2 class="index__terme">Rapport inconscient<br>à l’argent</h2>
-      <p class="index__desc">Formation spécifique.</p>
+      <h2 class="index__terme">Médiation éthique</h2>
+      <p class="index__desc">
+        Formation suivie auprès de l’Institut de Médiation Michèle
+        Guillaume-Hofnung (IMGH).
+      </p>
     </li>
     <li>
       <span class="index__num">IV</span>
       <h2 class="index__terme">Économie et sciences<br>des organisations</h2>
       <p class="index__desc">
-        Formation initiale, suivie de plusieurs années d’exercice en grande entreprise
-        sur des projets d’envergure.
+        Formation initiale, suivie de plusieurs années d’exercice en grande
+        entreprise sur des projets à enjeux importants.
       </p>
     </li>
   </ol>
-
-  <p class="c-large note" style="margin-top:2.5rem;max-width:44em">
-    Le titre de psychanalyste n’est pas réglementé en France. Ma pratique s’appuie sur
-    un travail personnel, une formation didactique et clinique, et le cadre de travail
-    décrit dans la rubrique <a href="/approche.html">Approche</a>.
-  </p>
 </section>
 
 <section class="g sec sec--filet">
-  <div class="c-recul">
+  <p class="c-marge marginalia rev"><b>02</b>La pratique</p>
+
+  <div class="c-texte texte rev rev--d1">
+    <p>
+      Pour soutenir l’accompagnement des personnes qui me consultent, je poursuis
+      un travail personnel permanent, rigoureux et ouvert sur le monde, ainsi que
+      des pratiques de supervision qui élargissent et ancrent ma clinique.
+    </p>
+  </div>
+
+  <p class="c-large note rev rev--d2" style="margin-top:2.5rem;max-width:44em">
+    Le titre de psychanalyste n’est pas réglementé en France. Ma pratique
+    s’appuie sur un travail personnel, une formation didactique et clinique, une
+    supervision régulière, et le cadre décrit dans la rubrique
+    <a href="approche.html">Approche</a>.
+  </p>
+</section>
+
+<section class="g sec sec--filet cloture">
+  <div class="c-recul rev">
     <p class="exergue">Premier entretien sur rendez-vous.</p>
-    <div class="actions" style="margin-top:2.5rem">
-      <a class="action action--appui" href="/contact.html">Écrire au cabinet <i aria-hidden="true">→</i></a>
+    <div class="actions" style="margin-top:2.75rem">
+      <a class="bouton" href="rendez-vous.html">Prendre rendez-vous <i aria-hidden="true">→</i></a>
       <a class="tel" href="tel:+33788697151">07 88 69 71 51</a>
     </div>
   </div>
 </section>
-
 </main>
 
 <footer class="pied">
   <div class="g">
     <div class="c-plein pied__g">
-      <div>
-        <p class="micro" style="margin:0 0 1.1rem">Yamina Nardin — Psychanalyste</p>
-        <p class="note" style="max-width:26em">
-          Cabinet à Paris 11<sup>e</sup>. Premier entretien sur rendez-vous.
+      <div class="pied__marque">
+        <p class="pied__nom">Yamina Nardin</p>
+        <p class="micro" style="margin:0 0 1rem">Psychanalyste — Paris 11<sup>e</sup></p>
+        <p class="note" style="max-width:24em;margin:0">
+          Cabinet dans le 11<sup>e</sup> arrondissement. Adultes et couples.
+          Premier entretien sur rendez-vous.
         </p>
       </div>
 
@@ -206,35 +242,39 @@
       </div>
 
       <nav aria-label="Pied de page">
-        <h2>Pages</h2>
+        <h2>Le site</h2>
         <ul>
-          <li><a href="/a-propos.html">À propos</a></li>
-          <li><a href="/approche.html">Approche</a></li>
-          <li><a href="/entreprises-institutions.html">Activités</a></li>
-          <li><a href="/cabinet.html">Cabinet</a></li>
-          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="approche.html">Approche</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="le-cadre.html">Le cadre</a></li>
+          <li><a href="entreprises.html">Entreprises</a></li>
         </ul>
       </nav>
 
       <div>
         <h2>Rendez-vous</h2>
         <ul>
-          <li><a href="/contact.html">Écrire au cabinet</a></li>
-          <li><a href="tel:+33788697151">Appeler</a></li>
+          <li><a href="rendez-vous.html">Convenir d’un entretien</a></li>
+          <li><a href="tel:+33788697151">Appeler le cabinet</a></li>
         </ul>
+        <p class="note" style="margin-top:1.1rem;max-width:20em">
+          En cas d’urgence, appelez le 15, ou le 3114 — prévention du suicide,
+          gratuit, 24&nbsp;h/24.
+        </p>
       </div>
     </div>
 
     <div class="c-plein pied__bas">
       <p class="note" style="margin:0">© 2026 Yamina Nardin</p>
       <nav aria-label="Informations légales">
-        <a class="note" href="/mentions-legales.html">Mentions légales</a>
-        <a class="note" href="/confidentialite.html">Confidentialité</a>
+        <a class="note" href="mentions-legales.html">Mentions légales</a>
+        <a class="note" href="confidentialite.html">Confidentialité</a>
       </nav>
     </div>
   </div>
 </footer>
 
-<script src="/js/main.js" defer></script>
+<script src="js/main.js" defer></script>
 </body>
 </html>

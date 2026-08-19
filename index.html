@@ -5,37 +5,56 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>Yamina Nardin — Psychanalyste à Paris 11e</title>
-<meta name="description" content="Yamina Nardin, psychanalyste à Paris 11e. Approche psychanalytique multiréférentielle et active intégrative. Cabinet 21 rue Titon, 75011 Paris. Premier entretien sur rendez-vous.">
+<meta name="description" content="Yamina Nardin, psychanalyste à Paris 11e. Approche multiréférentielle : psychanalyse classique, active intégrative et corporelle. Adultes et couples. Cabinet 21 rue Titon, 75011 Paris. Premier entretien sur rendez-vous.">
 <meta name="robots" content="index, follow">
 <link rel="canonical" href="https://www.yaminanardin.fr/">
+<meta name="author" content="Yamina Nardin">
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="Yamina Nardin, psychanalyste">
 <meta property="og:title" content="Yamina Nardin — Psychanalyste à Paris 11e">
-<meta property="og:description" content="Yamina Nardin, psychanalyste à Paris 11e. Approche psychanalytique multiréférentielle et active intégrative. Cabinet 21 rue Titon, 75011 Paris. Premier entretien sur rendez-vous.">
+<meta property="og:description" content="Yamina Nardin, psychanalyste à Paris 11e. Approche multiréférentielle : psychanalyse classique, active intégrative et corporelle. Adultes et couples. Cabinet 21 rue Titon, 75011 Paris. Premier entretien sur rendez-vous.">
 <meta property="og:url" content="https://www.yaminanardin.fr/">
-<meta property="og:image" content="https://www.yaminanardin.fr/assets/og-image.jpg">
+<meta property="og:image" content="https://www.yaminanardin.fr/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Yamina Nardin, psychanalyste à Paris 11e">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#FCFAF5">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#F6F2EB">
 
-<!-- Newsreader pour la lecture, Archivo pour la micro-typographie.
-     Deux familles, poids strictement nécessaires. -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap">
-<link rel="stylesheet" href="/css/style.css">
+<!-- Deux familles, deux rôles : Fraunces pour l’éditorial, Archivo pour la
+     micro-typographie. Servies depuis ce dossier — aucun appel à un tiers. -->
+<link rel="preload" href="fonts/fraunces-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/archivo-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Les apparitions ne sont armées que si JavaScript répond. Le filet de
+     sécurité garantit qu'aucun contenu ne reste masqué si main.js échoue. -->
+<script>
+(function(d){
+  d.documentElement.classList.remove('no-js');
+  setTimeout(function(){
+    if (d.documentElement.hasAttribute('data-anime')) return;
+    var l = d.querySelectorAll('.rev');
+    for (var i = 0; i < l.length; i++) l[i].classList.add('rev--vu');
+  }, 2500);
+})(document);
+</script>
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
   "@type": "ProfessionalService",
   "name": "Yamina Nardin — Psychanalyste",
   "url": "https://www.yaminanardin.fr/",
-  "description": "Cabinet de psychanalyse à Paris 11e. Approche multiréférentielle, psychanalyse active intégrative.",
+  "description": "Cabinet de psychanalyse à Paris 11e. Approche multiréférentielle : psychanalyse classique, active intégrative et corporelle. Adultes et couples.",
   "telephone": "+33788697151",
-  "areaServed": "Paris",
+  "areaServed": { "@type": "City", "name": "Paris" },
   "address": {
     "@type": "PostalAddress",
     "streetAddress": "21 rue Titon",
@@ -43,7 +62,11 @@
     "addressLocality": "Paris",
     "addressCountry": "FR"
   },
-  "founder": { "@type": "Person", "name": "Yamina Nardin", "jobTitle": "Psychanalyste" }
+  "founder": {
+    "@type": "Person",
+    "name": "Yamina Nardin",
+    "jobTitle": "Psychanalyste"
+  }
 }
 </script>
 </head>
@@ -53,17 +76,16 @@
 
 <header class="entete" data-entete>
   <div class="entete__g">
-    <a class="sceau" href="/">Yamina Nardin</a>
+    <a class="sceau" href="index.html">Yamina&nbsp;Nardin</a>
 
     <nav class="nav" aria-label="Navigation principale">
       <ul>
-        <li><a href="/a-propos.html">À propos</a></li>
-        <li><a href="/approche.html">Approche</a></li>
-        <li><a href="/entreprises-institutions.html">Activités</a></li>
-        <li><a href="/cabinet.html">Cabinet</a></li>
-        <li><a href="/contact.html">Contact</a></li>
+          <li><a href="approche.html">Approche</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="le-cadre.html">Le cadre</a></li>
+          <li><a href="entreprises.html">Entreprises</a></li>
       </ul>
-      <a class="rdv" href="/contact.html">Rendez-vous</a>
+      <a class="rdv" href="rendez-vous.html">Prendre rendez-vous</a>
     </nav>
 
     <button class="ouvrir" type="button" data-ouvrir aria-expanded="false" aria-controls="tiroir">
@@ -73,22 +95,19 @@
   </div>
 </header>
 
-<div class="tiroir" id="tiroir">
+<div class="tiroir" id="tiroir" aria-hidden="true">
   <nav aria-label="Navigation">
     <ul>
-      <li><a href="/" aria-current="page"><span>00</span>Accueil</a></li>
-      <li><a href="/a-propos.html"><span>01</span>À propos</a></li>
-      <li><a href="/approche.html"><span>02</span>Approche</a></li>
-      <li><a href="/entreprises-institutions.html"><span>03</span>Activités</a></li>
-      <li><a href="/cabinet.html"><span>04</span>Cabinet</a></li>
-      <li><a href="/contact.html"><span>05</span>Contact</a></li>
-      <li><a href="/contact.html"><span>06</span>Rendez-vous</a></li>
+        <li><a href="approche.html"><i aria-hidden="true">01</i>Approche</a></li>
+        <li><a href="a-propos.html"><i aria-hidden="true">02</i>À propos</a></li>
+        <li><a href="le-cadre.html"><i aria-hidden="true">03</i>Le cadre</a></li>
+        <li><a href="entreprises.html"><i aria-hidden="true">04</i>Entreprises</a></li>
+        <li><a href="rendez-vous.html"><i aria-hidden="true">05</i>Rendez-vous</a></li>
     </ul>
   </nav>
   <div class="tiroir__pied">
-    <p class="note" style="margin:0 0 1rem">
-      21 rue Titon, 75011 Paris
-    </p>
+    <p class="micro" style="margin:0 0 0.9rem">Le cabinet</p>
+    <address class="note" style="margin:0 0 1.25rem">21 rue Titon, 75011 Paris</address>
     <a class="tel" href="tel:+33788697151">07 88 69 71 51</a>
   </div>
 </div>
@@ -96,170 +115,199 @@
 <main id="contenu">
 <!-- ============================================================
      OUVERTURE
-     Composition asymétrique : le nom occupe la gauche, la
-     photographie file jusqu'au bord droit et remonte au-dessus
-     de la ligne du nom. Rien d'autre n'est dit ici.
+     Le nom tient la gauche sur deux rangs ; la photographie file
+     jusqu'au bord droit et couvre toute la hauteur. Sur mobile,
+     la composition se rejoue : nom, photographie, puis la phrase.
      ============================================================ -->
 <section class="g ouverture">
-  <div class="ouverture__texte">
-    <p class="micro ouverture__situation">Psychanalyste — Paris</p>
+  <div class="ouverture__titre rev">
+    <p class="micro ouverture__situation">Psychanalyste — Paris 11<sup>e</sup></p>
     <h1 class="nom">Yamina<br>Nardin</h1>
-    <p class="exergue ouverture__exergue">
-      Un lieu où déposer une parole, une fois par semaine,
-      dans le 11<sup>e</sup> arrondissement.
-    </p>
   </div>
 
-  <figure class="photo photo--haute ouverture__photo bord-droit">
-    <img src="/assets/portrait.jpg"
-         alt="Yamina Nardin, psychanalyste à Paris"
-         width="900" height="1200" fetchpriority="high"
+  <figure class="photo photo--haute ouverture__photo bord-droit rev rev--d1">
+    <img src="images/portrait.jpg"
+         alt="Portrait de Yamina Nardin, psychanalyste à Paris 11e"
+         width="900" height="1200" fetchpriority="high" decoding="async"
          onerror="this.closest('.photo').classList.add('photo--absente')">
-    <div class="attente attente--haute">
-      <p>Emplacement photographique — déposer <code>assets/portrait.jpg</code>. Voir <code>assets/README.md</code>.</p>
+    <div class="attente">
+      <p>Emplacement photographique</p>
+      <p><code>images/portrait.jpg</code></p>
     </div>
   </figure>
 
-  <p class="micro ouverture__pied">
-    21 rue Titon, 75011 Paris
+  <div class="ouverture__dire rev rev--d2">
+    <hr class="filet">
+    <p class="exergue ouverture__exergue">Prendre le temps de se comprendre.</p>
+    <p class="ouverture__intro texte--large">
+      Un cabinet dans le 11<sup>e</sup> arrondissement, pour les adultes et les
+      couples. Quarante-cinq minutes, une fois par semaine — en face à face,
+      ou sur le divan.
+    </p>
+    <div class="actions">
+      <a class="bouton" href="rendez-vous.html">Prendre rendez-vous <i aria-hidden="true">→</i></a>
+      <a class="action" href="approche.html">Découvrir l’approche <i aria-hidden="true">→</i></a>
+    </div>
+  </div>
+
+  <p class="ouverture__pied micro rev rev--d3">
+    <span>21 rue Titon, Paris 11<sup>e</sup></span>
     <span aria-hidden="true">·</span>
-    <a href="tel:+33788697151" style="color:inherit">07 88 69 71 51</a>
+    <a href="tel:+33788697151">07 88 69 71 51</a>
   </p>
 </section>
 
 <!-- ============================================================
-     01 — QUI SUIS-JE
-     Colonne de lecture décalée vers l'intérieur, annotation en
-     marge. Aucune image : la section se tient par le texte.
+     01 — LE TEMPS DE SOI
+     Aucune image. Un bloc de texte très en retrait, beaucoup
+     d'air : c'est la respiration qui suit l'ouverture.
      ============================================================ -->
 <section class="g sec">
-  <p class="c-marge marginalia"><b>01</b>Qui suis-je</p>
+  <p class="c-marge marginalia rev"><b>01</b>Le temps de soi</p>
 
-  <div class="c-texte texte">
-    <h2>Un parcours venu de l’entreprise, puis de la psychanalyse</h2>
-    <p style="margin-top:1.75rem">
-      Ma formation initiale relève de l’économie et des sciences des organisations.
-      J’ai exercé plusieurs années au sein d’une grande entreprise, sur des projets
-      d’envergure.
+  <div class="c-recul rev rev--d1">
+    <p class="exergue">
+      Un travail qui demande du temps,<br>et qui en redonne.
     </p>
-    <p>
-      La psychanalyse est venue plus tard, et d’abord pour moi-même. J’étudie et je
-      la pratique depuis treize ans — par un travail personnel, puis dans un cadre
-      professionnel.
-    </p>
-    <p style="margin-top:2.25rem">
-      <a class="action" href="/a-propos.html">Parcours et certifications <i aria-hidden="true">→</i></a>
-    </p>
+    <div class="texte texte--large" style="margin-top:2.5rem">
+      <p>
+        La psychanalyse ne cherche pas à effacer ce qui fait mal, ni à le
+        contourner. Elle propose de s’y arrêter — assez longtemps pour que cela
+        puisse se dire, puis se comprendre.
+      </p>
+      <p>
+        Ce temps-là ne ressemble à aucun autre. Il n’appartient ni au travail, ni
+        aux proches, ni à l’urgence. Il est à vous.
+      </p>
+    </div>
   </div>
 </section>
 
 <!-- ============================================================
      02 — L'APPROCHE
-     Rupture de rythme : une phrase seule, puis la prose passe
+     Rupture de texture : une phrase seule, puis la prose passe
      sur deux colonnes. C'est la seule section ainsi composée.
      ============================================================ -->
 <section class="g sec sec--filet">
-  <p class="c-marge marginalia"><b>02</b>L’approche</p>
+  <p class="c-marge marginalia rev"><b>02</b>L’approche</p>
 
-  <div class="c-texte">
+  <div class="c-texte rev rev--d1">
     <p class="exergue">
       Une approche multiréférentielle : plusieurs références théoriques
       se complètent, au lieu de s’exclure.
     </p>
   </div>
 
-  <div class="c-large colonnes texte" style="margin-top:var(--air-demi)">
+  <div class="c-large colonnes texte rev rev--d2" style="margin-top:var(--air-demi)">
     <p>
-      Le socle reste psychanalytique — l’attention portée à l’inconscient, à la
-      parole, à ce qui se répète et à ce qui résiste. Les apports des thérapies
-      systémiques et cognitives orientées solution viennent l’ouvrir, sans s’y
-      substituer.
+      Ma pratique s’appuie sur les courants psychanalytiques de l’inconscient —
+      psychanalyse classique, psychanalyse active intégrative, psychanalyse
+      corporelle — et sur les apports des thérapies systémiques et cognitives
+      orientées solution.
     </p>
     <p>
-      Il s’agit d’une méthode active, qui engage la personne dans une position
-      active et responsable au sein du processus, autant que le thérapeute. Les
-      séances sont concrètes, pragmatiques et dynamiques.
+      C’est une méthode active. Elle engage la personne dans une position active
+      et responsable au sein du processus, autant que le thérapeute. Elle
+      s’adapte à ce que vous apportez, et non l’inverse.
     </p>
   </div>
 
-  <p class="c-texte" style="margin-top:2.5rem">
-    <a class="action" href="/approche.html">Lire la méthode <i aria-hidden="true">→</i></a>
+  <p class="c-large rev rev--d2" style="margin-top:2.75rem">
+    <a class="action" href="approche.html">Lire l’approche <i aria-hidden="true">→</i></a>
   </p>
 </section>
 
 <!-- ============================================================
-     03 — ACTIVITÉS AUPRÈS DES COLLECTIFS
-     Seul moment sombre du site. Il distingue la seconde activité
-     sans changer de vocabulaire graphique : même grille, mêmes
-     filets, même index.
+     03 — POURQUOI CONSULTER
+     Une liste de seuils, pas un catalogue de symptômes. Aucune
+     promesse de résultat.
      ============================================================ -->
-<section class="encre">
-  <div class="g sec">
-    <p class="c-marge marginalia"><b>03</b>Entreprises &amp; institutions</p>
+<section class="g sec sec--filet">
+  <p class="c-marge marginalia rev"><b>03</b>Pourquoi consulter</p>
 
-    <div class="c-texte">
-      <p class="exergue">
-        J’interviens également auprès des collectifs, sur ce qui engage
-        les relations de travail.
-      </p>
-    </div>
-
-    <ol class="c-large index" style="margin-top:var(--air-demi)">
-      <li>
-        <span class="index__num">I</span>
-        <h3 class="index__terme">Médiation</h3>
-        <p class="index__desc">
-          Un tiers indépendant, formé à la médiation éthique auprès de l’Institut
-          de Médiation Guillaume-Hofnung.
-        </p>
-      </li>
-      <li>
-        <span class="index__num">II</span>
-        <h3 class="index__terme">Accompagnement des équipes</h3>
-        <p class="index__desc">
-          Un travail auprès d’un collectif, sur ce qui se joue dans les relations
-          de travail et dans son organisation.
-        </p>
-      </li>
-      <li>
-        <span class="index__num">III</span>
-        <h3 class="index__terme">Groupes de parole</h3>
-        <p class="index__desc">
-          Un espace régulier et cadré, où la parole circule dans la
-          confidentialité.
-        </p>
-      </li>
-    </ol>
-
-    <p class="c-large" style="margin-top:2.5rem">
-      <a class="action action--clair" href="/entreprises-institutions.html">Cette activité <i aria-hidden="true">→</i></a>
-    </p>
+  <div class="c-texte rev rev--d1">
+    <p class="exergue">On vient rarement pour une seule raison.</p>
   </div>
+
+  <ul class="c-large jalons rev rev--d2" style="margin-top:var(--air-demi)">
+    <li>Quelque chose se répète, et se répète encore.</li>
+    <li>Une décision, un deuil, une séparation, un épuisement.</li>
+    <li>Le sentiment de ne plus très bien se reconnaître.</li>
+    <li>Ce qui se joue dans le couple, et qu’on n’arrive plus à se dire.</li>
+    <li>L’envie, simplement, de mieux se connaître.</li>
+  </ul>
+
+  <p class="c-large note rev rev--d2" style="margin-top:2.5rem;max-width:44em">
+    Le premier entretien est une rencontre. Il est important que vous vous y
+    sentiez en confiance ; de mon côté, j’évalue ma compétence à vous aider.
+    Cette première consultation n’engage en rien pour la suite.
+  </p>
 </section>
 
 <!-- ============================================================
-     04 — LE CABINET
+     04 — QUI SUIS-JE
+     Le texte à gauche, un détail photographique à droite. Le
+     portrait n'est pas répété ici : il appartient à l'ouverture.
+     ============================================================ -->
+<section class="g sec sec--filet">
+  <div class="c-gauche rev">
+    <p class="marginalia" style="position:static;flex-direction:row"><b>04</b>Qui suis-je</p>
+    <h2>Un parcours venu de l’entreprise,<br>puis de la psychanalyse</h2>
+    <hr class="filet">
+    <div class="texte" style="margin-top:1.75rem">
+      <p>
+        Ma formation initiale relève de l’économie : je me suis d’abord
+        intéressée à l’organisation sociale et économique des humains, avant
+        d’exercer plusieurs années en grande entreprise, sur des projets à
+        enjeux importants.
+      </p>
+      <p>
+        La psychanalyse est venue plus tard, et d’abord pour moi-même. Je
+        l’étudie et la pratique depuis treize ans — par un travail personnel,
+        puis dans un cadre professionnel.
+      </p>
+    </div>
+    <p style="margin-top:2.5rem">
+      <a class="action" href="a-propos.html">Parcours et formations <i aria-hidden="true">→</i></a>
+    </p>
+  </div>
+
+  <figure class="photo photo--portrait photo--matiere c-droite rev rev--d1">
+    <img src="images/detail.jpg"
+         alt="Détail du cabinet : lumière naturelle et matières"
+         width="800" height="1000" loading="lazy" decoding="async"
+         onerror="this.closest('.photo').classList.add('photo--absente')">
+    <div class="attente">
+      <p>Emplacement photographique</p>
+      <p><code>images/detail.jpg</code></p>
+    </div>
+  </figure>
+</section>
+
+<!-- ============================================================
+     05 — LE CABINET
      Composition inversée par rapport à l'ouverture : la
-     photographie part du bord gauche, les renseignements
-     pratiques se tiennent à droite, en index.
+     photographie part du bord gauche, les repères pratiques se
+     tiennent à droite.
      ============================================================ -->
 <section class="g sec cabinet">
-  <figure class="photo photo--paysage cabinet__photo bord-gauche">
-    <img src="/assets/cabinet.jpg"
-         alt="Le cabinet, 21 rue Titon, Paris 11e"
-         width="1100" height="880" loading="lazy" decoding="async"
+  <figure class="photo photo--paysage cabinet__photo bord-gauche rev">
+    <img src="images/cabinet.jpg"
+         alt="Le cabinet de Yamina Nardin, 21 rue Titon, Paris 11e"
+         width="1100" height="825" loading="lazy" decoding="async"
          onerror="this.closest('.photo').classList.add('photo--absente')">
-    <div class="attente attente--paysage">
-      <p>Emplacement photographique — déposer <code>assets/cabinet.jpg</code>.</p>
+    <div class="attente">
+      <p>Emplacement photographique</p>
+      <p><code>images/cabinet.jpg</code></p>
     </div>
   </figure>
 
-  <div class="cabinet__texte">
-    <p class="marginalia" style="margin:0 0 1.75rem"><b>04</b>Le cabinet</p>
-    <h2>Un cadre agréable, chaleureux et bienveillant</h2>
-    <p class="texte" style="margin-top:1.5rem">
-      Le premier entretien permet de préciser votre demande, ainsi que le cadre et
-      les conditions du travail thérapeutique.
+  <div class="cabinet__texte rev rev--d1">
+    <p class="marginalia" style="position:static;flex-direction:row"><b>05</b>Le cabinet</p>
+    <h2>Un cadre agréable,<br>chaleureux et bienveillant</h2>
+    <p class="texte" style="margin-top:1.75rem">
+      Le premier entretien permet de préciser votre demande, ainsi que le cadre
+      et les conditions du travail thérapeutique.
     </p>
 
     <dl class="reperes" style="margin-top:2.5rem">
@@ -278,36 +326,90 @@
     </dl>
 
     <p style="margin-top:2.5rem">
-      <a class="action" href="/cabinet.html">Venir au cabinet <i aria-hidden="true">→</i></a>
+      <a class="action" href="le-cadre.html">Le cadre du travail <i aria-hidden="true">→</i></a>
+    </p>
+  </div>
+</section>
+
+<!-- ============================================================
+     06 — ENTREPRISES & INSTITUTIONS
+     Seul moment sombre de la page. Il distingue la seconde
+     activité sans changer de vocabulaire graphique.
+     ============================================================ -->
+<section class="encre">
+  <div class="g sec">
+    <p class="c-marge marginalia rev"><b>06</b>Entreprises &amp; institutions</p>
+
+    <div class="c-texte rev rev--d1">
+      <p class="exergue">
+        J’interviens également auprès des collectifs, sur ce qui engage
+        les relations de travail.
+      </p>
+    </div>
+
+    <ol class="c-large index rev rev--d2" style="margin-top:var(--air-demi)">
+      <li>
+        <span class="index__num">I</span>
+        <h3 class="index__terme">Médiation</h3>
+        <p class="index__desc">
+          Un tiers indépendant, formé à la médiation éthique, pour permettre à un
+          différend de se dire et de se traiter.
+        </p>
+      </li>
+      <li>
+        <span class="index__num">II</span>
+        <h3 class="index__terme">Accompagnement d’équipes</h3>
+        <p class="index__desc">
+          Un travail auprès d’un collectif, sur ce qui se joue dans les relations
+          de travail et dans son organisation.
+        </p>
+      </li>
+      <li>
+        <span class="index__num">III</span>
+        <h3 class="index__terme">Groupes de parole</h3>
+        <p class="index__desc">
+          Un espace régulier et cadré, où la parole circule au sein d’un groupe,
+          dans la confidentialité.
+        </p>
+      </li>
+    </ol>
+
+    <p class="c-large rev rev--d2" style="margin-top:2.75rem">
+      <a class="action action--clair" href="entreprises.html">Cette activité <i aria-hidden="true">→</i></a>
     </p>
   </div>
 </section>
 
 <!-- ============================================================
      CLÔTURE
-     Pas de bandeau. Un bloc en retrait profond, beaucoup d'air,
-     et le numéro de téléphone traité comme une information —
-     non comme une injonction.
+     Pas de bandeau commercial. Un bloc en retrait, beaucoup
+     d'air, et le téléphone traité comme une information.
      ============================================================ -->
-<section class="g sec sec--filet">
-  <div class="c-recul">
+<section class="g sec cloture">
+  <div class="c-recul rev">
     <p class="exergue">Premier entretien sur rendez-vous.</p>
-    <div class="actions" style="margin-top:2.5rem">
-      <a class="action action--appui" href="/contact.html">Écrire au cabinet <i aria-hidden="true">→</i></a>
+    <p class="texte" style="margin-top:1.75rem">
+      Pour convenir d’un premier entretien ou pour toute autre question,
+      laissez-moi un message en précisant une adresse e-mail valide ou un
+      numéro de téléphone.
+    </p>
+    <div class="actions" style="margin-top:2.75rem">
+      <a class="bouton" href="rendez-vous.html">Prendre rendez-vous <i aria-hidden="true">→</i></a>
       <a class="tel" href="tel:+33788697151">07 88 69 71 51</a>
     </div>
   </div>
 </section>
-
 </main>
 
 <footer class="pied">
   <div class="g">
     <div class="c-plein pied__g">
-      <div>
-        <p class="micro" style="margin:0 0 1.1rem">Yamina Nardin — Psychanalyste</p>
-        <p class="note" style="max-width:26em">
-          Cabinet à Paris 11<sup>e</sup>. Premier entretien sur rendez-vous.
+      <div class="pied__marque">
+        <p class="pied__nom">Yamina Nardin</p>
+        <p class="micro" style="margin:0 0 1rem">Psychanalyste — Paris 11<sup>e</sup></p>
+        <p class="note" style="max-width:24em;margin:0">
+          Cabinet dans le 11<sup>e</sup> arrondissement. Adultes et couples.
+          Premier entretien sur rendez-vous.
         </p>
       </div>
 
@@ -321,35 +423,39 @@
       </div>
 
       <nav aria-label="Pied de page">
-        <h2>Pages</h2>
+        <h2>Le site</h2>
         <ul>
-          <li><a href="/a-propos.html">À propos</a></li>
-          <li><a href="/approche.html">Approche</a></li>
-          <li><a href="/entreprises-institutions.html">Activités</a></li>
-          <li><a href="/cabinet.html">Cabinet</a></li>
-          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="approche.html">Approche</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="le-cadre.html">Le cadre</a></li>
+          <li><a href="entreprises.html">Entreprises</a></li>
         </ul>
       </nav>
 
       <div>
         <h2>Rendez-vous</h2>
         <ul>
-          <li><a href="/contact.html">Écrire au cabinet</a></li>
-          <li><a href="tel:+33788697151">Appeler</a></li>
+          <li><a href="rendez-vous.html">Convenir d’un entretien</a></li>
+          <li><a href="tel:+33788697151">Appeler le cabinet</a></li>
         </ul>
+        <p class="note" style="margin-top:1.1rem;max-width:20em">
+          En cas d’urgence, appelez le 15, ou le 3114 — prévention du suicide,
+          gratuit, 24&nbsp;h/24.
+        </p>
       </div>
     </div>
 
     <div class="c-plein pied__bas">
       <p class="note" style="margin:0">© 2026 Yamina Nardin</p>
       <nav aria-label="Informations légales">
-        <a class="note" href="/mentions-legales.html">Mentions légales</a>
-        <a class="note" href="/confidentialite.html">Confidentialité</a>
+        <a class="note" href="mentions-legales.html">Mentions légales</a>
+        <a class="note" href="confidentialite.html">Confidentialité</a>
       </nav>
     </div>
   </div>
 </footer>
 
-<script src="/js/main.js" defer></script>
+<script src="js/main.js" defer></script>
 </body>
 </html>

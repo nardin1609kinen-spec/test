@@ -1,180 +1,229 @@
 /* =============================================================================
-   Yamina Nardin — comportements d'interface
-
-   Sans dépendance, sans traceur, sans cookie. Trois modules seulement.
-   Le site est entièrement consultable si ce fichier ne se charge pas.
-   ========================================================================== */
+   YAMINA NARDIN — comportements de l'interface
+   Aucune dépendance, aucun traceur. Le site reste entièrement utilisable
+   si ce fichier ne se charge pas : le HTML et le CSS suffisent.
+   ============================================================================= */
 (function () {
-  'use strict';
+  "use strict";
 
-  var COUPURE = '(min-width: 940px)';   // doit rester aligné sur style.css
+  var doc = document;
+  var racine = doc.documentElement;
 
-  /* --- Tiroir de navigation (petits écrans) ---------------------------- */
-  function tiroir() {
-    var bouton = document.querySelector('[data-ouvrir]');
-    var panneau = document.getElementById('tiroir');
+  /* Le CSS n'affiche les apparitions que si JavaScript répond présent. */
+  racine.classList.remove("no-js");
+
+  var mouvementReduit = window.matchMedia("(prefers-reduced-motion: reduce)");
+
+  /* ---------------------------------------------------------------------------
+     1. En-tête : il se pose sur le papier dès que la page défile.
+     --------------------------------------------------------------------------- */
+  (function entete() {
+    var barre = doc.querySelector("[data-entete]");
+    if (!barre) return;
+
+    var pose = false;
+    var enAttente = false;
+
+    function majuscule() {
+      var doitPoser = window.scrollY > 12;
+      if (doitPoser !== pose) {
+        pose = doitPoser;
+        barre.classList.toggle("entete--pose", pose);
+      }
+      enAttente = false;
+    }
+
+    function auDefilement() {
+      if (enAttente) return;
+      enAttente = true;
+      window.requestAnimationFrame(majuscule);
+    }
+
+    majuscule();
+    window.addEventListener("scroll", auDefilement, { passive: true });
+  })();
+
+  /* ---------------------------------------------------------------------------
+     2. Tiroir mobile : une page à part entière, pas un menu rétréci.
+        Piège de tabulation, fermeture par Échap, retour du focus au bouton.
+     --------------------------------------------------------------------------- */
+  (function tiroir() {
+    var bouton = doc.querySelector("[data-ouvrir]");
+    var panneau = doc.getElementById("tiroir");
     if (!bouton || !panneau) return;
 
-    var precedent = null;
+    var ouvert = false;
+    var focusables = 'a[href], button:not([disabled]), input, textarea, [tabindex]:not([tabindex="-1"])';
 
-    function ouvrir() {
-      precedent = document.activeElement;
-      panneau.classList.add('est-ouvert');
-      bouton.setAttribute('aria-expanded', 'true');
-      document.body.classList.add('est-bloque');
-      // Le panneau part de visibility:hidden : on attend le recalcul de
-      // style, sinon le focus est refusé.
-      requestAnimationFrame(function () {
-        requestAnimationFrame(function () {
-          var premier = panneau.querySelector('a[href]');
+    function basculer(vers) {
+      ouvert = vers;
+      panneau.classList.toggle("tiroir--ouvert", ouvert);
+      doc.body.classList.toggle("fige", ouvert);
+      bouton.setAttribute("aria-expanded", String(ouvert));
+      bouton.querySelector(".vh").textContent = ouvert ? "Fermer le menu" : "Ouvrir le menu";
+      panneau.setAttribute("aria-hidden", String(!ouvert));
+
+      if (ouvert) {
+        /* Le tiroir sort de `visibility: hidden` : tant que le style n'a pas
+           été recalculé, rien n'y est focusable. On attend donc la trame
+           suivante avant d'y porter le focus. */
+        window.requestAnimationFrame(function () {
+          var premier = panneau.querySelector(focusables);
           if (premier) premier.focus();
         });
-      });
+      } else {
+        bouton.focus();
+      }
     }
 
-    function fermer(rendreFocus) {
-      panneau.classList.remove('est-ouvert');
-      bouton.setAttribute('aria-expanded', 'false');
-      document.body.classList.remove('est-bloque');
-      if (rendreFocus && precedent) precedent.focus();
-    }
+    bouton.addEventListener("click", function () { basculer(!ouvert); });
 
-    bouton.addEventListener('click', function () {
-      if (bouton.getAttribute('aria-expanded') === 'true') fermer(true);
-      else ouvrir();
+    /* Toute navigation depuis le tiroir le referme. */
+    panneau.addEventListener("click", function (e) {
+      if (e.target.closest("a")) basculer(false);
     });
 
-    document.addEventListener('keydown', function (e) {
-      if (e.key === 'Escape' && panneau.classList.contains('est-ouvert')) fermer(true);
-    });
+    doc.addEventListener("keydown", function (e) {
+      if (!ouvert) return;
 
-    panneau.addEventListener('click', function (e) {
-      if (e.target.closest('a')) fermer(false);
-    });
+      if (e.key === "Escape") { basculer(false); return; }
 
-    var large = window.matchMedia(COUPURE);
-    var surChangement = function (e) { if (e.matches) fermer(false); };
-    if (large.addEventListener) large.addEventListener('change', surChangement);
-    else if (large.addListener) large.addListener(surChangement);
+      if (e.key === "Tab") {
+        var liste = Array.prototype.filter.call(
+          panneau.querySelectorAll(focusables),
+          function (el) { return el.offsetParent !== null; }
+        );
+        if (!liste.length) return;
 
-    // Le panneau couvre l'écran : la tabulation y reste enfermée.
-    panneau.addEventListener('keydown', function (e) {
-      if (e.key !== 'Tab') return;
-      var cibles = panneau.querySelectorAll('a[href], button:not([disabled])');
-      if (!cibles.length) return;
-      var premier = cibles[0];
-      var dernier = cibles[cibles.length - 1];
-      if (e.shiftKey && document.activeElement === premier) {
-        e.preventDefault(); dernier.focus();
-      } else if (!e.shiftKey && document.activeElement === dernier) {
-        e.preventDefault(); premier.focus();
+        var premier = liste[0];
+        var dernier = liste[liste.length - 1];
+
+        if (e.shiftKey && doc.activeElement === premier) {
+          e.preventDefault(); dernier.focus();
+        } else if (!e.shiftKey && doc.activeElement === dernier) {
+          e.preventDefault(); premier.focus();
+        }
       }
     });
-  }
 
-  /* --- Filet de l'en-tête au défilement -------------------------------- */
-  function entete() {
-    var el = document.querySelector('[data-entete]');
-    if (!el) return;
-    var attente = false;
-    function maj() {
-      el.classList.toggle('est-defile', window.scrollY > 8);
-      attente = false;
+    /* En repassant au-dessus du seuil mobile, le tiroir n'a plus lieu d'être. */
+    var large = window.matchMedia("(min-width: 55.01em)");
+    var surChangement = function (e) { if (e.matches && ouvert) basculer(false); };
+    if (large.addEventListener) large.addEventListener("change", surChangement);
+    else if (large.addListener) large.addListener(surChangement);
+  })();
+
+  /* ---------------------------------------------------------------------------
+     3. Apparitions au défilement.
+        Si l'API manque ou si le mouvement est réduit, tout est simplement
+        visible : aucun contenu ne dépend de l'animation pour exister.
+     --------------------------------------------------------------------------- */
+  (function apparitions() {
+    /* Signale au filet de sécurité posé dans le <head> que ce script tourne. */
+    racine.setAttribute("data-anime", "1");
+
+    var cibles = doc.querySelectorAll(".rev");
+    if (!cibles.length) return;
+
+    function toutMontrer() {
+      Array.prototype.forEach.call(cibles, function (el) { el.classList.add("rev--vu"); });
     }
-    window.addEventListener('scroll', function () {
-      if (!attente) { window.requestAnimationFrame(maj); attente = true; }
-    }, { passive: true });
-    maj();
-  }
 
-  /* --- Apparition : un fondu de huit pixels, une seule fois ------------ */
-  function pose() {
-    var blocs = document.querySelectorAll('.pose');
-    if (!blocs.length) return;
-
-    var reduit = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduit || !('IntersectionObserver' in window)) {
-      for (var i = 0; i < blocs.length; i++) blocs[i].classList.add('est-vu');
+    if (mouvementReduit.matches || !("IntersectionObserver" in window)) {
+      toutMontrer();
       return;
     }
 
-    var oeil = new IntersectionObserver(function (entrees) {
-      entrees.forEach(function (e) {
-        if (e.isIntersecting) {
-          e.target.classList.add('est-vu');
-          oeil.unobserve(e.target);
-        }
+    var observateur = new IntersectionObserver(function (entrees) {
+      entrees.forEach(function (entree) {
+        if (!entree.isIntersecting) return;
+        entree.target.classList.add("rev--vu");
+        observateur.unobserve(entree.target);
       });
-    }, { rootMargin: '0px 0px -6% 0px', threshold: 0.05 });
+    }, { rootMargin: "0px 0px -12% 0px", threshold: 0.08 });
 
-    blocs.forEach(function (b) { oeil.observe(b); });
-  }
+    Array.prototype.forEach.call(cibles, function (el) { observateur.observe(el); });
 
-  /* --- Formulaire de contact ------------------------------------------- */
-  /* Validation côté client seulement : messages lisibles, annoncés aux
-     lecteurs d'écran. Aucune donnée n'est envoyée ailleurs que vers
-     l'action déclarée dans le HTML.                                       */
-  function formulaire() {
-    var form = document.querySelector('[data-form]');
+    /* Si le visiteur active le mouvement réduit en cours de route. */
+    var surChangement = function (e) { if (e.matches) { observateur.disconnect(); toutMontrer(); } };
+    if (mouvementReduit.addEventListener) mouvementReduit.addEventListener("change", surChangement);
+    else if (mouvementReduit.addListener) mouvementReduit.addListener(surChangement);
+  })();
+
+  /* ---------------------------------------------------------------------------
+     4. Formulaire de rendez-vous.
+        Validation en français, annoncée aux lecteurs d'écran. Tant que
+        l'attribut `action` n'a pas été renseigné par l'hébergeur, le
+        formulaire ne prétend pas envoyer : il renvoie vers le téléphone.
+     --------------------------------------------------------------------------- */
+  (function formulaire() {
+    var form = doc.querySelector("[data-form]");
     if (!form) return;
-    var etat = form.querySelector('[data-etat]');
 
-    function signaler(champ, message) {
-      var bloc = champ.closest('.champ');
-      if (!bloc) return;
-      var slot = bloc.querySelector('.err');
-      if (!slot) return;
-      slot.textContent = message || '';
-      champ.setAttribute('aria-invalid', message ? 'true' : 'false');
+    var etat = form.querySelector("[data-etat]");
+    var relie = (form.getAttribute("action") || "").trim() !== "";
+
+    function messageErreur(champ) {
+      var v = champ.validity;
+      if (v.valueMissing) {
+        if (champ.type === "checkbox") return "Merci de cocher cette case pour envoyer votre message.";
+        return "Ce champ est nécessaire pour vous répondre.";
+      }
+      if (v.typeMismatch && champ.type === "email") return "Cette adresse e-mail semble incomplète.";
+      return "Merci de vérifier cette information.";
     }
 
-    function verifier() {
-      var ok = true;
-      var premierDefaut = null;
+    function verifier(champ) {
+      var bloc = champ.closest(".champ");
+      if (!bloc) return champ.checkValidity();
 
-      form.querySelectorAll('[required]').forEach(function (champ) {
-        var valeur = (champ.value || '').trim();
-        var message = '';
+      var sortie = bloc.querySelector(".err");
+      var valide = champ.checkValidity();
 
-        if (champ.type === 'checkbox') {
-          if (!champ.checked) message = 'Merci de cocher cette case pour envoyer votre message.';
-        } else if (!valeur) {
-          message = 'Ce champ m’est nécessaire pour vous répondre.';
-        } else if (champ.type === 'email' && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(valeur)) {
-          message = 'Cette adresse semble incomplète.';
+      bloc.classList.toggle("champ--erreur", !valide);
+      champ.setAttribute("aria-invalid", valide ? "false" : "true");
+      if (sortie) sortie.textContent = valide ? "" : messageErreur(champ);
+
+      return valide;
+    }
+
+    var champs = form.querySelectorAll("input, textarea");
+
+    Array.prototype.forEach.call(champs, function (champ) {
+      champ.addEventListener("blur", function () { verifier(champ); });
+      champ.addEventListener("input", function () {
+        if (champ.closest(".champ") && champ.closest(".champ").classList.contains("champ--erreur")) {
+          verifier(champ);
         }
+      });
+    });
 
-        signaler(champ, message);
-        if (message) { ok = false; if (!premierDefaut) premierDefaut = champ; }
+    form.addEventListener("submit", function (e) {
+      var premierFautif = null;
+
+      Array.prototype.forEach.call(champs, function (champ) {
+        if (!verifier(champ) && !premierFautif) premierFautif = champ;
       });
 
-      if (!ok && premierDefaut) premierDefaut.focus();
-      return ok;
-    }
-
-    form.addEventListener('submit', function (e) {
-      if (!verifier()) {
+      if (premierFautif) {
         e.preventDefault();
-        if (etat) etat.textContent = 'Votre message n’a pas été envoyé : un champ reste à compléter.';
+        if (etat) {
+          etat.className = "etat etat--ko";
+          etat.textContent = "Le message n’a pas été envoyé : merci de compléter les champs signalés.";
+        }
+        premierFautif.focus();
+        return;
+      }
+
+      if (!relie) {
+        e.preventDefault();
+        if (etat) {
+          etat.className = "etat etat--ko";
+          etat.textContent =
+            "L’envoi par formulaire n’est pas encore activé sur ce site. " +
+            "Vous pouvez appeler le 07 88 69 71 51 et laisser un message : votre appel sera rappelé.";
+        }
       }
     });
-
-    form.addEventListener('input', function (e) {
-      if (e.target.getAttribute('aria-invalid') === 'true') signaler(e.target, '');
-    });
-  }
-
-  function demarrer() {
-    document.documentElement.classList.remove('no-js');
-    tiroir();
-    entete();
-    pose();
-    formulaire();
-  }
-
-  if (document.readyState === 'loading') {
-    document.addEventListener('DOMContentLoaded', demarrer);
-  } else {
-    demarrer();
-  }
+  })();
 })();

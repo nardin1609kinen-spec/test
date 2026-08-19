@@ -4,30 +4,48 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Mentions légales — Yamina Nardin</title>
+<title>Mentions légales — Yamina Nardin, psychanalyste</title>
 <meta name="description" content="Mentions légales du site de Yamina Nardin, psychanalyste à Paris 11e.">
-<meta name="robots" content="index, follow">
+<meta name="robots" content="noindex, follow">
 <link rel="canonical" href="https://www.yaminanardin.fr/mentions-legales.html">
+<meta name="author" content="Yamina Nardin">
 
 <meta property="og:type" content="website">
 <meta property="og:locale" content="fr_FR">
 <meta property="og:site_name" content="Yamina Nardin, psychanalyste">
-<meta property="og:title" content="Mentions légales — Yamina Nardin">
+<meta property="og:title" content="Mentions légales — Yamina Nardin, psychanalyste">
 <meta property="og:description" content="Mentions légales du site de Yamina Nardin, psychanalyste à Paris 11e.">
 <meta property="og:url" content="https://www.yaminanardin.fr/mentions-legales.html">
-<meta property="og:image" content="https://www.yaminanardin.fr/assets/og-image.jpg">
+<meta property="og:image" content="https://www.yaminanardin.fr/images/og-image.jpg">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Yamina Nardin, psychanalyste à Paris 11e">
 <meta name="twitter:card" content="summary_large_image">
 
-<link rel="icon" href="/favicon.svg" type="image/svg+xml">
-<meta name="theme-color" content="#FCFAF5">
+<link rel="icon" href="favicon.ico" sizes="32x32">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<meta name="theme-color" content="#F6F2EB">
 
-<!-- Newsreader pour la lecture, Archivo pour la micro-typographie.
-     Deux familles, poids strictement nécessaires. -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@400;500&family=Newsreader:ital,opsz,wght@0,6..72,300;0,6..72,400;0,6..72,500;1,6..72,300;1,6..72,400&display=swap">
-<link rel="stylesheet" href="/css/style.css">
+<!-- Deux familles, deux rôles : Fraunces pour l’éditorial, Archivo pour la
+     micro-typographie. Servies depuis ce dossier — aucun appel à un tiers. -->
+<link rel="preload" href="fonts/fraunces-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/archivo-normal-latin.woff2" as="font" type="font/woff2" crossorigin>
 
+<link rel="stylesheet" href="css/style.css">
+
+<!-- Les apparitions ne sont armées que si JavaScript répond. Le filet de
+     sécurité garantit qu'aucun contenu ne reste masqué si main.js échoue. -->
+<script>
+(function(d){
+  d.documentElement.classList.remove('no-js');
+  setTimeout(function(){
+    if (d.documentElement.hasAttribute('data-anime')) return;
+    var l = d.querySelectorAll('.rev');
+    for (var i = 0; i < l.length; i++) l[i].classList.add('rev--vu');
+  }, 2500);
+})(document);
+</script>
 </head>
 
 <body>
@@ -35,17 +53,16 @@
 
 <header class="entete" data-entete>
   <div class="entete__g">
-    <a class="sceau" href="/">Yamina Nardin</a>
+    <a class="sceau" href="index.html">Yamina&nbsp;Nardin</a>
 
     <nav class="nav" aria-label="Navigation principale">
       <ul>
-        <li><a href="/a-propos.html">À propos</a></li>
-        <li><a href="/approche.html">Approche</a></li>
-        <li><a href="/entreprises-institutions.html">Activités</a></li>
-        <li><a href="/cabinet.html">Cabinet</a></li>
-        <li><a href="/contact.html">Contact</a></li>
+          <li><a href="approche.html">Approche</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="le-cadre.html">Le cadre</a></li>
+          <li><a href="entreprises.html">Entreprises</a></li>
       </ul>
-      <a class="rdv" href="/contact.html">Rendez-vous</a>
+      <a class="rdv" href="rendez-vous.html">Prendre rendez-vous</a>
     </nav>
 
     <button class="ouvrir" type="button" data-ouvrir aria-expanded="false" aria-controls="tiroir">
@@ -55,100 +72,92 @@
   </div>
 </header>
 
-<div class="tiroir" id="tiroir">
+<div class="tiroir" id="tiroir" aria-hidden="true">
   <nav aria-label="Navigation">
     <ul>
-      <li><a href="/"><span>00</span>Accueil</a></li>
-      <li><a href="/a-propos.html"><span>01</span>À propos</a></li>
-      <li><a href="/approche.html"><span>02</span>Approche</a></li>
-      <li><a href="/entreprises-institutions.html"><span>03</span>Activités</a></li>
-      <li><a href="/cabinet.html"><span>04</span>Cabinet</a></li>
-      <li><a href="/contact.html"><span>05</span>Contact</a></li>
-      <li><a href="/contact.html"><span>06</span>Rendez-vous</a></li>
+        <li><a href="approche.html"><i aria-hidden="true">01</i>Approche</a></li>
+        <li><a href="a-propos.html"><i aria-hidden="true">02</i>À propos</a></li>
+        <li><a href="le-cadre.html"><i aria-hidden="true">03</i>Le cadre</a></li>
+        <li><a href="entreprises.html"><i aria-hidden="true">04</i>Entreprises</a></li>
+        <li><a href="rendez-vous.html"><i aria-hidden="true">05</i>Rendez-vous</a></li>
     </ul>
   </nav>
   <div class="tiroir__pied">
-    <p class="note" style="margin:0 0 1rem">
-      21 rue Titon, 75011 Paris
-    </p>
+    <p class="micro" style="margin:0 0 0.9rem">Le cabinet</p>
+    <address class="note" style="margin:0 0 1.25rem">21 rue Titon, 75011 Paris</address>
     <a class="tel" href="tel:+33788697151">07 88 69 71 51</a>
   </div>
 </div>
 
 <main id="contenu">
-<section class="g sec--court" style="padding-top:clamp(2rem,1rem + 3vw,4rem)">
-  <p class="c-marge marginalia"><b>—</b>Informations</p>
-  <div class="c-texte">
+<section class="g entree">
+  <div class="c-texte rev">
+    <p class="micro">Informations légales</p>
     <h1>Mentions légales</h1>
   </div>
 </section>
 
 <section class="g sec">
-  <div class="c-texte texte">
-
-    <!-- ------------------------------------------------------------------
-         À COMPLÉTER PAR L'ÉDITRICE DU SITE
-         Les informations légales obligatoires (statut juridique, numéro
-         SIREN/SIRET, hébergeur, directrice de la publication) ne figuraient
-         pas parmi les informations disponibles : elles ne sont pas inventées
-         ici. Les emplacements ci-dessous sont à renseigner avant mise en
-         ligne.
-         ------------------------------------------------------------------ -->
-
-    <h2 style="margin-bottom:1rem">Éditrice du site</h2>
+  <div class="c-texte texte rev">
+    <h2>Éditrice du site</h2>
     <p>
-      Yamina Nardin, psychanalyste<br>
-      21 rue Titon, 75011 Paris<br>
-      <a href="tel:+33788697151">07 88 69 71 51</a>
+      Yamina Nardin, psychanalyste, exerçant en cabinet libéral —
+      21 rue Titon, 75011 Paris. Téléphone :
+      <a href="tel:+33788697151">07 88 69 71 51</a>.
+    </p>
+    <p>
+      Statut juridique, numéro SIRET et adresse e-mail de contact :
+      <span class="confirmer">À confirmer</span>
     </p>
 
-    <div class="attente" style="aspect-ratio:auto;margin-top:1.5rem">
-      <p>
-        À compléter avant mise en ligne — statut juridique, numéro SIREN ou SIRET,
-        numéro de TVA le cas échéant, adresse e-mail de contact, directrice de la
-        publication.
-      </p>
-    </div>
+    <h2 style="margin-top:3rem">Directrice de la publication</h2>
+    <p>Yamina Nardin.</p>
 
-    <h2 style="margin:var(--air-demi) 0 1rem">Hébergement</h2>
-    <div class="attente" style="aspect-ratio:auto">
-      <p>À compléter avant mise en ligne — nom, adresse et téléphone de l’hébergeur.</p>
-    </div>
-
-    <h2 style="margin:var(--air-demi) 0 1rem">Propriété intellectuelle</h2>
+    <h2 style="margin-top:3rem">Hébergement</h2>
     <p>
-      L’ensemble des contenus de ce site — textes, photographies, éléments graphiques —
-      est protégé par le droit d’auteur. Toute reproduction ou représentation, totale ou
-      partielle, sans autorisation préalable, est interdite.
+      Nom, raison sociale, adresse et téléphone de l’hébergeur :
+      <span class="confirmer">À confirmer</span>
     </p>
 
-    <h2 style="margin:var(--air-demi) 0 1rem">Données personnelles</h2>
+    <h2 style="margin-top:3rem">Propriété intellectuelle</h2>
     <p>
-      Les modalités de traitement des données transmises via le formulaire de contact
-      sont décrites dans la <a href="/confidentialite.html">politique de
-      confidentialité</a>.
+      L’ensemble des contenus de ce site — textes, photographies, mise en page —
+      est protégé par le droit d’auteur. Toute reproduction ou représentation,
+      totale ou partielle, sans autorisation écrite préalable, est interdite.
     </p>
 
-    <h2 style="margin:var(--air-demi) 0 1rem">Titre de psychanalyste</h2>
+    <h2 style="margin-top:3rem">Profession</h2>
     <p>
-      Le titre de psychanalyste n’est pas réglementé en France. La pratique décrite sur
-      ce site s’appuie sur un travail personnel, une formation didactique et clinique,
-      et le cadre présenté dans la rubrique <a href="/approche.html">Approche</a>. Elle
-      ne se substitue pas à un suivi médical ou psychiatrique.
+      Le titre de psychanalyste n’est pas réglementé en France et ne constitue
+      pas une profession de santé réglementée. Les consultations proposées sur ce
+      site ne se substituent pas à un suivi médical ou psychiatrique et ne
+      donnent pas lieu à un remboursement par l’Assurance maladie.
+    </p>
+    <p>
+      En cas d’urgence, appelez le 15, ou le 3114 — numéro national de prévention
+      du suicide, gratuit et accessible 24&nbsp;h/24.
     </p>
 
+    <h2 style="margin-top:3rem">Liens et services tiers</h2>
+    <p>
+      La page <a href="le-cadre.html">Le cadre</a> affiche un plan fourni par
+      OpenStreetMap. C’est la seule ressource externe du site : les polices de
+      caractères, les feuilles de style et les scripts sont servis depuis
+      l’hébergement du site lui-même. Aucun autre service tiers n’est sollicité.
+    </p>
   </div>
 </section>
-
 </main>
 
 <footer class="pied">
   <div class="g">
     <div class="c-plein pied__g">
-      <div>
-        <p class="micro" style="margin:0 0 1.1rem">Yamina Nardin — Psychanalyste</p>
-        <p class="note" style="max-width:26em">
-          Cabinet à Paris 11<sup>e</sup>. Premier entretien sur rendez-vous.
+      <div class="pied__marque">
+        <p class="pied__nom">Yamina Nardin</p>
+        <p class="micro" style="margin:0 0 1rem">Psychanalyste — Paris 11<sup>e</sup></p>
+        <p class="note" style="max-width:24em;margin:0">
+          Cabinet dans le 11<sup>e</sup> arrondissement. Adultes et couples.
+          Premier entretien sur rendez-vous.
         </p>
       </div>
 
@@ -162,35 +171,39 @@
       </div>
 
       <nav aria-label="Pied de page">
-        <h2>Pages</h2>
+        <h2>Le site</h2>
         <ul>
-          <li><a href="/a-propos.html">À propos</a></li>
-          <li><a href="/approche.html">Approche</a></li>
-          <li><a href="/entreprises-institutions.html">Activités</a></li>
-          <li><a href="/cabinet.html">Cabinet</a></li>
-          <li><a href="/contact.html">Contact</a></li>
+          <li><a href="index.html">Accueil</a></li>
+          <li><a href="approche.html">Approche</a></li>
+          <li><a href="a-propos.html">À propos</a></li>
+          <li><a href="le-cadre.html">Le cadre</a></li>
+          <li><a href="entreprises.html">Entreprises</a></li>
         </ul>
       </nav>
 
       <div>
         <h2>Rendez-vous</h2>
         <ul>
-          <li><a href="/contact.html">Écrire au cabinet</a></li>
-          <li><a href="tel:+33788697151">Appeler</a></li>
+          <li><a href="rendez-vous.html">Convenir d’un entretien</a></li>
+          <li><a href="tel:+33788697151">Appeler le cabinet</a></li>
         </ul>
+        <p class="note" style="margin-top:1.1rem;max-width:20em">
+          En cas d’urgence, appelez le 15, ou le 3114 — prévention du suicide,
+          gratuit, 24&nbsp;h/24.
+        </p>
       </div>
     </div>
 
     <div class="c-plein pied__bas">
       <p class="note" style="margin:0">© 2026 Yamina Nardin</p>
       <nav aria-label="Informations légales">
-        <a class="note" href="/mentions-legales.html">Mentions légales</a>
-        <a class="note" href="/confidentialite.html">Confidentialité</a>
+        <a class="note" href="mentions-legales.html">Mentions légales</a>
+        <a class="note" href="confidentialite.html">Confidentialité</a>
       </nav>
     </div>
   </div>
 </footer>
 
-<script src="/js/main.js" defer></script>
+<script src="js/main.js" defer></script>
 </body>
 </html>

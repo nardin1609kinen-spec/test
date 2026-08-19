@@ -1,837 +1,1204 @@
+@charset "utf-8";
 /* ==========================================================================
-   Yamina Nardin — psychanalyste, Paris 11e
-
-   Direction artistique : composition éditoriale sur grille de 12 colonnes.
-   La richesse vient de la typographie, des proportions et des filets —
-   pas de composants décoratifs. Pas de cartes, pas d'ombres, pas de
-   dégradés, pas de bandeaux d'appel à l'action.
-
-     01. Tokens
-     02. Base
-     03. Grille & composition
-     04. Typographie
-     05. Micro-typographie & annotations
-     06. Liens & actions
-     07. Index (listes éditoriales)
-     08. Photographie
-     09. En-tête & navigation
-     10. Formulaire
-     11. Pied de page
-     12. Mouvement
+   00. CARACTÈRES
+   Polices servies depuis le site lui-même : aucune requête vers un tiers,
+   aucune adresse IP de visiteur transmise à Google. Les sous-ensembles
+   `latin-ext` ne sont téléchargés par le navigateur que si un caractère de
+   leur plage apparaît réellement dans la page.
    ========================================================================== */
-
-/* ========== 01. TOKENS ================================================== */
-:root {
-  /* Une palette qui n'en est presque pas : un papier, une encre, deux gris.
-     La seule couleur — une terre passée — n'apparaît que dans les numéros
-     de section et quelques signes de ponctuation typographique. */
-  --paper:      #FCFAF5;
-  --paper-2:    #F5F2EA;   /* respiration, employée avec parcimonie */
-  --ink:        #1B1A17;
-  --ink-2:      #55504A;   /* texte courant */
-  --ink-3:      #8A847A;   /* annotations */
-  --hair:       #DCD6C9;   /* filets */
-  --hair-2:     #ECE7DC;
-  --terre:      #8A6A55;   /* presque accidentelle */
-
-  /* Newsreader : serif de lecture contemporaine, pour le texte ET les titres.
-     Archivo : grotesque neutre, réservée à la micro-typographie. */
-  --serif: "Newsreader", "Iowan Old Style", Palatino, Georgia, serif;
-  --sans:  "Archivo", -apple-system, BlinkMacSystemFont, "Helvetica Neue", Arial, sans-serif;
-
-  /* Échelle courte et maîtrisée : cinq tailles, pas davantage.
-     Les titres restent volontairement modestes. */
-  --t-nom:   clamp(3.25rem, 1.4rem + 7.6vw, 8.5rem);
-  --t-titre: clamp(1.5rem, 1.25rem + 1.05vw, 2.1rem);
-  --t-sous:  clamp(1.15rem, 1.05rem + 0.42vw, 1.4rem);
-  --t-texte: clamp(1.0625rem, 1.02rem + 0.19vw, 1.1875rem);
-  --t-micro: 0.6875rem;
-
-  --marge: clamp(1.5rem, 0.6rem + 3.6vw, 5rem);
-  --max:   1560px;
-  --gout:  clamp(1.1rem, 0.5rem + 2vw, 2.5rem);
-
-  --air:      clamp(5.5rem, 3rem + 9vw, 12rem);   /* entre sections */
-  --air-demi: clamp(2.75rem, 1.5rem + 4.5vw, 6rem);
-
-  --e: cubic-bezier(0.2, 0, 0.1, 1);
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/archivo-normal-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
 }
 
-/* ========== 02. BASE ==================================================== */
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../fonts/archivo-normal-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/archivo-normal-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Archivo';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('../fonts/archivo-normal-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 300 400;
+  font-display: swap;
+  src: url('../fonts/fraunces-italic-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Fraunces';
+  font-style: italic;
+  font-weight: 300 400;
+  font-display: swap;
+  src: url('../fonts/fraunces-italic-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 300 500;
+  font-display: swap;
+  src: url('../fonts/fraunces-normal-latin-ext.woff2') format('woff2');
+  unicode-range: U+0100-02BA, U+02BD-02C5, U+02C7-02CC, U+02CE-02D7, U+02DD-02FF, U+0304, U+0308, U+0329, U+1D00-1DBF, U+1E00-1E9F, U+1EF2-1EFF, U+2020, U+20A0-20AB, U+20AD-20C0, U+2113, U+2C60-2C7F, U+A720-A7FF;
+}
+
+@font-face {
+  font-family: 'Fraunces';
+  font-style: normal;
+  font-weight: 300 500;
+  font-display: swap;
+  src: url('../fonts/fraunces-normal-latin.woff2') format('woff2');
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+
+/* ==========================================================================
+   YAMINA NARDIN — Psychanalyste, Paris 11e
+   Feuille de style unique. Concept : LE TEMPS DE SOI.
+
+   Sommaire
+   01. Jetons (couleur, typographie, espacement, grille)
+   02. Réinitialisation
+   03. Typographie de base
+   04. Grille éditoriale
+   05. En-tête, navigation, tiroir mobile
+   06. Liens et boutons
+   07. Composants éditoriaux
+   08. Photographies
+   09. Sections de page
+   10. Formulaire
+   11. Pied de page
+   12. Apparitions et mouvement
+   13. Accessibilité et impression
+   ========================================================================== */
+
+/* ==========================================================================
+   01. JETONS
+   Palette née du site actuel — papier chaud, encre brune, terre cuite —
+   puis désaturée et assombrie pour gagner en profondeur. Aucune couleur
+   médicale, aucun dégradé.
+   ========================================================================== */
+:root {
+  /* — Couleur ---------------------------------------------------------- */
+  --color-background:      #F6F2EB;  /* papier non couché, chaud */
+  --color-background-alt:  #EDE7DC;  /* papier second, sections alternées */
+  --color-encre:           #211E1A;  /* encre profonde, sections sombres */
+  --color-encre-alt:       #2B2721;
+
+  --color-text:            #1F1C18;  /* 14.2:1 sur le papier */
+  --color-muted:           #6E665B;  /*  5.1:1 sur le papier */
+  --color-text-invert:     #F1EBE0;
+  --color-muted-invert:    #A79D8F;
+
+  --color-primary:         #1F1C18;
+  --color-secondary:       #4A4438;
+  --color-accent:          #9C5238;  /*  5.1:1 — sûr pour le texte */
+  --color-accent-light:    #A75D42;  /* décoratif : filets, soulignés */
+  --color-accent-invert:   #C87F5F;  /*  5.3:1 sur l'encre — texte sur fond sombre */
+  --color-hover:           #7F3F29;
+  --color-focus:           #9C5238;
+
+  --color-border:          #DCD3C4;  /* filets */
+  --color-border-fort:     #C8BCA8;
+  --color-border-invert:   #40392F;
+
+  /* — Typographie ------------------------------------------------------ */
+  --font-serif:  "Fraunces", "Iowan Old Style", "Palatino Linotype", Palatino,
+                 "Book Antiqua", Georgia, "Times New Roman", serif;
+  --font-sans:   "Archivo", "Helvetica Neue", -apple-system, BlinkMacSystemFont,
+                 "Segoe UI", Roboto, Arial, sans-serif;
+
+  /* Échelle fluide. Le pas est volontairement large : le contraste de
+     taille fait la hiérarchie, pas la couleur ni le gras. */
+  --ts-display: clamp(3.25rem, 1.1rem + 9.2vw, 9rem);
+  --ts-h1:      clamp(2.35rem, 1.25rem + 4.4vw, 5.25rem);
+  --ts-h2:      clamp(1.7rem,  1.15rem + 2.2vw, 3rem);
+  --ts-h3:      clamp(1.15rem, 1.02rem + 0.55vw, 1.5rem);
+  --ts-exergue: clamp(1.3rem,  1.02rem + 1.15vw, 2rem);
+  --ts-body-l:  clamp(1.06rem, 1rem + 0.3vw, 1.25rem);
+  --ts-body:    clamp(1rem,    0.97rem + 0.16vw, 1.125rem);
+  --ts-small:   0.9375rem;
+  --ts-micro:   0.75rem;
+
+  --lh-display: 0.92;
+  --lh-titre:   1.06;
+  --lh-texte:   1.68;
+
+  --track-micro: 0.16em;   /* interlettrage des capitales */
+  --track-titre: -0.022em; /* resserrement des grands corps */
+
+  /* — Espacement ------------------------------------------------------- */
+  --e1: 0.5rem;  --e2: 0.75rem; --e3: 1rem;    --e4: 1.5rem;
+  --e5: 2rem;    --e6: 3rem;    --e7: 4.5rem;  --e8: 6rem;
+
+  /* Respiration verticale des sections : c'est elle qui donne le tempo. */
+  --air:       clamp(4.75rem, 2.5rem + 8vw, 11rem);
+  --air-demi:  clamp(2.75rem, 1.5rem + 4.5vw, 6rem);
+  --air-court: clamp(2rem,    1.25rem + 2.5vw, 3.5rem);
+
+  /* — Grille ----------------------------------------------------------- */
+  --page:     1520px;          /* largeur maximale de la composition */
+  --marge:    clamp(1.25rem, 0.35rem + 4.2vw, 5.5rem);
+  --gouttiere: clamp(1.25rem, 0.6rem + 2vw, 2.75rem);
+  --lecture:  38em;            /* largeur de lecture confortable */
+
+  /* — Mouvement -------------------------------------------------------- */
+  --t-court: 220ms;
+  --t-moyen: 420ms;
+  --t-long:  900ms;
+  --courbe:  cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+
+/* ==========================================================================
+   02. RÉINITIALISATION — courte, ciblée
+   ========================================================================== */
 *, *::before, *::after { box-sizing: border-box; }
 
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-padding-top: 5rem;
+  scroll-behavior: smooth;
+  /* L'en-tête est fixe : les ancres doivent s'arrêter sous lui. */
+  scroll-padding-top: 6rem;
+  /* `clip` plutôt que `hidden` : le garde-fou anti-débordement horizontal
+     ne doit pas créer de conteneur de défilement, sans quoi les notes de
+     marge en `position: sticky` cesseraient de tenir. */
+  overflow-x: clip;
 }
 
 body {
   margin: 0;
-  background: var(--paper);
-  color: var(--ink-2);
-  font-family: var(--serif);
-  font-size: var(--t-texte);
-  font-weight: 400;
-  line-height: 1.62;
+  background: var(--color-background);
+  color: var(--color-text);
+  font-family: var(--font-sans);
+  font-size: var(--ts-body);
+  line-height: var(--lh-texte);
   font-optical-sizing: auto;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* Garde-fou : aucun débordement horizontal, quelle que soit la largeur. */
+  overflow-x: clip;
 }
 
-img, iframe { display: block; max-width: 100%; }
+h1, h2, h3, h4, p, figure, blockquote, dl, dd, ol, ul { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+
+img, picture, svg, iframe { display: block; max-width: 100%; }
 img { height: auto; }
-a { color: inherit; }
 
-:focus-visible {
-  outline: 1px solid var(--ink);
-  outline-offset: 4px;
+button, input, textarea, select { font: inherit; color: inherit; }
+button { cursor: pointer; }
+
+address { font-style: normal; }
+sup { font-size: 0.58em; vertical-align: super; line-height: 0; }
+b, strong { font-weight: 600; }
+
+::selection { background: var(--color-accent-light); color: #FFF; }
+
+/* ==========================================================================
+   03. TYPOGRAPHIE DE BASE
+   Serif éditoriale pour les titres, sans-serif contemporaine pour la prose.
+   Deux familles, rien de plus.
+   ========================================================================== */
+h1, h2, h3, .nom, .exergue {
+  font-family: var(--font-serif);
+  font-weight: 300;
+  letter-spacing: var(--track-titre);
+  line-height: var(--lh-titre);
+  text-wrap: balance;
 }
 
-::selection { background: var(--ink); color: var(--paper); }
+h1 { font-size: var(--ts-h1); }
+h2 { font-size: var(--ts-h2); }
+h3 {
+  font-size: var(--ts-h3);
+  font-weight: 400;
+  letter-spacing: -0.01em;
+  line-height: 1.25;
+}
 
-.skip-link {
-  position: fixed;
-  top: -100%; left: var(--marge);
-  z-index: 200;
-  padding: 0.75rem 1.25rem;
-  background: var(--ink);
-  color: var(--paper);
-  font-family: var(--sans);
-  font-size: var(--t-micro);
-  letter-spacing: 0.14em;
+/* Le nom, seule occurrence de ce corps sur le site. */
+.nom {
+  font-size: var(--ts-display);
+  line-height: var(--lh-display);
+  letter-spacing: -0.035em;
+  font-weight: 300;
+}
+
+/* L'exergue porte la voix éditoriale : italique, jamais en gras. */
+.exergue {
+  font-size: var(--ts-exergue);
+  font-style: italic;
+  font-weight: 300;
+  line-height: 1.34;
+  letter-spacing: -0.015em;
+  max-width: 22em;
+  text-wrap: pretty;
+}
+
+/* Prose. L'espacement entre paragraphes tient lieu de ponctuation. */
+.texte { max-width: var(--lecture); }
+.texte > p + p { margin-top: 1.35em; }
+.texte p { text-wrap: pretty; }
+
+.texte--large { font-size: var(--ts-body-l); }
+
+/* Micro-typographie : capitales espacées, en sans-serif. */
+.micro {
+  font-family: var(--font-sans);
+  font-size: var(--ts-micro);
+  font-weight: 500;
+  letter-spacing: var(--track-micro);
   text-transform: uppercase;
-  text-decoration: none;
-}
-.skip-link:focus { top: 1rem; }
-
-.vh {
-  position: absolute;
-  width: 1px; height: 1px;
-  padding: 0; margin: -1px;
-  overflow: hidden;
-  clip: rect(0 0 0 0);
-  white-space: nowrap;
-  border: 0;
+  color: var(--color-muted);
+  line-height: 1.5;
 }
 
-/* ========== 03. GRILLE & COMPOSITION ==================================== */
-/* Une seule grille de 12 colonnes gouverne toute la mise en page. Les
-   contenus s'y placent à des endroits volontairement inégaux : c'est de
-   cette asymétrie que vient le rythme. */
+/* « Paris 11e » : l'exposant reste bas de casse même en ligne capitalisée. */
+.micro sup, .action sup, .nav sup { text-transform: none; }
+
+.note {
+  font-size: var(--ts-small);
+  line-height: 1.62;
+  color: var(--color-muted);
+}
+.note a { color: inherit; }
+
+/* Deux colonnes de prose — un seul endroit du site s'en sert. */
+.colonnes { max-width: none; }
+@media (min-width: 60em) {
+  .colonnes {
+    column-count: 2;
+    column-gap: var(--e8);
+  }
+  .colonnes > p { break-inside: avoid; margin: 0 0 1.35em; }
+  .colonnes > p:last-child { margin-bottom: 0; }
+}
+
+/* ==========================================================================
+   04. GRILLE ÉDITORIALE
+   Douze colonnes. Les blocs ne sont jamais centrés par défaut : c'est le
+   décalage qui crée le rythme et la respiration de la page.
+   ========================================================================== */
 .g {
   display: grid;
-  grid-template-columns: repeat(12, 1fr);
-  column-gap: var(--gout);
-  width: 100%;
-  max-width: var(--max);
+  grid-template-columns: repeat(12, minmax(0, 1fr));
+  column-gap: var(--gouttiere);
+  max-width: var(--page);
   margin-inline: auto;
   padding-inline: var(--marge);
 }
 
-/* Placements nommés — employés tels quels dans le HTML. */
-@media (min-width: 900px) {
-  .c-marge   { grid-column: 1 / 3; }      /* annotations de marge */
-  .c-texte   { grid-column: 3 / 9; }      /* colonne de lecture, décalée */
-  .c-texte-l { grid-column: 2 / 8; }
-  .c-large   { grid-column: 3 / 12; }
-  .c-plein   { grid-column: 1 / 13; }
-  .c-droite  { grid-column: 8 / 13; }
-  .c-gauche  { grid-column: 1 / 7; }
-  .c-recul   { grid-column: 5 / 11; }     /* bloc en retrait profond */
-  .c-photo-d { grid-column: 8 / 12; }     /* photographie, colonne droite */
-}
-@media (max-width: 899.98px) {
-  .c-marge, .c-texte, .c-texte-l, .c-large, .c-plein,
-  .c-droite, .c-gauche, .c-recul, .c-photo-d { grid-column: 1 / 13; }
+/* Mobile d'abord : TOUT enfant direct de la grille occupe la pleine
+   largeur. Les placements en colonnes n'entrent en vigueur qu'au-delà du
+   seuil desktop. Ainsi un bloc nouvellement ajouté ne peut jamais se
+   retrouver coincé dans une colonne de 20 px faute d'avoir été déclaré. */
+.g > * { grid-column: 1 / -1; }
+
+@media (min-width: 55.01em) {
+  .c-plein  { grid-column: 1 / -1; }
+  .c-marge  { grid-column: 1 / 3; }
+  .c-texte  { grid-column: 3 / 10; }
+  .c-large  { grid-column: 3 / 13; }
+  .c-gauche { grid-column: 1 / 7; }
+  .c-droite { grid-column: 8 / 13; }
+  .c-recul  { grid-column: 5 / 12; }
 }
 
-.sec { padding-block: var(--air); }
-.sec--court { padding-block: var(--air-demi); }
-.sec--filet { border-top: 1px solid var(--hair); }
+/* Débords : la photographie file jusqu'au bord de la composition. */
+.bord-droit  { margin-right: calc(var(--marge) * -1); }
+.bord-gauche { margin-left:  calc(var(--marge) * -1); }
 
-/* Filet posé dans la grille plutôt qu'en pleine largeur : il s'aligne sur
-   le texte, ce qui se remarque à peine mais change tout. */
-.filet {
+/* Rythme vertical des sections. */
+.sec       { padding-block: var(--air); }
+.sec--court{ padding-block: var(--air-court); }
+.sec--demi { padding-block: var(--air-demi); }
+
+/* Un filet de séparation, jamais une bordure épaisse. */
+.sec--filet { position: relative; }
+.sec--filet::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline: var(--marge);
   height: 1px;
-  background: var(--hair);
-  border: 0;
-  margin: 0;
+  background: var(--color-border);
 }
+.encre .sec--filet::before { background: var(--color-border-invert); }
 
-.mesure   { max-width: 34em; }
-.mesure-l { max-width: 44em; }
 
-/* ========== 04. TYPOGRAPHIE ============================================= */
-h1, h2, h3 {
-  font-family: var(--serif);
-  font-weight: 400;
-  color: var(--ink);
-  margin: 0;
-  line-height: 1.14;
-  letter-spacing: -0.005em;
-}
 
-h1 { font-size: var(--t-titre); }
-h2 { font-size: var(--t-titre); }
-h3 {
-  font-size: var(--t-texte);
-  font-weight: 500;
-  line-height: 1.35;
-}
-
-p { margin: 0 0 1.05em; }
-p:last-child { margin-bottom: 0; }
-
-/* Le nom, seule vraie licence d'échelle du site. */
-.nom {
-  font-size: var(--t-nom);
-  font-weight: 300;
-  line-height: 0.9;
-  letter-spacing: -0.028em;
-  color: var(--ink);
-  margin: 0;
-}
-
-/* Phrase d'ouverture, en italique de lecture. */
-.exergue {
-  font-size: var(--t-sous);
-  font-style: italic;
-  font-weight: 300;
-  line-height: 1.5;
-  color: var(--ink);
-  max-width: 30em;
-  margin: 0;
-}
-
-.texte > p + p { text-indent: 0; }
-.texte--serre { line-height: 1.55; }
-
-/* Prose sur deux colonnes — employée une seule fois, sur l'approche. */
-@media (min-width: 1100px) {
-  .colonnes {
-    column-count: 2;
-    column-gap: var(--gout);
-  }
-  .colonnes p:first-child { margin-top: 0; }
-}
-
-/* ========== 05. MICRO-TYPOGRAPHIE & ANNOTATIONS ========================= */
-.micro {
-  font-family: var(--sans);
-  font-size: var(--t-micro);
-  font-weight: 400;
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  line-height: 1.6;
-  color: var(--ink-3);
-}
-
-/* Annotation de marge : numéro de section et intitulé. Sur petit écran
-   elle repasse au-dessus du texte, en conservant sa discrétion. */
-.marginalia {
-  font-family: var(--sans);
-  font-size: var(--t-micro);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  line-height: 1.7;
-  color: var(--ink-3);
-}
-.marginalia b {
-  display: block;
-  font-weight: 400;
-  color: var(--terre);
-  font-variant-numeric: tabular-nums;
-  margin-bottom: 0.4rem;
-}
-@media (max-width: 899.98px) {
-  .marginalia {
-    display: flex;
-    gap: 0.9rem;
-    align-items: baseline;
-    margin-bottom: 1.75rem;
-  }
-  .marginalia b { margin-bottom: 0; }
-}
-
-/* Légende / note de bas de bloc. */
-.note {
-  font-family: var(--sans);
-  font-size: 0.8125rem;
-  line-height: 1.65;
-  letter-spacing: 0.005em;
-  color: var(--ink-3);
-  text-transform: none;
-}
-
-/* ========== 06. LIENS & ACTIONS ========================================= */
-/* Aucun bouton plein. Un lien se signale par un filet qui s'épaissit —
-   rien de plus. */
-p a, .texte a, .note a {
-  color: var(--ink);
-  text-decoration: none;
-  background-image: linear-gradient(var(--hair), var(--hair));
-  background-repeat: no-repeat;
-  background-position: 0 100%;
-  background-size: 100% 1px;
-  transition: background-size 0.35s var(--e), color 0.35s var(--e);
-  padding-bottom: 0.08em;
-}
-p a:hover, .texte a:hover, .note a:hover,
-p a:focus-visible, .texte a:focus-visible {
-  background-image: linear-gradient(var(--ink), var(--ink));
-}
-
-/* L'action — prendre rendez-vous, lire la suite. Micro-typographie,
-   filet fin, léger déplacement de la flèche au survol. */
-.action {
-  display: inline-flex;
-  align-items: baseline;
-  gap: 0.75rem;
-  font-family: var(--sans);
-  font-size: var(--t-micro);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink);
-  text-decoration: none;
-  padding-bottom: 0.55rem;
-  border-bottom: 1px solid var(--hair);
-  transition: border-color 0.35s var(--e);
-}
-.action:hover, .action:focus-visible { border-color: var(--ink); }
-.action i {
-  font-style: normal;
-  transition: transform 0.35s var(--e);
-}
-.action:hover i { transform: translateX(0.28rem); }
-
-/* Variante sur fond sombre. */
-.action--clair { color: var(--paper); border-bottom-color: #4A453D; }
-.action--clair:hover, .action--clair:focus-visible { border-bottom-color: var(--paper); }
-
-/* Un peu plus de présence, sans devenir un bouton : le filet est déjà
-   à l'encre. Réservé au rendez-vous. */
-.action--appui { border-bottom-color: var(--ink); }
-
-.actions {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.5rem 2.5rem;
-  align-items: baseline;
-}
-
-/* Numéro de téléphone : chiffres tabulaires, filet discret. */
-.tel {
-  font-family: var(--sans);
-  font-size: 0.9375rem;
-  letter-spacing: 0.06em;
-  font-variant-numeric: tabular-nums;
-  color: var(--ink);
-  text-decoration: none;
-  border-bottom: 1px solid var(--hair);
-  padding-bottom: 0.2rem;
-  transition: border-color 0.35s var(--e);
-  white-space: nowrap;
-}
-.tel:hover, .tel:focus-visible { border-color: var(--ink); }
-
-/* ========== 07. INDEX (listes éditoriales) ============================== */
-/* Remplace les grilles de cartes : une liste, des filets, de l'air. */
-.index { list-style: none; margin: 0; padding: 0; }
-
-.index > li {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.4rem var(--gout);
-  padding-block: clamp(1.5rem, 1rem + 1.6vw, 2.5rem);
-  border-top: 1px solid var(--hair);
-}
-.index > li:last-child { border-bottom: 1px solid var(--hair); }
-
-@media (min-width: 760px) {
-  .index > li { grid-template-columns: 3.5rem minmax(0, 13rem) minmax(0, 1fr); }
-}
-
-.index__num {
-  font-family: var(--sans);
-  font-size: var(--t-micro);
-  letter-spacing: 0.14em;
-  color: var(--terre);
-  font-variant-numeric: tabular-nums;
-  padding-top: 0.45em;
-}
-.index__terme {
-  font-size: var(--t-sous);
-  font-weight: 400;
-  color: var(--ink);
-  line-height: 1.3;
-  margin: 0;
-}
-.index__desc {
-  margin: 0;
-  font-size: 1rem;
-  line-height: 1.6;
-  color: var(--ink-2);
-  max-width: 38em;
-}
-
-/* Index de renseignements pratiques : terme court, valeur alignée.
-   Structure <dl><div><dt>/<dd></div></dl> — HTML valide. */
-.reperes { margin: 0; padding: 0; }
-.reperes > div {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 0.15rem 1.5rem;
-  padding-block: 0.95rem;
-  border-top: 1px solid var(--hair-2);
-}
-.reperes > div:last-child { border-bottom: 1px solid var(--hair-2); }
-@media (min-width: 520px) {
-  .reperes > div { grid-template-columns: 7.5rem minmax(0, 1fr); align-items: baseline; }
-}
-.reperes dt {
-  font-family: var(--sans);
-  font-size: var(--t-micro);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink-3);
-}
-.reperes dd {
-  margin: 0;
-  color: var(--ink);
-  font-size: 1.0625rem;
-  font-style: normal;
-}
-
-/* ========== 08. PHOTOGRAPHIE ============================================ */
-.photo { margin: 0; }
-.photo img { width: 100%; object-fit: cover; }
-.photo--portrait img { aspect-ratio: 4 / 5; }
-.photo--paysage  img { aspect-ratio: 5 / 4; }
-.photo--haute    img { aspect-ratio: 3 / 4; }
-
-.photo figcaption {
-  margin-top: 0.9rem;
-  font-family: var(--sans);
-  font-size: 0.75rem;
-  letter-spacing: 0.02em;
-  color: var(--ink-3);
-  max-width: 26em;
-}
-
-/* Tant qu'une photographie n'est pas déposée, la figure bascule sur son
-   emplacement d'attente (voir l'attribut onerror dans le HTML). Rien
-   n'apparaît jamais « cassé », et le remplacement est invisible côté code
-   dès que le fichier existe. */
-.photo .attente { display: none; }
-.photo--absente img { display: none; }
-.photo--absente .attente { display: flex; }
-.photo--absente figcaption { display: none; }
-
-/* Emplacement en attente de photographie : un simple champ encadré d'un
-   filet, avec sa légende. Aucune texture, aucun motif décoratif. */
-.attente {
-  border: 1px solid var(--hair);
-  background: var(--paper-2);
-  display: flex;
-  align-items: flex-end;
-  padding: 1.25rem;
-}
-.attente--portrait { aspect-ratio: 4 / 5; }
-.attente--paysage  { aspect-ratio: 5 / 4; }
-.attente--haute    { aspect-ratio: 3 / 4; }
-.attente p {
-  margin: 0;
-  font-family: var(--sans);
-  font-size: 0.75rem;
-  line-height: 1.6;
-  letter-spacing: 0.02em;
-  color: var(--ink-3);
-  max-width: 24em;
-}
-
-/* Image qui déborde jusqu'au bord de l'écran, côté droit. */
-@media (min-width: 900px) {
-  .bord-droit { margin-right: calc((100vw - min(100vw, var(--max))) / -2 - var(--marge)); }
-  .bord-gauche { margin-left: calc((100vw - min(100vw, var(--max))) / -2 - var(--marge)); }
-}
-
-/* ========== 08 bis. COMPOSITIONS PARTICULIÈRES ========================== */
-/* Deux sections seulement possèdent une composition propre : l'ouverture et
-   le cabinet, en miroir l'une de l'autre. Le reste du site s'en tient à la
-   grille commune. */
-
-/* --- Ouverture --------------------------------------------------------- */
-.ouverture { padding-block: clamp(2.5rem, 1rem + 5vw, 6rem) var(--air); }
-
-.ouverture__texte    { grid-column: 1 / 13; }
-.ouverture__photo    { grid-column: 1 / 13; margin-top: 3rem; }
-.ouverture__pied     { grid-column: 1 / 13; margin: 3rem 0 0; }
-.ouverture__situation { margin: 0 0 clamp(1.5rem, 1rem + 2vw, 2.75rem); }
-.ouverture__exergue  { margin-top: clamp(2rem, 1.2rem + 2.5vw, 3.5rem); }
-
-@media (min-width: 900px) {
-  .ouverture {
-    /* La photographie remonte au-dessus de la ligne du nom : les deux
-       blocs se chevauchent verticalement plutôt que de se succéder. */
-    align-items: start;
-  }
-  .ouverture__texte {
-    grid-column: 1 / 8;
-    grid-row: 1;
-    padding-top: clamp(2rem, 1rem + 4vw, 6.5rem);
-  }
-  .ouverture__photo {
-    grid-column: 9 / 13;
-    grid-row: 1 / 3;
-    margin-top: 0;
-    align-self: start;
-  }
-  .ouverture__pied {
-    grid-column: 1 / 8;
-    grid-row: 2;
-    align-self: end;
-    margin-top: clamp(3rem, 2rem + 4vw, 6rem);
-  }
-}
-@media (min-width: 1300px) {
-  /* Le nom déborde très légèrement dans la marge optique de gauche :
-     un décalage de quelques pixels qu'on ne remarque pas, mais qui
-     aligne visuellement la lettre Y sur le filet. */
-  .ouverture .nom { margin-left: -0.055em; }
-}
-
-/* --- Le cabinet, composition inversée ---------------------------------- */
-.cabinet__photo { grid-column: 1 / 13; }
-.cabinet__texte { grid-column: 1 / 13; margin-top: 2.75rem; }
-
-@media (min-width: 900px) {
-  .cabinet { align-items: center; }
-  .cabinet__photo { grid-column: 1 / 7; }
-  .cabinet__texte { grid-column: 8 / 13; margin-top: 0; }
-}
-
-/* ========== 09. EN-TÊTE & NAVIGATION ==================================== */
+/* ==========================================================================
+   05. EN-TÊTE, NAVIGATION, TIROIR MOBILE
+   ========================================================================== */
 .entete {
-  position: sticky;
-  top: 0;
+  position: fixed;
+  inset: 0 0 auto 0;
   z-index: 100;
-  background: var(--paper);
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.4s var(--e);
+  padding-block: clamp(1rem, 0.6rem + 1vw, 1.6rem);
+  transition: background-color var(--t-moyen) var(--courbe),
+              box-shadow var(--t-moyen) var(--courbe),
+              padding var(--t-moyen) var(--courbe);
 }
-.entete.est-defile { border-bottom-color: var(--hair); }
+
+/* Posé : l'en-tête gagne le papier et un filet dès que la page défile. */
+.entete--pose {
+  background: color-mix(in srgb, var(--color-background) 92%, transparent);
+  -webkit-backdrop-filter: saturate(1.4) blur(10px);
+  backdrop-filter: saturate(1.4) blur(10px);
+  box-shadow: 0 1px 0 var(--color-border);
+  padding-block: clamp(0.7rem, 0.45rem + 0.7vw, 1.05rem);
+}
 
 .entete__g {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  gap: 2rem;
-  min-height: 4.5rem;
-  max-width: var(--max);
+  gap: var(--e4);
+  max-width: var(--page);
   margin-inline: auto;
   padding-inline: var(--marge);
 }
 
+/* Le nom tient lieu de logotype et de retour à l'accueil. */
 .sceau {
-  font-family: var(--sans);
-  font-size: var(--t-micro);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-  color: var(--ink);
+  font-family: var(--font-serif);
+  font-size: clamp(1.02rem, 0.95rem + 0.35vw, 1.28rem);
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  color: var(--color-text);
   text-decoration: none;
   white-space: nowrap;
+  margin-right: auto;
 }
+.sceau:hover { color: var(--color-accent); }
 
-.nav { display: none; }
-@media (min-width: 940px) {
-  .nav { display: flex; align-items: baseline; gap: clamp(1.5rem, 0.2rem + 1.9vw, 2.75rem); }
-}
-.nav ul {
-  display: flex;
-  align-items: baseline;
-  gap: clamp(1.5rem, 0.2rem + 1.9vw, 2.75rem);
-  list-style: none;
-  margin: 0; padding: 0;
-}
+.nav { display: flex; align-items: center; gap: clamp(1.25rem, 0.5rem + 1.9vw, 2.6rem); }
+.nav ul { display: flex; align-items: center; gap: clamp(1.25rem, 0.5rem + 1.9vw, 2.6rem); }
+
 .nav a {
-  font-family: var(--sans);
-  font-size: var(--t-micro);
-  letter-spacing: 0.16em;
+  position: relative;
+  font-size: var(--ts-micro);
+  font-weight: 500;
+  letter-spacing: var(--track-micro);
   text-transform: uppercase;
-  color: var(--ink-3);
+  color: var(--color-secondary);
   text-decoration: none;
-  white-space: nowrap;
-  padding-block: 0.4rem;
-  border-bottom: 1px solid transparent;
-  transition: color 0.3s var(--e), border-color 0.3s var(--e);
+  padding-block: 0.35rem;
 }
-.nav a:hover, .nav a:focus-visible { color: var(--ink); }
-.nav a[aria-current="page"] { color: var(--ink); border-bottom-color: var(--hair); }
+/* Souligné qui se dessine — la seule micro-animation de la navigation. */
+.nav a::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: 0;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--t-court) var(--courbe);
+}
+.nav a:hover { color: var(--color-text); }
+.nav a:hover::after,
+.nav a[aria-current="page"]::after { transform: scaleX(1); }
+.nav a[aria-current="page"] { color: var(--color-text); }
 
-/* Le rendez-vous : à l'encre, souligné d'un filet. Évident sans peser. */
-.nav .rdv { color: var(--ink); border-bottom-color: var(--ink); }
-.nav .rdv:hover { border-bottom-color: var(--terre); color: var(--terre); }
+/* Le rendez-vous est traité à part : contour discret, jamais un bouton criard. */
+.nav .rdv {
+  border: 1px solid var(--color-border-fort);
+  border-radius: 999px;
+  padding: 0.62rem 1.15rem;
+  color: var(--color-text);
+  transition: background-color var(--t-court) var(--courbe),
+              border-color var(--t-court) var(--courbe),
+              color var(--t-court) var(--courbe);
+}
+.nav .rdv::after { display: none; }
+.nav .rdv:hover { background: var(--color-text); border-color: var(--color-text); color: var(--color-background); }
 
-/* Ouverture du menu : deux filets, pas d'icône. */
+/* En haut d'une page à fond sombre, l'en-tête s'inverse. */
+body.entete-claire .entete:not(.entete--pose) .sceau,
+body.entete-claire .entete:not(.entete--pose) .nav a { color: var(--color-text-invert); }
+body.entete-claire .entete:not(.entete--pose) .nav .rdv { border-color: var(--color-border-invert); }
+body.entete-claire .entete:not(.entete--pose) .nav .rdv:hover {
+  background: var(--color-text-invert); color: var(--color-encre); border-color: var(--color-text-invert);
+}
+body.entete-claire .entete:not(.entete--pose) .ouvrir span { background: var(--color-text-invert); }
+
+/* Bouton d'ouverture du tiroir : deux traits, pas d'icône importée. */
 .ouvrir {
-  display: inline-flex;
-  flex-direction: column;
-  justify-content: center;
-  gap: 6px;
+  display: none;
   width: 2.75rem; height: 2.75rem;
-  margin-right: -0.75rem;
-  padding: 0;
-  background: none; border: 0; cursor: pointer;
+  margin-right: -0.6rem;
+  background: none; border: 0; padding: 0;
+  position: relative;
 }
-@media (min-width: 940px) { .ouvrir { display: none; } }
 .ouvrir span {
-  display: block;
-  width: 20px; height: 1px;
-  margin-left: auto;
-  background: var(--ink);
-  transition: transform 0.35s var(--e), opacity 0.2s var(--e), width 0.35s var(--e);
+  position: absolute;
+  left: 50%; width: 1.375rem; height: 1px;
+  background: var(--color-text);
+  transform: translateX(-50%);
+  transition: transform var(--t-moyen) var(--courbe), opacity var(--t-court) var(--courbe);
 }
-.ouvrir span:last-child { width: 13px; }
-.ouvrir[aria-expanded="true"] span:first-child { transform: translateY(3.5px) rotate(45deg); }
-.ouvrir[aria-expanded="true"] span:last-child { width: 20px; transform: translateY(-3.5px) rotate(-45deg); }
+.ouvrir span:nth-child(1) { top: 1.15rem; }
+.ouvrir span:nth-child(2) { top: 1.55rem; }
+.ouvrir[aria-expanded="true"] span:nth-child(1) { top: 1.35rem; transform: translateX(-50%) rotate(19deg); }
+.ouvrir[aria-expanded="true"] span:nth-child(2) { top: 1.35rem; transform: translateX(-50%) rotate(-19deg); }
 
+/* — Tiroir mobile : une page à part entière, pas un menu rétréci. ------- */
 .tiroir {
   position: fixed;
   inset: 0;
   z-index: 99;
+  background: var(--color-background);
+  padding: clamp(6rem, 5rem + 6vw, 8rem) var(--marge) var(--e6);
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding: 6rem var(--marge) 3rem;
-  background: var(--paper);
   overflow-y: auto;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.4s var(--e), visibility 0.4s;
+  transform: translateY(-1.25rem);
+  /* `visibility` ne s'interpole pas : on la commute d'un coup, en la
+     retardant de la durée du fondu à la fermeture seulement. La transiter
+     comme les autres propriétés la maintiendrait `hidden` pendant toute
+     l'ouverture — et le tiroir ne pourrait alors recevoir le focus. */
+  transition: opacity var(--t-moyen) var(--courbe),
+              transform var(--t-moyen) var(--courbe),
+              visibility 0s linear var(--t-moyen);
 }
-.tiroir.est-ouvert { opacity: 1; visibility: visible; }
-@media (min-width: 940px) { .tiroir { display: none; } }
+.tiroir--ouvert {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity var(--t-moyen) var(--courbe),
+              transform var(--t-moyen) var(--courbe),
+              visibility 0s;
+}
 
-.tiroir ul { list-style: none; margin: 0; padding: 0; }
-.tiroir li { border-top: 1px solid var(--hair); }
-.tiroir li:last-child { border-bottom: 1px solid var(--hair); }
-.tiroir a {
+.tiroir nav ul { display: flex; flex-direction: column; }
+.tiroir nav li { border-top: 1px solid var(--color-border); }
+.tiroir nav li:last-child { border-bottom: 1px solid var(--color-border); }
+.tiroir nav a {
   display: flex;
   align-items: baseline;
-  gap: 1rem;
-  padding: 1.1rem 0;
-  font-size: 1.5rem;
+  gap: 0.9rem;
+  padding: clamp(0.95rem, 0.7rem + 1vw, 1.4rem) 0;
+  font-family: var(--font-serif);
+  font-size: clamp(1.6rem, 1.1rem + 2.4vw, 2.3rem);
   font-weight: 300;
-  color: var(--ink);
+  letter-spacing: -0.02em;
+  color: var(--color-text);
   text-decoration: none;
 }
-.tiroir a span {
-  font-family: var(--sans);
-  font-size: var(--t-micro);
-  letter-spacing: 0.14em;
-  color: var(--terre);
-  font-variant-numeric: tabular-nums;
+.tiroir nav a i {
+  font-family: var(--font-sans);
+  font-style: normal;
+  font-size: var(--ts-micro);
+  letter-spacing: var(--track-micro);
+  color: var(--color-muted);
 }
-.tiroir a[aria-current="page"] { font-style: italic; }
-.tiroir__pied { margin-top: 3rem; }
+.tiroir nav a:hover { color: var(--color-accent); }
 
-body.est-bloque { overflow: hidden; }
+.tiroir__pied { margin-top: var(--e6); }
 
-/* ========== 10. FORMULAIRE ============================================== */
-/* Champs soulignés d'un simple filet : aucun cadre, aucun fond. */
-.form { display: grid; gap: 2.25rem; }
-@media (min-width: 700px) {
-  .form__duo { display: grid; grid-template-columns: 1fr 1fr; gap: 2.25rem; }
+@media (max-width: 55em) {
+  .nav { display: none; }
+  .ouvrir { display: block; }
+}
+@media (min-width: 55.01em) {
+  .tiroir { display: none; }
 }
 
-.champ { display: grid; gap: 0.5rem; }
-.champ > label {
-  font-family: var(--sans);
-  font-size: var(--t-micro);
-  letter-spacing: 0.16em;
+/* Le corps ne défile plus derrière le tiroir ouvert. */
+body.fige { overflow: hidden; }
+
+/* ==========================================================================
+   06. LIENS ET BOUTONS
+   Trois niveaux seulement : lien de prose, action fléchée, appel principal.
+   ========================================================================== */
+a { color: var(--color-accent); }
+a:hover { color: var(--color-hover); }
+
+/* Lien de prose : souligné fin, décalé de la ligne de base. */
+.texte a, .note a, .index__desc a {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.22em;
+  text-decoration-color: var(--color-border-fort);
+  transition: text-decoration-color var(--t-court) var(--courbe);
+}
+.texte a:hover, .note a:hover, .index__desc a:hover { text-decoration-color: currentColor; }
+
+/* Action : texte + flèche. La flèche avance au survol. */
+.action {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.6rem;
+  font-family: var(--font-sans);
+  font-size: var(--ts-micro);
+  font-weight: 500;
+  letter-spacing: var(--track-micro);
   text-transform: uppercase;
-  color: var(--ink-3);
+  color: var(--color-text);
+  text-decoration: none;
+  padding-bottom: 0.42rem;
+  border-bottom: 1px solid var(--color-border-fort);
+  transition: border-color var(--t-court) var(--courbe), color var(--t-court) var(--courbe);
+}
+.action i {
+  font-style: normal;
+  transition: transform var(--t-court) var(--courbe);
+}
+.action:hover { color: var(--color-accent); border-color: var(--color-accent); }
+.action:hover i { transform: translateX(0.3rem); }
+.action--clair { color: var(--color-text-invert); border-color: var(--color-border-invert); }
+.action--clair:hover { color: var(--color-text-invert); border-color: var(--color-text-invert); }
+
+/* Appel principal : plein, très sobre, jamais coloré vivement. */
+.bouton {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.7rem;
+  background: var(--color-text);
+  color: var(--color-background);
+  font-family: var(--font-sans);
+  font-size: var(--ts-micro);
+  font-weight: 500;
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  text-decoration: none;
+  padding: 1.05rem 1.85rem;
+  border: 1px solid var(--color-text);
+  border-radius: 999px;
+  transition: background-color var(--t-court) var(--courbe),
+              color var(--t-court) var(--courbe),
+              border-color var(--t-court) var(--courbe);
+}
+.bouton i { font-style: normal; transition: transform var(--t-court) var(--courbe); }
+.bouton:hover { background: var(--color-accent); border-color: var(--color-accent); color: #FFF; }
+.bouton:hover i { transform: translateX(0.28rem); }
+.bouton--clair { background: var(--color-text-invert); color: var(--color-encre); border-color: var(--color-text-invert); }
+.bouton--clair:hover { background: transparent; color: var(--color-text-invert); border-color: var(--color-text-invert); }
+
+/* Le téléphone : une information, pas une injonction. */
+.tel {
+  font-family: var(--font-serif);
+  font-size: 1.15rem;
+  font-weight: 400;
+  font-variant-numeric: lining-nums tabular-nums;
+  letter-spacing: 0.02em;
+  color: inherit;
+  text-decoration: none;
+  border-bottom: 1px solid var(--color-border-fort);
+  padding-bottom: 0.18rem;
+  transition: border-color var(--t-court) var(--courbe), color var(--t-court) var(--courbe);
+}
+.tel:hover { color: var(--color-accent); border-color: var(--color-accent); }
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--e4) var(--e5);
+}
+
+/* ==========================================================================
+   07. COMPOSANTS ÉDITORIAUX
+   ========================================================================== */
+
+/* Marque de section, tenue dans la marge — comme un titre courant de livre. */
+.marginalia {
+  font-family: var(--font-sans);
+  font-size: var(--ts-micro);
+  font-weight: 500;
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  margin: 0 0 var(--e4);
+}
+.marginalia b {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-weight: 400;
+  font-size: 1.15rem;
+  letter-spacing: 0;
+  color: var(--color-accent);
+  text-transform: none;
+}
+.encre .marginalia { color: var(--color-muted-invert); }
+.encre .marginalia b { color: var(--color-accent-invert); }
+
+/* Sur grand écran la marque monte dans la marge et s'y tient. */
+@media (min-width: 55.01em) {
+  .marginalia {
+    flex-direction: column;
+    gap: 0.55rem;
+    position: sticky;
+    top: 7.5rem;
+    /* Indispensable : étirée sur toute la rangée, la note n'aurait aucune
+       course pour glisser et `sticky` resterait sans effet. */
+    align-self: start;
+  }
+  .marginalia b { font-size: 1.4rem; }
+}
+
+/* Filet court sous un titre — respiration avant la prose. */
+.filet {
+  width: 4.5rem;
+  height: 1px;
+  background: var(--color-accent-light);
+  border: 0;
+  margin: var(--e4) 0;
+}
+
+/* Index : une liste raisonnée, jamais une grille de cartes. */
+.index { display: grid; gap: 0; }
+.index > li {
+  display: grid;
+  grid-template-columns: 3.25rem 1fr;
+  gap: 0 var(--e3);
+  padding-block: clamp(1.6rem, 1rem + 1.6vw, 2.5rem);
+  border-top: 1px solid var(--color-border);
+  align-items: start;
+}
+.index > li:last-child { border-bottom: 1px solid var(--color-border); }
+.encre .index > li { border-color: var(--color-border-invert); }
+
+.index__num {
+  font-family: var(--font-serif);
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--color-accent);
+  padding-top: 0.35em;
+  font-variant-numeric: lining-nums;
+}
+.encre .index__num { color: var(--color-accent-invert); }
+
+.index__terme { margin: 0 0 0.6rem; }
+/* Deux colonnes seulement : sans cela la description retomberait dans la
+   colonne étroite du numéro. */
+.index__desc { grid-column: 2; max-width: 34em; color: var(--color-muted); }
+.encre .index__desc { color: var(--color-muted-invert); }
+
+/* Sur écran large, le terme et sa description se répondent en deux colonnes. */
+@media (min-width: 62em) {
+  .index > li { grid-template-columns: 3.25rem minmax(0, 15rem) minmax(0, 1fr); gap: 0 var(--e5); }
+  .index__terme { margin: 0; }
+  .index__desc { grid-column: 3; padding-top: 0.3em; }
+}
+
+/* Repères pratiques : liste de définitions, alignée sur des filets. */
+.reperes { display: grid; gap: 0; }
+.reperes > div {
+  display: grid;
+  grid-template-columns: minmax(7rem, 10rem) 1fr;
+  gap: 0 var(--e4);
+  padding-block: 1.1rem;
+  border-top: 1px solid var(--color-border);
+  align-items: baseline;
+}
+.reperes > div:last-child { border-bottom: 1px solid var(--color-border); }
+.encre .reperes > div { border-color: var(--color-border-invert); }
+.reperes dt {
+  font-family: var(--font-sans);
+  font-size: var(--ts-micro);
+  font-weight: 500;
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+.encre .reperes dt { color: var(--color-muted-invert); }
+.reperes dd { margin: 0; font-size: var(--ts-body); }
+
+@media (max-width: 30em) {
+  .reperes > div { grid-template-columns: 1fr; gap: 0.35rem; }
+}
+
+/* Bloc à fond d'encre — le seul contraste tonal du site. */
+.encre {
+  background: var(--color-encre);
+  color: var(--color-text-invert);
+}
+.encre h1, .encre h2, .encre h3, .encre .exergue, .encre .nom { color: var(--color-text-invert); }
+.encre .note { color: var(--color-muted-invert); }
+.encre .note a { color: var(--color-text-invert); }
+.encre .tel { color: var(--color-text-invert); border-color: var(--color-border-invert); }
+.encre .tel:hover { border-color: var(--color-text-invert); }
+
+/* Papier second : alternance discrète, sans bordure. */
+.papier-alt { background: var(--color-background-alt); }
+
+/* ==========================================================================
+   08. PHOTOGRAPHIES
+   Chaque image est cadrée par son conteneur : le ratio est décidé ici, le
+   sujet reste centré par `object-position`. Aucune image n'est agrandie
+   au-delà de sa définition utile.
+   ========================================================================== */
+.photo {
+  position: relative;
+  /* Pas de `margin: 0` ici : la réinitialisation s'en charge déjà pour
+     <figure>, et le raccourci écraserait les débords .bord-droit /
+     .bord-gauche déclarés plus haut dans la feuille. */
+  overflow: hidden;
+  background: var(--color-background-alt);
+}
+.photo img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 38%; /* les visages se tiennent au tiers haut */
+}
+.photo--haute    { aspect-ratio: 4 / 5; }
+.photo--portrait { aspect-ratio: 4 / 5; }
+.photo--paysage  { aspect-ratio: 4 / 3; }
+.photo--bande    { aspect-ratio: 16 / 9; }
+.photo--carre    { aspect-ratio: 1 / 1; }
+.photo--matiere img { object-position: center center; }
+
+.photo figcaption {
+  margin-top: 0.85rem;
+  font-size: var(--ts-micro);
+  font-weight: 500;
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+/* Emplacement en attente d'une photographie.
+   Tant que le fichier n'est pas déposé, un panneau de matière assortie
+   tient la composition : rien n'apparaît cassé, rien n'est inventé. */
+.attente { display: none; }
+.photo--absente { background: var(--color-background-alt); }
+.photo--absente img { display: none; }
+.photo--absente .attente {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  align-content: center;
+  justify-items: center;
+  gap: 0.6rem;
+  position: absolute;
+  inset: 0;
+  padding: var(--e5);
+  text-align: center;
+  background:
+    repeating-linear-gradient(
+      0deg,
+      transparent 0 1.4rem,
+      rgba(31, 28, 24, 0.045) 1.4rem calc(1.4rem + 1px)
+    ),
+    linear-gradient(158deg, #EFE9DE 0%, #E2D9C9 100%);
+}
+.photo--absente .attente::before {
+  content: "";
+  position: absolute;
+  inset: var(--e3);
+  border: 1px solid rgba(31, 28, 24, 0.12);
+  pointer-events: none;
+}
+.attente p {
+  font-family: var(--font-sans);
+  font-size: var(--ts-micro);
+  font-weight: 500;
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  color: var(--color-muted);
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+.attente code {
+  font-family: var(--font-sans);
+  text-transform: none;
+  letter-spacing: 0;
+  color: var(--color-secondary);
+}
+
+/* ==========================================================================
+   09. SECTIONS DE PAGE
+   ========================================================================== */
+
+/* — Ouverture (hero) --------------------------------------------------- */
+/* Composition asymétrique : le nom tient la gauche, la photographie file
+   jusqu'au bord droit et couvre les deux rangs de texte. */
+.ouverture {
+  padding-top: clamp(7.5rem, 5rem + 9vw, 12.5rem);
+  padding-bottom: var(--air-demi);
+}
+.ouverture__situation { margin-bottom: clamp(1.25rem, 0.8rem + 1.4vw, 2.25rem); }
+.ouverture__dire { margin-top: clamp(2rem, 1.2rem + 3vw, 3.75rem); }
+.ouverture__exergue { max-width: 15em; }
+.ouverture__intro { margin-top: var(--e4); max-width: 32em; color: var(--color-secondary); }
+.ouverture .actions { margin-top: clamp(2rem, 1.4rem + 2vw, 3rem); }
+
+.ouverture__photo { margin-top: var(--air-court); }
+
+.ouverture__pied {
+  grid-column: 1 / -1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem var(--e4);
+  align-items: baseline;
+  margin-top: var(--air-court);
+  padding-top: 1.15rem;
+  border-top: 1px solid var(--color-border);
+}
+.ouverture__pied a { color: inherit; text-decoration: none; }
+.ouverture__pied a:hover { color: var(--color-accent); }
+
+@media (min-width: 55.01em) {
+  .ouverture__titre { grid-column: 1 / 8;  grid-row: 1; }
+  .ouverture__dire  { grid-column: 1 / 7;  grid-row: 2; }
+  .ouverture__photo {
+    grid-column: 8 / 13;
+    grid-row: 1 / 3;
+    margin-top: 0;
+    height: 100%;
+    min-height: clamp(30rem, 18rem + 26vw, 46rem);
+    aspect-ratio: auto;
+  }
+  .ouverture__pied { grid-row: 3; }
+}
+
+/* — Bandeau d'ouverture des pages intérieures -------------------------- */
+.entree {
+  padding-top: clamp(7.5rem, 5.5rem + 8vw, 11rem);
+  padding-bottom: var(--air-demi);
+}
+.entree h1 { margin-top: var(--e3); }
+.entree__chapo {
+  margin-top: clamp(1.75rem, 1.2rem + 2vw, 2.75rem);
+  max-width: 30em;
+  color: var(--color-secondary);
+  font-size: var(--ts-body-l);
+}
+.encre .entree__chapo { color: var(--color-muted-invert); }
+
+/* — Jalons : quelques ouvertures, posées les unes sous les autres ------- */
+.jalons > li {
+  border-top: 1px solid var(--color-border);
+  padding-block: clamp(1.1rem, 0.85rem + 0.9vw, 1.6rem);
+  font-family: var(--font-serif);
+  font-size: var(--ts-h3);
+  font-weight: 300;
+  line-height: 1.34;
+  letter-spacing: -0.012em;
+  display: grid;
+  grid-template-columns: 1.75rem 1fr;
+  gap: 0 var(--e2);
+  align-items: baseline;
+}
+.jalons > li:last-child { border-bottom: 1px solid var(--color-border); }
+.jalons > li::before {
+  content: "—";
+  color: var(--color-accent);
+  font-size: 0.85em;
+}
+.encre .jalons > li { border-color: var(--color-border-invert); }
+.encre .jalons > li::before { color: var(--color-accent-invert); }
+
+/* — Section cabinet : composition inversée ----------------------------- */
+@media (min-width: 55.01em) {
+  .cabinet { align-items: center; }
+  .cabinet__photo { grid-column: 1 / 7; grid-row: 1; }
+  .cabinet__texte { grid-column: 8 / 13; grid-row: 1; }
+}
+.cabinet__photo { margin-bottom: var(--air-court); }
+@media (min-width: 55.01em) { .cabinet__photo { margin-bottom: 0; } }
+
+/* — Clôture : l'appel final, très en retrait --------------------------- */
+.cloture .exergue { max-width: 18em; }
+
+/* ==========================================================================
+   10. FORMULAIRE
+   Champs soulignés plutôt qu'encadrés : plus proche d'un carnet que d'un
+   formulaire administratif.
+   ========================================================================== */
+.form { max-width: 40em; }
+.form__duo { display: grid; gap: var(--e4); }
+@media (min-width: 40em) { .form__duo { grid-template-columns: 1fr 1fr; gap: var(--e5); } }
+
+.champ { display: grid; gap: 0.5rem; margin-bottom: var(--e5); }
+
+.champ label {
+  font-family: var(--font-sans);
+  font-size: var(--ts-micro);
+  font-weight: 500;
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  color: var(--color-muted);
 }
 
 .champ input,
 .champ textarea {
   width: 100%;
-  font-family: var(--serif);
-  font-size: 1.0625rem;   /* >= 16px : pas de zoom automatique sur iOS */
-  line-height: 1.6;
-  color: var(--ink);
   background: transparent;
   border: 0;
-  border-bottom: 1px solid var(--hair);
+  border-bottom: 1px solid var(--color-border-fort);
   border-radius: 0;
-  padding: 0.5rem 0;
-  transition: border-color 0.3s var(--e);
+  padding: 0.65rem 0 0.7rem;
+  font-family: var(--font-sans);
+  font-size: var(--ts-body);
+  color: var(--color-text);
+  transition: border-color var(--t-court) var(--courbe);
   -webkit-appearance: none;
   appearance: none;
 }
-.champ textarea { resize: vertical; min-height: 7.5rem; }
-.champ input:hover, .champ textarea:hover { border-bottom-color: var(--ink-3); }
-.champ input:focus, .champ textarea:focus {
-  outline: none;
-  border-bottom-color: var(--ink);
-}
-.champ input:focus-visible, .champ textarea:focus-visible {
-  outline: 1px solid var(--ink);
-  outline-offset: 4px;
-}
+.champ textarea { resize: vertical; min-height: 8rem; line-height: 1.6; }
+.champ input:hover, .champ textarea:hover { border-color: var(--color-secondary); }
+.champ input:focus, .champ textarea:focus { border-color: var(--color-accent); }
 
-.champ .aide { font-family: var(--sans); font-size: 0.75rem; color: var(--ink-3); margin: 0; }
-.champ .err {
-  font-family: var(--sans);
-  font-size: 0.75rem;
-  color: var(--terre);
-  margin: 0;
-}
-.champ .err:empty { display: none; }
-.champ input[aria-invalid="true"],
-.champ textarea[aria-invalid="true"] { border-bottom-color: var(--terre); }
+.aide { font-size: var(--ts-small); color: var(--color-muted); }
 
+.err { font-size: var(--ts-small); color: var(--color-accent); min-height: 0; }
+.err:empty { display: none; }
+.champ--erreur input, .champ--erreur textarea { border-color: var(--color-accent); }
+
+/* Case à cocher : dessinée, pour rester cohérente avec le reste. */
 .accord {
-  display: grid;
   grid-template-columns: auto 1fr;
-  gap: 0.85rem;
   align-items: start;
+  gap: 0.8rem;
 }
 .accord input {
-  width: 0.9rem; height: 0.9rem;
-  margin-top: 0.45rem;
-  accent-color: var(--ink);
-}
-.accord label {
-  font-family: var(--serif);
-  font-size: 1rem;
-  letter-spacing: 0;
-  text-transform: none;
-  color: var(--ink-2);
-  line-height: 1.55;
-}
-
-/* Envoi : une action, pas un bouton plein. */
-.envoi {
-  justify-self: start;
-  background: none;
-  border: 0;
-  border-bottom: 1px solid var(--ink);
-  padding: 0 0 0.55rem;
-  font-family: var(--sans);
-  font-size: var(--t-micro);
-  letter-spacing: 0.16em;
-  text-transform: uppercase;
-  color: var(--ink);
+  width: 1.05rem; height: 1.05rem;
+  margin-top: 0.42rem;
+  border: 1px solid var(--color-border-fort);
+  background: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+  display: grid;
+  place-content: center;
   cursor: pointer;
-  transition: color 0.3s var(--e), border-color 0.3s var(--e);
+  transition: border-color var(--t-court) var(--courbe), background-color var(--t-court) var(--courbe);
 }
-.envoi:hover { color: var(--terre); border-color: var(--terre); }
+.accord input::before {
+  content: "";
+  width: 0.55rem; height: 0.3rem;
+  border-left: 1.5px solid var(--color-background);
+  border-bottom: 1.5px solid var(--color-background);
+  transform: rotate(-45deg) scale(0);
+  transition: transform var(--t-court) var(--courbe);
+}
+.accord input:checked { background: var(--color-text); border-color: var(--color-text); }
+.accord input:checked::before { transform: rotate(-45deg) scale(1); }
+.accord label {
+  text-transform: none;
+  letter-spacing: 0;
+  font-size: var(--ts-small);
+  color: var(--color-secondary);
+  line-height: 1.55;
+  cursor: pointer;
+}
 
-.etat {
-  font-family: var(--sans);
-  font-size: 0.8125rem;
-  line-height: 1.6;
-  color: var(--ink);
-  padding-left: 1rem;
-  border-left: 1px solid var(--terre);
-}
+.etat { margin-top: var(--e3); font-size: var(--ts-small); }
 .etat:empty { display: none; }
+.etat--ok { color: var(--color-secondary); }
+.etat--ko { color: var(--color-accent); }
 
-/* ========== 11. PIED DE PAGE ============================================ */
+/* ==========================================================================
+   11. PIED DE PAGE
+   ========================================================================== */
 .pied {
-  border-top: 1px solid var(--hair);
-  padding-block: clamp(3rem, 2rem + 3vw, 4.5rem) 2rem;
+  background: var(--color-background-alt);
+  padding-block: var(--air-demi) var(--e6);
+  margin-top: 0;
 }
 .pied__g {
   display: grid;
-  gap: 2.75rem var(--gout);
-  grid-template-columns: 1fr;
+  gap: var(--e6) var(--gouttiere);
+  padding-top: var(--e5);
 }
-@media (min-width: 700px)  { .pied__g { grid-template-columns: repeat(2, 1fr); } }
-@media (min-width: 1000px) { .pied__g { grid-template-columns: 2fr 1fr 1fr 1.2fr; } }
+@media (min-width: 46em)   { .pied__g { grid-template-columns: 1.4fr 1fr 1fr 1fr; gap: var(--e5) var(--gouttiere); } }
+@media (max-width: 45.99em){ .pied__g { grid-template-columns: 1fr 1fr; } .pied__marque { grid-column: 1 / -1; } }
 
 .pied h2 {
-  font-family: var(--sans);
-  font-size: var(--t-micro);
-  font-weight: 400;
-  letter-spacing: 0.16em;
+  font-family: var(--font-sans);
+  font-size: var(--ts-micro);
+  font-weight: 500;
+  letter-spacing: var(--track-micro);
   text-transform: uppercase;
-  color: var(--ink-3);
-  margin: 0 0 1.1rem;
+  color: var(--color-muted);
+  margin: 0 0 var(--e3);
 }
-.pied ul { list-style: none; margin: 0; padding: 0; }
-.pied li { margin-bottom: 0.6rem; }
-.pied a {
-  color: var(--ink-2);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: border-color 0.3s var(--e), color 0.3s var(--e);
+.pied__nom {
+  font-family: var(--font-serif);
+  font-size: 1.5rem;
+  font-weight: 300;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.75rem;
 }
-.pied a:hover, .pied a:focus-visible { color: var(--ink); border-bottom-color: var(--hair); }
-.pied address { font-style: normal; line-height: 1.85; color: var(--ink-2); }
+.pied ul { display: grid; gap: 0.55rem; }
+.pied a { color: var(--color-secondary); text-decoration: none; font-size: var(--ts-small); }
+.pied a:hover { color: var(--color-accent); }
+.pied address { font-size: var(--ts-small); color: var(--color-secondary); line-height: 1.75; }
 
 .pied__bas {
   display: flex;
   flex-wrap: wrap;
-  gap: 0.6rem 2rem;
   justify-content: space-between;
   align-items: baseline;
-  margin-top: clamp(2.5rem, 2rem + 2vw, 4rem);
-  padding-top: 1.5rem;
-  border-top: 1px solid var(--hair-2);
+  gap: var(--e2) var(--e4);
+  margin-top: var(--air-court);
+  padding-top: var(--e4);
+  border-top: 1px solid var(--color-border-fort);
 }
-.pied__bas nav { display: flex; flex-wrap: wrap; gap: 1.5rem; }
+.pied__bas nav { display: flex; flex-wrap: wrap; gap: var(--e4); }
 
-/* ========== SECTION SOMBRE ============================================== */
-/* Un seul moment sombre sur le site : l'activité auprès des collectifs.
-   Il distingue les deux pratiques sans recourir à un composant différent. */
-.encre {
-  background: var(--ink);
-  color: #B9B3A8;
-}
-.encre h1, .encre h2, .encre h3, .encre .nom { color: var(--paper); }
-.encre .micro, .encre .marginalia, .encre .note { color: #8F887C; }
-.encre .marginalia b { color: #A8907C; }
-.encre .filet, .encre .index > li { border-color: #383430; }
-.encre .index > li { border-top-color: #383430; }
-.encre .index > li:last-child { border-bottom-color: #383430; }
-.encre .index__num { color: #A8907C; }
-.encre .index__terme { color: var(--paper); }
-.encre .index__desc { color: #B9B3A8; }
-.encre .exergue { color: var(--paper); }
-.encre p a { color: var(--paper); background-image: linear-gradient(#4A453D, #4A453D); }
-.encre p a:hover { background-image: linear-gradient(var(--paper), var(--paper)); }
-.encre .tel { color: var(--paper); border-bottom-color: #4A453D; }
-.encre .tel:hover { border-bottom-color: var(--paper); }
-.encre .reperes > div { border-color: #383430; }
-.encre .reperes dt { color: #8F887C; }
-.encre .reperes dd { color: var(--paper); }
-.encre ::selection { background: var(--paper); color: var(--ink); }
-
-/* ========== 12. MOUVEMENT =============================================== */
-/* Une seule animation : un fondu de 8 pixels. Rien d'autre. */
-.pose {
+/* ==========================================================================
+   12. APPARITIONS ET MOUVEMENT
+   Une seule idée : les choses arrivent, elles ne surgissent pas.
+   ========================================================================== */
+.rev {
   opacity: 0;
-  transform: translateY(8px);
-  transition: opacity 0.9s var(--e), transform 0.9s var(--e);
+  transform: translateY(1.5rem);
+  transition: opacity var(--t-long) var(--courbe),
+              transform var(--t-long) var(--courbe);
 }
-.pose.est-vu { opacity: 1; transform: none; }
-.no-js .pose { opacity: 1; transform: none; }
+.rev--vu { opacity: 1; transform: none; }
 
+/* Décalages : les éléments d'un même bloc entrent l'un après l'autre. */
+.rev--d1 { transition-delay: 90ms; }
+.rev--d2 { transition-delay: 180ms; }
+.rev--d3 { transition-delay: 270ms; }
+
+/* Révélation d'image : le cadre est en place, le sujet se pose. */
+.photo img { will-change: transform; }
+.rev .photo img,
+.photo.rev img {
+  transform: scale(1.055);
+  transition: transform 1400ms var(--courbe);
+}
+.rev--vu .photo img,
+.photo.rev--vu img { transform: scale(1); }
+
+/* Sans JavaScript, rien n'est masqué. */
+.no-js .rev { opacity: 1; transform: none; }
+.no-js .rev .photo img, .no-js .photo.rev img { transform: none; }
+
+/* ==========================================================================
+   13. ACCESSIBILITÉ ET IMPRESSION
+   ========================================================================== */
+.vh {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  padding: 0; margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Focus : toujours visible, jamais supprimé. */
+:focus-visible {
+  outline: 2px solid var(--color-focus);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+.encre :focus-visible { outline-color: var(--color-accent-invert); }
+
+.skip-link {
+  position: absolute;
+  top: 0; left: 50%;
+  transform: translate(-50%, -120%);
+  z-index: 200;
+  background: var(--color-text);
+  color: var(--color-background);
+  padding: 0.85rem 1.4rem;
+  font-size: var(--ts-micro);
+  font-weight: 500;
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform var(--t-court) var(--courbe);
+}
+.skip-link:focus { transform: translate(-50%, 0); color: var(--color-background); }
+
+/* Cibles tactiles confortables sur mobile. */
+@media (pointer: coarse) {
+  .nav a, .action, .tel, .pied a { min-height: 44px; display: inline-flex; align-items: center; }
+  .action, .tel { align-items: baseline; }
+}
+
+/* Mouvement réduit : tout s'arrête, rien ne disparaît. */
 @media (prefers-reduced-motion: reduce) {
-  .pose { opacity: 1; transform: none; transition: none; }
+  html { scroll-behavior: auto; }
   *, *::before, *::after {
-    animation-duration: 0.001ms !important;
+    animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
-    transition-duration: 0.001ms !important;
+    transition-duration: 0.01ms !important;
     scroll-behavior: auto !important;
   }
+  .rev { opacity: 1; transform: none; }
+  .rev .photo img, .photo.rev img { transform: none; }
+  .tiroir { transition: none; }
 }
 
 @media print {
-  .entete, .tiroir, .ouvrir, .skip-link { display: none !important; }
-  body { background: #fff; color: #000; font-size: 10.5pt; }
-  .sec { padding-block: 1.25rem; }
-  .attente { display: none; }
+  .entete, .tiroir, .ouvrir, .skip-link, .actions, .form { display: none !important; }
+  body { background: #FFF; color: #000; font-size: 11pt; }
+  .encre { background: #FFF !important; color: #000 !important; }
+  .encre h1, .encre h2, .encre h3, .encre .exergue { color: #000 !important; }
+  .sec, .sec--court, .sec--demi { padding-block: 1.5rem; }
+  .rev { opacity: 1 !important; transform: none !important; }
+  a { text-decoration: underline; color: #000; }
 }
+
+/* ==========================================================================
+   14. MARQUEUR ÉDITORIAL « À CONFIRMER »
+   Signale au propriétaire du site une information qui n'a pas pu être
+   vérifiée à la source. À retirer une fois le contenu validé.
+   ========================================================================== */
+.confirmer {
+  display: inline-block;
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: var(--track-micro);
+  text-transform: uppercase;
+  color: var(--color-accent);
+  border: 1px dashed currentColor;
+  border-radius: 2px;
+  padding: 0.1rem 0.45rem;
+  vertical-align: middle;
+}
+.encre .confirmer { color: var(--color-accent-invert); }
+
+/* ==========================================================================
+   15. SOUS-TITRES DANS LA PROSE
+   Les pages légales et les longs textes ont besoin d'un H2 plus modeste
+   que celui des sections d'accueil.
+   ========================================================================== */
+.texte h2 {
+  font-size: clamp(1.2rem, 1.08rem + 0.62vw, 1.6rem);
+  margin-bottom: 0.7rem;
+  letter-spacing: -0.012em;
+}
+.texte h2:not(:first-child) { margin-top: 2.75rem; }
